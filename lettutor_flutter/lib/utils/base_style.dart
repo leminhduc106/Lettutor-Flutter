@@ -47,10 +47,10 @@ class BaseTextStyle {
         fontWeight: FontWeight.w500);
   }
 
-  static TextStyle heading3({Color? color}) {
+  static TextStyle heading3({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Regular",
-        fontSize: 24,
+        fontSize: fontSize ?? 24,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w400);
   }
@@ -63,10 +63,10 @@ class BaseTextStyle {
         fontWeight: FontWeight.w600);
   }
 
-  static TextStyle heading5({Color? color}) {
+  static TextStyle heading5({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Regular",
-        fontSize: 20,
+        fontSize: fontSize ?? 20,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w400);
   }

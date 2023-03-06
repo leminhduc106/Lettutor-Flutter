@@ -146,7 +146,7 @@ class CustomButton {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(32.0),
                 border: Border.all(color: outlineColor, width: 0.5),
                 boxShadow: [
                   if (isShadow)
@@ -158,11 +158,12 @@ class CustomButton {
                 ]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
                   height: 24,
                   child: Image.asset(
-                    "assets/icons/action/icon_add_square.png",
+                    "assets/icons/social/icon_youtube.png",
                     fit: BoxFit.fitHeight,
                   ),
                 ),
