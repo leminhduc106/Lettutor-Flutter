@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pronest/utils/base_style.dart';
+import 'package:lettutor_flutter/utils/base_style.dart';
 
 class CustomTextField {
   static Widget common(

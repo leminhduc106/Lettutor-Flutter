@@ -23,7 +23,7 @@ class CustomButton {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-            color: BaseColor.blue,
+            color: BaseColor.secondaryBlue,
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: [if (isShadow) BaseBoxShadow.componentBoxShadow]),
         child: (isLoading == true) ? loading : text);

@@ -17,8 +17,8 @@ class BaseColor {
   static const Color black = Color(0xFF222222);
   static const Color hint = Color(0xFFA3A3A3);
   static const Color lightGrey = Color(0xFFF3F3F3);
-  static const Color blue = Color(0xFF003399);
-  static const Color secondaryBlue = Color(0xFFE5EEFF);
+  static const Color blue = Color.fromARGB(255, 66, 120, 226);
+  static const Color secondaryBlue = Color.fromARGB(255, 46, 133, 226);
   static const Color off = Color(0xFFC3CAE9);
   static const Color orange = Color(0xFFFF9900);
   static const Color secondaryOrange = Color(0xFFFFF5E5);
@@ -58,7 +58,7 @@ class BaseTextStyle {
   static TextStyle heading4({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Bold",
-        fontSize: fontSize ?? 20,
+        fontSize: fontSize ?? 24,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w600);
   }
@@ -82,7 +82,7 @@ class BaseTextStyle {
   static TextStyle subtitle2({Color? color}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 16,
+        fontSize: 14,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
@@ -107,7 +107,7 @@ class BaseTextStyle {
   static TextStyle body2({Color? color}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Regular",
-        fontSize: 16,
+        fontSize: 14,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w400);
   }
@@ -115,7 +115,7 @@ class BaseTextStyle {
   static TextStyle body3({Color? color}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 14,
+        fontSize: 16,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
