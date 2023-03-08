@@ -31,18 +31,18 @@ class BaseColor {
 class BaseTextStyle {
   static const appFontFamily = "Roboto";
 
-  static TextStyle heading1({Color? color}) {
+  static TextStyle heading1({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Regular",
-        fontSize: 32,
+        fontSize: fontSize ?? 32,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w400);
   }
 
-  static TextStyle heading2({Color? color}) {
+  static TextStyle heading2({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 24,
+        fontSize: fontSize ?? 24,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
@@ -71,75 +71,75 @@ class BaseTextStyle {
         fontWeight: FontWeight.w400);
   }
 
-  static TextStyle subtitle1({Color? color}) {
+  static TextStyle subtitle1({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 18,
+        fontSize: fontSize ?? 18,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
 
-  static TextStyle subtitle2({Color? color}) {
+  static TextStyle subtitle2({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 14,
+        fontSize: fontSize ?? 14,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
 
-  static TextStyle subtitle3({Color? color}) {
+  static TextStyle subtitle3({Color? color, double? fontSize}) {
     return TextStyle(
         decoration: TextDecoration.underline,
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 16,
+        fontSize: fontSize ?? 16,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
 
-  static TextStyle body1({Color? color}) {
+  static TextStyle body1({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Regular",
-        fontSize: 18,
+        fontSize: fontSize ?? 18,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w400);
   }
 
-  static TextStyle body2({Color? color}) {
+  static TextStyle body2({Color? color, double? fontSize}) {
     return TextStyle(
-        fontFamily: "${BaseTextStyle.appFontFamily}-Regular",
-        fontSize: 14,
+        fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
+        fontSize: fontSize ?? 14,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w400);
   }
 
-  static TextStyle body3({Color? color}) {
+  static TextStyle body3({Color? color, double? fontSize}) {
     return TextStyle(
-        fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 16,
-        color: color ?? BaseColor.black,
-        fontWeight: FontWeight.w500);
-  }
-
-  static TextStyle button({Color? color}) {
-    return TextStyle(
-        fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 16,
+        fontFamily: "${BaseTextStyle.appFontFamily}-Bold",
+        fontSize: fontSize ?? 16,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w600);
   }
 
-  static TextStyle caption({Color? color}) {
+  static TextStyle button({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 12,
+        fontSize: fontSize ?? 16,
+        color: color ?? BaseColor.black,
+        fontWeight: FontWeight.w600);
+  }
+
+  static TextStyle caption({Color? color, double? fontSize}) {
+    return TextStyle(
+        fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
+        fontSize: fontSize ?? 12,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }
 
-  static TextStyle navigation({Color? color}) {
+  static TextStyle navigation({Color? color, double? fontSize}) {
     return TextStyle(
         fontFamily: "${BaseTextStyle.appFontFamily}-Medium",
-        fontSize: 10,
+        fontSize: fontSize ?? 10,
         color: color ?? BaseColor.black,
         fontWeight: FontWeight.w500);
   }

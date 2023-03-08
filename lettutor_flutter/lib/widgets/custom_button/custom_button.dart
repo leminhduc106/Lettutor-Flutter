@@ -30,14 +30,18 @@ class CustomButton {
     return GestureDetector(onTap: onTap, child: button);
   }
 
-  static Widget small({required VoidCallback onTap, required String content}) {
+  static Widget small(
+      {required VoidCallback onTap,
+      required String content,
+      Color? color,
+      Color? textColor}) {
     return GestureDetector(
         onTap: onTap,
         child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-                color: BaseColor.blue,
+                color: color ?? BaseColor.blue,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -47,7 +51,8 @@ class CustomButton {
                       offset: const Offset(0, 4))
                 ]),
             child: Text(content,
-                style: BaseTextStyle.subtitle2(color: Colors.white))));
+                style: BaseTextStyle.subtitle2(
+                    color: textColor ?? Colors.white))));
   }
 
   static Widget withIcon(
@@ -138,7 +143,8 @@ class CustomButton {
       required String content,
       bool isShadow = true,
       Color textColor = BaseColor.blue,
-      Color outlineColor = BaseColor.blue}) {
+      Color outlineColor = BaseColor.blue,
+      required String iconPath}) {
     return GestureDetector(
         onTap: onTap,
         child: Container(
@@ -163,7 +169,7 @@ class CustomButton {
                 SizedBox(
                   height: 24,
                   child: Image.asset(
-                    "assets/icons/social/icon_youtube.png",
+                    iconPath,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
