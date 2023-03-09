@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
+import 'package:lettutor_flutter/widgets/custom_appbar/custom_appbar.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
 
@@ -52,77 +53,7 @@ class _FindTutorPageState extends State<FindTutorPage> {
         .bottom;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Container(
-          margin: const EdgeInsets.all(8.0),
-          height: 24,
-          child: Image.asset(
-            "assets/icons/social/lettutor_icon.png",
-            fit: BoxFit.fitHeight,
-          ),
-        ),
-        title: Text('LetTutor',
-            style: BaseTextStyle.heading4(color: BaseColor.secondaryBlue)),
-        backgroundColor: Colors.white,
-        actions: [
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: BaseColor.lightGrey,
-                      borderRadius: BorderRadius.circular(32.0),
-                      border: Border.all(color: BaseColor.blue, width: 0.5),
-                      boxShadow: [
-                        BoxShadow(
-                            color: const Color(0xff003399).withOpacity(0.2),
-                            spreadRadius: 0,
-                            blurRadius: 8,
-                            offset: const Offset(0, 2))
-                      ]),
-                  child: SizedBox(
-                    height: 64,
-                    child: Image.asset(
-                      "assets/icons/social/icon_vietnam.png",
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                )),
-          ),
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: BaseColor.lightGrey,
-                      borderRadius: BorderRadius.circular(32.0),
-                      border: Border.all(color: BaseColor.blue, width: 0.5),
-                      boxShadow: [
-                        BoxShadow(
-                            color: const Color(0xff003399).withOpacity(0.2),
-                            spreadRadius: 0,
-                            blurRadius: 8,
-                            offset: const Offset(0, 2))
-                      ]),
-                  child: SizedBox(
-                    height: 64,
-                    child: Image.asset(
-                      "assets/icons/common/icon_menu.png",
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                )),
-          ),
-        ],
-      ),
+      appBar: const CustomAppbar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(mainAxisSize: MainAxisSize.max, children: [
