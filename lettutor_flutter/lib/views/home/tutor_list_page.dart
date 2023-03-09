@@ -163,6 +163,20 @@ class _FindTutorPageState extends State<FindTutorPage> {
           ]),
         ),
       ),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 16.0),
+        child: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.grey,
+          child: SizedBox(
+            height: 42,
+            child: Image.asset(
+              "assets/icons/action/icon_message.png",
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
