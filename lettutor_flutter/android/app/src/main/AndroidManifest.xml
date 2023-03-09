@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lettutor_flutter">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="lettutor_flutter"
         android:name="${applicationName}"
