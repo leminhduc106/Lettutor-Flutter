@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/views/authenticate/login_page.dart';
 import 'package:lettutor_flutter/views/authenticate/register_page.dart';
+import 'package:lettutor_flutter/views/home/booked_schedule_page.dart';
 import 'package:lettutor_flutter/views/home/tutor_detail_page.dart';
 import 'package:lettutor_flutter/views/home/tutor_list_page.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TutorDetailPage(),
+      home: const BookedSchedulePage(),
     );
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_appbar/custom_appbar.dart';
 import 'package:lettutor_flutter/widgets/video_player/video_player.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class TutorDetailPage extends StatefulWidget {
   const TutorDetailPage({Key? key}) : super(key: key);
@@ -107,6 +106,7 @@ class _TutorDetailPageState extends State<TutorDetailPage> {
                   )
                 ],
               ),
+
               const SizedBox(height: 24),
               _isExpanded
                   ? Text(
@@ -178,6 +178,20 @@ class _TutorDetailPageState extends State<TutorDetailPage> {
           ),
         ),
       )),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 16.0),
+        child: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.grey,
+          child: SizedBox(
+            height: 42,
+            child: Image.asset(
+              "assets/icons/action/icon_message.png",
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

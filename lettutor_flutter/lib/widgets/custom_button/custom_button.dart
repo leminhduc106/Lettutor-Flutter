@@ -6,6 +6,7 @@ class CustomButton {
       {required Function() onTap,
       required String content,
       bool? isLoading,
+      bool isBorderRadius = true,
       bool isShadow = true}) {
     Widget text = Text(
       content,
@@ -24,7 +25,7 @@ class CustomButton {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
             color: BaseColor.secondaryBlue,
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: isBorderRadius ? BorderRadius.circular(16.0) : null,
             boxShadow: [if (isShadow) BaseBoxShadow.componentBoxShadow]),
         child: (isLoading == true) ? loading : text);
     return GestureDetector(onTap: onTap, child: button);
@@ -142,6 +143,7 @@ class CustomButton {
       {required VoidCallback onTap,
       required String content,
       bool isShadow = true,
+      bool isBorderRadius = true,
       Color textColor = BaseColor.blue,
       Color outlineColor = BaseColor.blue,
       required String iconPath}) {
@@ -152,7 +154,9 @@ class CustomButton {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(32.0),
+                borderRadius: isBorderRadius
+                    ? BorderRadius.circular(32.0)
+                    : BorderRadius.circular(0),
                 border: Border.all(color: outlineColor, width: 0.5),
                 boxShadow: [
                   if (isShadow)
