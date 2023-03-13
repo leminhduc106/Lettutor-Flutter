@@ -84,10 +84,22 @@ class _FindTutorPageState extends State<FindTutorPage> {
                     style: BaseTextStyle.heading4(fontSize: 22),
                   ),
                   const SizedBox(height: 16),
-                  _buildTutorInfor(safeWidth, _tutorItems),
-                  const SizedBox(height: 16),
-                  _buildTutorInfor(safeWidth, _tutorItems),
-                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: Expanded(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return _buildTutorInfor(safeWidth, _tutorItems);
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                          height: 12,
+                        ),
+                        itemCount: 2,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )
@@ -99,11 +111,18 @@ class _FindTutorPageState extends State<FindTutorPage> {
         child: FloatingActionButton(
           onPressed: () {},
           backgroundColor: Colors.grey,
-          child: SizedBox(
-            height: 42,
-            child: Image.asset(
-              "assets/icons/action/icon_message.png",
-              fit: BoxFit.fitHeight,
+          child: Badge(
+            alignment: AlignmentDirectional.bottomEnd,
+            label: Text(
+              "2",
+              style: TextStyle(fontSize: 11),
+            ),
+            child: SizedBox(
+              height: 42,
+              child: Image.asset(
+                "assets/icons/action/icon_message.png",
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         ),
