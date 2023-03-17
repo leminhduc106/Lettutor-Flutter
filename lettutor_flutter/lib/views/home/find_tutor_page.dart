@@ -8,7 +8,6 @@ import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart'
 
 class FindTutorPage extends StatefulWidget {
   const FindTutorPage({Key? key}) : super(key: key);
-
   @override
   State<FindTutorPage> createState() => _FindTutorPageState();
 }
@@ -55,8 +54,8 @@ class _FindTutorPageState extends State<FindTutorPage> {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(mainAxisSize: MainAxisSize.max, children: [
+        child: ListView(children: [
+          Column(mainAxisSize: MainAxisSize.max, children: [
             _buildCourseInfor(size, safeWidth),
             const SizedBox(height: 16.0),
             Container(
@@ -84,27 +83,23 @@ class _FindTutorPageState extends State<FindTutorPage> {
                     style: BaseTextStyle.heading4(fontSize: 22),
                   ),
                   const SizedBox(height: 16),
-                  SizedBox(
-                    child: Expanded(
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          return _buildTutorInfor(safeWidth, _tutorItems);
-                        },
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(
-                          height: 12,
-                        ),
-                        itemCount: 2,
-                      ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return _buildTutorInfor(safeWidth, _tutorItems);
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 12,
                     ),
+                    itemCount: 2,
                   ),
                 ],
               ),
             )
           ]),
-        ),
+        ]),
       ),
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 16.0),
