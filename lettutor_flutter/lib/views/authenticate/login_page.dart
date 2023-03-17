@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
+import 'package:lettutor_flutter/routes/routes.dart' as routes;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -174,7 +175,9 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                   alignment: Alignment.topLeft,
                   child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, routes.forgotPasswordPage);
+                      },
                       child: Text("Quên mật khẩu?",
                           style: BaseTextStyle.button(
                               color: BaseColor.secondaryBlue)))),
@@ -282,7 +285,9 @@ class _LoginPageState extends State<LoginPage> {
               child: Text("Đăng ký",
                   style:
                       BaseTextStyle.subtitle2(color: BaseColor.secondaryBlue)),
-              onTap: () {}),
+              onTap: () {
+                Navigator.pushNamed(context, routes.registerPage);
+              }),
         ]));
   }
 
