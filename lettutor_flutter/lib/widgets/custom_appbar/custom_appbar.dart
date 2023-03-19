@@ -51,7 +51,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
         Container(
           margin: const EdgeInsets.all(8.0),
           child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                _openDrawer();
+              },
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -76,6 +78,23 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
               )),
         ),
       ],
+    );
+  }
+
+  Widget _openDrawer() {
+    return Drawer(
+      child: ListView(
+        children: [
+          ListTile(
+            title: Text('Item 1'),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text('Item 1'),
+            onTap: () {},
+          ),
+        ],
+      ),
     );
   }
 
