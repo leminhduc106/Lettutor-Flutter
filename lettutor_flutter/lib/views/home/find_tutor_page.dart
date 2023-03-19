@@ -6,13 +6,13 @@ import 'package:lettutor_flutter/widgets/custom_appbar/custom_appbar.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class FindTutorPage extends StatefulWidget {
+  const FindTutorPage({Key? key}) : super(key: key);
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<FindTutorPage> createState() => _FindTutorPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FindTutorPageState extends State<FindTutorPage> {
   final _findTutorController = TextEditingController();
   final _tutorNationController = TextEditingController();
   final _startTimeController = TextEditingController();

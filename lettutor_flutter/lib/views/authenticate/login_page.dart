@@ -185,11 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                   duration: const Duration(milliseconds: 300),
                   height: (keyboardHeight == 0) ? 12 : 16),
               CustomButton.common(
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, routes.findTutorPage);
-                  },
-                  content: "ĐĂNG NHẬP",
-                  isLoading: _isLoading),
+                  onTap: () {}, content: "ĐĂNG NHẬP", isLoading: _isLoading),
               const SizedBox(height: 24),
               Text("Hoặc tiếp tục với",
                   style: BaseTextStyle.body2(color: BaseColor.black)),
