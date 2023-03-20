@@ -5,7 +5,7 @@ import 'package:lettutor_flutter/views/authenticate/login_page.dart';
 import 'package:lettutor_flutter/views/authenticate/register_page.dart';
 import 'package:lettutor_flutter/views/home/booked_schedule_page.dart';
 import 'package:lettutor_flutter/views/home/discover_courses_page.dart';
-import 'package:lettutor_flutter/views/home/find_tutor_page.dart';
+import 'package:lettutor_flutter/views/home/home_page.dart';
 import 'package:lettutor_flutter/views/home/history_lesson_page.dart';
 import 'package:lettutor_flutter/views/home/tutor_detail_page.dart';
 
@@ -28,7 +28,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const ForgetPasswordPage());
     case findTutorPage:
-      return MaterialPageRoute(builder: (context) => const FindTutorPage());
+      return MaterialPageRoute(builder: (context) => const HomePage());
     case tutorDetailPage:
       return MaterialPageRoute(builder: (context) => const TutorDetailPage());
     case bookedSchedulePage:
