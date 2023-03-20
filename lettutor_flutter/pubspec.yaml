@@ -64,6 +64,8 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/images/sample
+    - assets/svg/
     - assets/icons/action/
     - assets/icons/social/
     - assets/icons/common/
