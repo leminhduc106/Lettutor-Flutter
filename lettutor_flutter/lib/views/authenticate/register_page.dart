@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
-import 'package:lettutor_flutter/routes/routes.dart' as routes;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -277,9 +276,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Text("Đăng nhập",
                   style:
                       BaseTextStyle.subtitle2(color: BaseColor.secondaryBlue)),
-              onTap: () {
-                Navigator.popAndPushNamed(context, routes.loginPage);
-              }),
+              onTap: () {}),
         ]));
   }
 
