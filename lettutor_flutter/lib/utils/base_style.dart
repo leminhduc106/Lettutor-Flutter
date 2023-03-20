@@ -13,6 +13,13 @@ ThemeData baseTheme() {
   return base;
 }
 
+class AppColors {
+  static Color primary = Colors.blue;
+  static Color primarySecondary = const Color(0xff0040F6);
+  static Color greyText = Colors.grey[600] as Color;
+  static Color greyBackground = Colors.grey.shade200;
+}
+
 class BaseColor {
   static const Color black = Color(0xFF222222);
   static const Color hint = Color(0xFFA3A3A3);
