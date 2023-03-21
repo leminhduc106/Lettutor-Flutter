@@ -42,6 +42,8 @@ dependencies:
   flutter_svg: ^2.0.4
   top_snackbar_flutter: ^1.0.2
   intl: ^0.18.0
+  woozy_search: ^2.0.3
+  flutter_cached_pdfview: ^0.4.0-nullsafety
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +71,10 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-    - assets/images/sample/
+    - assets/images/sample/tutor/
+    - assets/images/sample/book/
+    - assets/images/sample/course/
+    - assets/images/sample/user/
     - assets/svg/
     - assets/icons/action/
     - assets/icons/social/
