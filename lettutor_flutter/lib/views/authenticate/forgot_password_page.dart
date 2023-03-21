@@ -111,7 +111,9 @@ class ForgetPasswordPage extends StatelessWidget {
                                       onTap: () {}, content: "Xác nhận"),
                                   SizedBox(height: size.height * 0.02),
                                   TextButton.icon(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
                                       icon: const Icon(
                                         Icons.arrow_back,
                                         size: 15,
