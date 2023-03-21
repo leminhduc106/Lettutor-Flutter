@@ -1,10 +1,15 @@
 import 'dart:math';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor_flutter/provider/navigation_index.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
+import 'package:lettutor_flutter/views/home/components/banner.dart';
+import 'package:lettutor_flutter/views/home/components/recommend_tutor.dart';
 import 'package:lettutor_flutter/widgets/custom_appbar/custom_appbar.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   final _tutorNationController = TextEditingController();
   final _startTimeController = TextEditingController();
   final _endTimeController = TextEditingController();
-  List<String> _filterItems = [
+  final List<String> _filterItems = [
     'Tất cả',
     'Tiếng Anh cho trẻ em',
     'Tiếng Anh cho công việc',
@@ -32,15 +37,10 @@ class _HomePageState extends State<HomePage> {
     'TOEIC'
   ];
 
-  List<String> _tutorItems = [
-    'Tiếng Anh cho công việc',
-    'Giao tiếp',
-    'IELTS',
-    'TOEIC'
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final navigationIndex = Provider.of<NavigationIndex>(context);
+
     Size size = MediaQuery.of(context).size;
     double heightSafeArea = size.height -
         MediaQuery.of(context).padding.top -
@@ -51,193 +51,82 @@ class _HomePageState extends State<HomePage> {
             WidgetsBinding.instance.window.devicePixelRatio)
         .bottom;
 
-    return Scaffold(
-      appBar: const CustomAppbar(),
-      body: SafeArea(
-        child: ListView(children: [
-          Column(mainAxisSize: MainAxisSize.max, children: [
-            _buildCourseInfor(size, safeWidth),
-            const SizedBox(height: 16.0),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildFindTutor(_findTutorController, _tutorNationController),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Chọn thời gian dạy kèm có lịch trống:",
-                    style: BaseTextStyle.body3(fontSize: 14),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildTimeFilter(
-                      safeWidth, _startTimeController, _endTimeController),
-                  const SizedBox(height: 16),
-                  _buildFilterItem(safeWidth, _filterItems),
-                  const SizedBox(height: 24),
-                  const Divider(thickness: 1),
-                  const SizedBox(height: 24),
-                  Text(
-                    "Gia sư được đề xuất ",
-                    style: BaseTextStyle.heading4(fontSize: 22),
-                  ),
-                  const SizedBox(height: 16),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return _buildTutorInfor(safeWidth, _tutorItems);
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      height: 12,
+    return SafeArea(
+      child: ListView(children: [
+        Column(mainAxisSize: MainAxisSize.max, children: [
+          const BannerHomePage(),
+          const SizedBox(height: 16.0),
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildFindTutor(_findTutorController, _tutorNationController),
+                const SizedBox(height: 16),
+                Text(
+                  "Chọn thời gian dạy kèm có lịch trống:",
+                  style: BaseTextStyle.body3(fontSize: 14),
+                ),
+                const SizedBox(height: 8),
+                _buildTimeFilter(
+                    safeWidth, _startTimeController, _endTimeController),
+                const SizedBox(height: 16),
+                _buildFilterItem(safeWidth, _filterItems),
+                const SizedBox(height: 24),
+                const Divider(thickness: 1),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 2),
+                      child: Text(
+                        "Gia sư được đề xuất",
+                        style: BaseTextStyle.heading4(fontSize: 18),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    itemCount: 2,
+                    InkWell(
+                      onTap: () {
+                        navigationIndex.index = 3;
+                      },
+                      child: Row(
+                        children: [
+                          const Text(
+                            "See all",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          SvgPicture.asset(
+                            "assets/svg/ic_next.svg",
+                            color: Colors.blue,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) =>
+                      RecommendTutors().tutors[index],
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                    height: 12,
                   ),
-                ],
-              ),
-            )
-          ]),
+                  itemCount: RecommendTutors().tutors.length,
+                ),
+              ],
+            ),
+          )
         ]),
-      ),
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 16.0),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.grey,
-          child: Badge(
-            alignment: AlignmentDirectional.bottomEnd,
-            label: Text(
-              "2",
-              style: TextStyle(fontSize: 11),
-            ),
-            child: SizedBox(
-              height: 42,
-              child: Image.asset(
-                "assets/icons/action/icon_message.png",
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-          ),
-        ),
-      ),
+      ]),
     );
   }
-}
-
-Widget _buildTutorInfor(double safeWidth, List<String> tutorItems) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.0),
-        border: Border.all(color: Colors.black12, width: 0.1),
-        boxShadow: [
-          BoxShadow(
-              color: const Color(0xff003399).withOpacity(0.2),
-              spreadRadius: 0,
-              blurRadius: 8,
-              offset: const Offset(0, 2))
-        ]),
-    width: safeWidth,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Stack(
-          children: [
-            const Center(
-              child: CircleAvatar(
-                radius: 32,
-                backgroundImage: AssetImage("assets/images/teacher.png"),
-              ),
-            ),
-            Positioned(
-              //top right
-              top: 5,
-              right: 5,
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite_border_outlined,
-                    color: Colors.blue,
-                    size: 32,
-                  )),
-            )
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Keegan",
-              style: BaseTextStyle.body3(fontSize: 18),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
-                height: 32,
-                child: Image.asset(
-                  "assets/icons/social/icon_vietnam_flag.png",
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                "Vietnam",
-                style: BaseTextStyle.body3(),
-              ),
-            ]),
-            RatingBar.builder(
-              initialRating: 3,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemSize: 40,
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {},
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 10.0,
-              runSpacing: 14.0,
-              children: tutorItems.map<Widget>((item) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 212, 212, 212),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                  child: Text(item, style: BaseTextStyle.body2(fontSize: 14)),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-          child: Text(
-            'I am passionate about running and fitness, I often compete in trail/mountain running events and I love pushing myself. I am training to one day take part in ultra-endurance events. I also enjoy watching rugby on the weekends, reading and watching podcasts on Youtube. My most memorable life experience would be living in and traveling around',
-            style: BaseTextStyle.body2(fontSize: 14),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 5,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(right: 10),
-          width: safeWidth * 0.4,
-          child: CustomButton.whiteBtnWithIcon(
-              onTap: () {},
-              content: "Đặt lịch",
-              iconPath: "assets/icons/common/icon_calendar_blue.png"),
-        )
-      ],
-    ),
-  );
 }
 
 Widget _buildFilterItem(double safeWidth, List<String> filterItems) {
@@ -357,44 +246,5 @@ Widget _buildTimeFilter(
         ],
       ),
     ],
-  );
-}
-
-Widget _buildCourseInfor(Size size, double safeWidth) {
-  return Container(
-    color: BaseColor.blue,
-    width: size.width,
-    height: size.height * 0.4,
-    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 16.0),
-          child: Text('Buổi học sắp diễn ra',
-              style: BaseTextStyle.heading3(color: Colors.white)),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 16.0),
-          child: Text('T3, 07 Thg 03 18:30 - 18:55',
-              style: BaseTextStyle.heading5(color: Colors.white)),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 32.0),
-          width: safeWidth * 0.5,
-          child: CustomButton.whiteBtnWithIcon(
-              onTap: () {},
-              content: "Vào lớp học",
-              iconPath: "assets/icons/social/icon_youtube.png"),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 8.0),
-          child: Text('Tổng số giờ bạn đã học là 293 giờ 45 phút',
-              style: BaseTextStyle.heading5(color: Colors.white, fontSize: 15)),
-        ),
-      ],
-    ),
   );
 }
