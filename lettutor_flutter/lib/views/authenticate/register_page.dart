@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:lettutor_flutter/routes/routes.dart' as routes;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -13,17 +16,21 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String? _phoneError;
+  String? _emailError;
   String? _passwordError;
-  final _phoneController = TextEditingController();
+  String? _repasswordError;
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _repasswordControler = TextEditingController();
   bool? _isLoading;
   bool _pwIsObscured = true;
+  bool _repwIsObscured = true;
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
+    _repasswordControler.dispose();
     super.dispose();
   }
 
@@ -38,6 +45,31 @@ class _RegisterPageState extends State<RegisterPage> {
             WidgetsBinding.instance.window.viewInsets,
             WidgetsBinding.instance.window.devicePixelRatio)
         .bottom;
+
+    void handleSignUp() {
+      if (_emailController.text.isEmpty ||
+          _passwordController.text.isEmpty ||
+          _repasswordControler.text.isEmpty) {
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.error(
+              message: "Signup failed! Please enter all fields."),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 1000),
+        );
+      } else if (_passwordController.text != _repasswordControler.text) {
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.error(
+              message: "Signup failed! Passwords do not match."),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 1000),
+        );
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, routes.loginPage, (Route<dynamic> route) => false);
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -97,7 +129,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         buildLogoArea(
                             heightSafeArea, safeWidth, keyboardHeight),
                         buildRegisterArea(
-                            heightSafeArea, context, keyboardHeight),
+                            heightSafeArea, context, keyboardHeight,
+                            handleRegister: handleSignUp),
                         buildLoginArea(heightSafeArea, keyboardHeight),
                       ])),
             )),
@@ -131,19 +164,21 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget buildRegisterArea(
-      double heightSafeArea, BuildContext context, double keyboardHeight) {
+      double heightSafeArea, BuildContext context, double keyboardHeight,
+      {required Function handleRegister}) {
     return SizedBox(
-        height: heightSafeArea * 0.6,
+        height: heightSafeArea * 0.7,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomTextField.common(
                   onChanged: (value) {
                     _clearError();
                   },
-                  errorText: _phoneError,
-                  textEditingController: _phoneController,
+                  errorText: _emailError,
+                  textEditingController: _emailController,
                   hintText: "mail@example.com",
                   required: true,
                   labelText: "Email",
@@ -161,7 +196,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   labelText: "Mật khẩu",
                   required: true,
                   textInputType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.next,
                   isObscured: _pwIsObscured,
                   editIconPath: _pwIsObscured
                       ? "assets/icons/action/icon-hidden.png"
@@ -171,12 +206,38 @@ class _RegisterPageState extends State<RegisterPage> {
                             _pwIsObscured = !_pwIsObscured;
                           })
                       : null),
+              const SizedBox(height: 16),
+              CustomTextField.common(
+                  onChanged: (value) {
+                    if (value == "") _repwIsObscured = true;
+                    _clearError();
+                  },
+                  errorText: _repasswordError,
+                  textEditingController: _repasswordControler,
+                  hintText: "********",
+                  labelText: "Nhập lại mật khẩu",
+                  required: true,
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                  isObscured: _repwIsObscured,
+                  editIconPath: _repwIsObscured
+                      ? "assets/icons/action/icon-hidden.png"
+                      : "assets/icons/action/icon-display.png",
+                  edit: _repasswordControler.text.isNotEmpty
+                      ? () => setState(() {
+                            _repwIsObscured = !_repwIsObscured;
+                          })
+                      : null),
               const SizedBox(height: 32),
               AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   height: (keyboardHeight == 0) ? 12 : 16),
               CustomButton.common(
-                  onTap: () {}, content: "ĐĂNG KÝ", isLoading: _isLoading),
+                  onTap: () {
+                    handleRegister();
+                  },
+                  content: "ĐĂNG KÝ",
+                  isLoading: _isLoading),
               const SizedBox(height: 24),
               Text("Hoặc tiếp tục với",
                   style: BaseTextStyle.body2(color: BaseColor.black)),
@@ -276,7 +337,9 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Text("Đăng nhập",
                   style:
                       BaseTextStyle.subtitle2(color: BaseColor.secondaryBlue)),
-              onTap: () {}),
+              onTap: () {
+                Navigator.of(context).pop();
+              }),
         ]));
   }
 
@@ -286,7 +349,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _clearError() {
     setState(() {
-      _phoneError = null;
+      _emailError = null;
       _passwordError = null;
     });
   }

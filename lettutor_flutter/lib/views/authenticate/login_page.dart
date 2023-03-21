@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
+import 'package:lettutor_flutter/routes/routes.dart' as routes;
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,14 +18,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String? _phoneError;
   String? _passwordError;
-  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool? _isLoading;
   bool _pwIsObscured = true;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _emailController.text = 'admin';
+    _passwordController.text = '123123';
+  }
+
+  @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -38,6 +49,23 @@ class _LoginPageState extends State<LoginPage> {
             WidgetsBinding.instance.window.viewInsets,
             WidgetsBinding.instance.window.devicePixelRatio)
         .bottom;
+
+    void handleLogin() {
+      if (_emailController.text == 'admin' &&
+          _passwordController.text == '123123') {
+        Navigator.pushNamedAndRemoveUntil(
+            context, routes.homePage, (Route<dynamic> route) => false);
+      } else {
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.error(
+            message: "Login failed! Email or password is wrong.",
+          ),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 1000),
+        );
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -96,7 +124,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         buildLogoArea(
                             heightSafeArea, safeWidth, keyboardHeight),
-                        buildLoginArea(heightSafeArea, context, keyboardHeight),
+                        buildLoginArea(heightSafeArea, context, keyboardHeight,
+                            handleLogin: handleLogin),
                         buildRegisterArea(heightSafeArea, keyboardHeight),
                       ])),
             )),
@@ -130,7 +159,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildLoginArea(
-      double heightSafeArea, BuildContext context, double keyboardHeight) {
+      double heightSafeArea, BuildContext context, double keyboardHeight,
+      {required Function() handleLogin}) {
     return SizedBox(
         height: heightSafeArea * 0.6,
         child: Column(
@@ -142,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                     _clearError();
                   },
                   errorText: _phoneError,
-                  textEditingController: _phoneController,
+                  textEditingController: _emailController,
                   hintText: "mail@example.com",
                   required: true,
                   labelText: "Email",
@@ -174,7 +204,9 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                   alignment: Alignment.topLeft,
                   child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, routes.forgotPasswordPage);
+                      },
                       child: Text("Quên mật khẩu?",
                           style: BaseTextStyle.button(
                               color: BaseColor.secondaryBlue)))),
@@ -182,7 +214,11 @@ class _LoginPageState extends State<LoginPage> {
                   duration: const Duration(milliseconds: 300),
                   height: (keyboardHeight == 0) ? 12 : 16),
               CustomButton.common(
-                  onTap: () {}, content: "ĐĂNG NHẬP", isLoading: _isLoading),
+                  onTap: () {
+                    handleLogin();
+                  },
+                  content: "ĐĂNG NHẬP",
+                  isLoading: _isLoading),
               const SizedBox(height: 24),
               Text("Hoặc tiếp tục với",
                   style: BaseTextStyle.body2(color: BaseColor.black)),
@@ -282,7 +318,9 @@ class _LoginPageState extends State<LoginPage> {
               child: Text("Đăng ký",
                   style:
                       BaseTextStyle.subtitle2(color: BaseColor.secondaryBlue)),
-              onTap: () {}),
+              onTap: () {
+                Navigator.pushNamed(context, routes.registerPage);
+              }),
         ]));
   }
 

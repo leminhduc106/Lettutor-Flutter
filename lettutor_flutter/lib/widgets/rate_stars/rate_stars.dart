@@ -11,15 +11,15 @@ class RateStars extends StatelessWidget {
       if (i < count) {
         stars.add(SvgPicture.asset(
           "assets/svg/ic_star.svg",
-          width: 20,
-          height: 20,
+          width: 30,
+          height: 30,
           color: Colors.yellow[700],
         ));
       } else {
         stars.add(SvgPicture.asset(
           "assets/svg/ic_star_empty.svg",
-          width: 20,
-          height: 20,
+          width: 30,
+          height: 30,
           color: Colors.yellow[700],
         ));
       }
@@ -30,6 +30,8 @@ class RateStars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: _buildStars(),
     );
   }
