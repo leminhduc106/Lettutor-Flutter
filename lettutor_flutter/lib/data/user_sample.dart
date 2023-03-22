@@ -7,13 +7,13 @@ class UsersSample {
   static List<User> users = [
     User(
       id: uuid.v4(),
-      email: "leminhduc@gmail.com",
+      email: "leminhduc1062001@gmail.com",
       fullName: "Le Minh Duc",
-      image: "assets/images/profile.jpg",
-      birthDay: DateTime(2000, 10, 22),
+      image: "assets/images/profile_2.jpeg",
+      birthDay: DateTime(2001, 06, 10),
       country: "Vietnam",
       level: "Beginner",
-      topicToLearn: "TOEIC",
+      topicToLearn: "IELTS",
       bookingHistory: [],
       sessionHistory: [],
       phone: "0931328047",
