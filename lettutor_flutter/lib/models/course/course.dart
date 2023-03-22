@@ -1,4 +1,4 @@
-import 'package:lettutor_mobile/src/models/tutor/tutor.dart';
+import 'package:lettutor_flutter/models/tutor/tutor.dart';
 
 class Course {
   String id;

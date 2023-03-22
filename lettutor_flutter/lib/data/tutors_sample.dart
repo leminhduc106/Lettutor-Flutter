@@ -149,11 +149,11 @@ class TutorsSample {
   static List<Tutor> tutors = [
     Tutor(
       uuid.v4(),
-      "Nhi Lam",
+      "Quynh Nguyen",
       "Viet Nam",
       5,
-      "Hi, I am teacher Nhi. I have been teaching English for 3 years now. I used to study abroad in Sydney for 7 years. During my time as an overseas student, I had spoken with people from diverse cultural backgrounds; therefore, I have strong listening and speaking skills. I love teaching English and I will devote to helping you improve your English skills if you book my class. I am also patient and understanding because I know for many people, English is a tough language to master. In my class, I will help you correct your pronunciation and deliver the lessons in a way that is easy for you to understand. If you book my class, you will have many chances to practice your speaking skills and also improve your pronunciation and grammatical knowledge. Besides that, if you need me to, I will share my personal tips to study English more effectively with you and show you the importance of having fun and practice while learning English.",
-      "assets/images/sample/tutor/sample_1.jpg",
+      "Hi, I am teacher Quynh. I have been teaching English for 3 years now. I used to study abroad in Sydney for 7 years. During my time as an overseas student, I had spoken with people from diverse cultural backgrounds; therefore, I have strong listening and speaking skills. I love teaching English and I will devote to helping you improve your English skills if you book my class. I am also patient and understanding because I know for many people, English is a tough language to master. In my class, I will help you correct your pronunciation and deliver the lessons in a way that is easy for you to understand. If you book my class, you will have many chances to practice your speaking skills and also improve your pronunciation and grammatical knowledge. Besides that, if you need me to, I will share my personal tips to study English more effectively with you and show you the importance of having fun and practice while learning English.",
+      "assets/images/sample/tutor/sample_13.jpg",
       <String>["English", "French", "Spanish", "Japanese", "Chinese"],
       <String, String>{
         "Interests":
