@@ -4,6 +4,92 @@ import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
 
 class CustomModalSheet {
+  static Future<void> buildLanguageBottom(
+      {required BuildContext context,
+      required Function(int) index,
+      required String? currentLang}) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.white,
+        barrierColor: Colors.black.withOpacity(0.5),
+        constraints: BoxConstraints(
+            maxHeight: 200 + MediaQuery.of(context).padding.bottom),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(18),
+            topRight: Radius.circular(18),
+          ),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+              padding: const EdgeInsets.all(16),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                // const SizedBox(height: 8),
+                GestureDetector(
+                    onTap: () {
+                      (currentLang == "Tiếng Việt")
+                          ? Navigator.of(context).pop()
+                          : index(0);
+                    },
+                    child: Container(
+                        height: 72,
+                        decoration: BoxDecoration(
+                            color: (currentLang == "Tiếng Việt")
+                                ? BaseColor.secondaryBlue
+                                : Colors.transparent,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(18))),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(left: 16),
+                              height: 32,
+                              child:
+                                  Image.asset("assets/images/vietnamese.png"),
+                            ),
+                            const SizedBox(width: 16),
+                            Text("Tiếng Việt",
+                                style: BaseTextStyle.subtitle1(
+                                    color: (currentLang == "Tiếng Việt")
+                                        ? BaseColor.blue
+                                        : BaseColor.hint))
+                          ],
+                        ))),
+                const SizedBox(height: 2),
+                GestureDetector(
+                    onTap: () {
+                      (currentLang == "English")
+                          ? Navigator.of(context).pop()
+                          : index(1);
+                    },
+                    child: Container(
+                        height: 72,
+                        decoration: BoxDecoration(
+                            color: (currentLang == "English")
+                                ? BaseColor.secondaryBlue
+                                : Colors.transparent,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(18))),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(left: 16),
+                              height: 32,
+                              child: Image.asset("assets/images/english.png"),
+                            ),
+                            const SizedBox(width: 16),
+                            Text("English",
+                                style: BaseTextStyle.subtitle1(
+                                    color: (currentLang == "English")
+                                        ? BaseColor.blue
+                                        : BaseColor.hint))
+                          ],
+                        )))
+              ]));
+        });
+  }
+
   static Future<void> buildWarningBottom({
     required BuildContext context,
     Color? backgroundColor,
