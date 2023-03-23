@@ -30,6 +30,16 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow us to use your camera to scan QR code</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Please allow us to use your local network to support display camera function</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please allow us to use your micro to support display camera function</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow us to use your photo to capture camera display image</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow us to use your photo to capture camera display image</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
