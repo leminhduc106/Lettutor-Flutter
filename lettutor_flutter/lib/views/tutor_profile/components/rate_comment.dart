@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lettutor_flutter/data/user_sample.dart';
 import 'package:lettutor_flutter/models/tutor/feedback.dart';
+import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/avatar_circle/avatar_circle.dart';
 import 'package:lettutor_flutter/widgets/rate_stars/rate_stars.dart';
 
@@ -35,7 +36,7 @@ class RateAndComment extends StatelessWidget {
                     children: [
                       Text(
                         user.fullName,
-                        style: const TextStyle(fontSize: 14),
+                        style: BaseTextStyle.heading2(fontSize: 15),
                       ),
                     ],
                   ),
