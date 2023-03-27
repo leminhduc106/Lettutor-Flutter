@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lettutor_flutter/models/user/booking.dart';
 import 'package:lettutor_flutter/provider/user_provider.dart';
+import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/avatar_circle/avatar_circle.dart';
+import 'package:lettutor_flutter/widgets/custom_alert_dialog/custom_accept_dialog.dart';
+import 'package:lettutor_flutter/widgets/custom_alert_dialog/custom_two_btn_alert_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -28,7 +31,7 @@ class UpComingCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,8 +49,7 @@ class UpComingCard extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: Text(
                           upcomming.tutor.fullName,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                          style: BaseTextStyle.heading2(fontSize: 16),
                         ),
                       ),
                       Row(
@@ -99,19 +101,32 @@ class UpComingCard extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        cancelUpcoming(upcomming.id);
-                        upcomming.tutor
-                            .setReserved(upcomming.idSchedule, false);
-                        showTopSnackBar(
-                          context,
-                          const CustomSnackBar.success(
-                            message: "Remove upcomming successful.",
-                            backgroundColor: Colors.green,
-                          ),
-                          showOutAnimationDuration:
-                              const Duration(milliseconds: 700),
-                          displayDuration: const Duration(milliseconds: 200),
-                        );
+                        showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomAcceptDialog(
+                                content:
+                                    "Do you really want to cancel upcomming lesson?",
+                                context: context,
+                                acceptFuction: () {
+                                  cancelUpcoming(upcomming.id);
+                                  upcomming.tutor
+                                      .setReserved(upcomming.idSchedule, false);
+                                  showTopSnackBar(
+                                    context,
+                                    const CustomSnackBar.success(
+                                      message: "Remove upcomming successful.",
+                                      backgroundColor: Colors.green,
+                                    ),
+                                    showOutAnimationDuration:
+                                        const Duration(milliseconds: 700),
+                                    displayDuration:
+                                        const Duration(milliseconds: 200),
+                                  );
+                                },
+                              );
+                            });
                       },
                       child: Container(
                         padding: const EdgeInsets.only(top: 10, bottom: 10),
