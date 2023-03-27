@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: const EdgeInsets.only(bottom: 2),
                       child: Text(
-                        "Gia sư được đề xuất",
+                        "Recommended Tutors",
                         style: BaseTextStyle.heading4(fontSize: 18),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
