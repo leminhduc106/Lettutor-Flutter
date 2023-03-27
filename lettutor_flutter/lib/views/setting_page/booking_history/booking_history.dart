@@ -33,7 +33,8 @@ class BookingHistoryPage extends StatelessWidget {
         ),
         body: bookingHistory.isNotEmpty
             ? Container(
-                margin: const EdgeInsets.only(left: 15, right: 15),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: ListView.builder(
                   itemCount: bookingHistory.length,
                   itemBuilder: (context, index) => BookingItem(

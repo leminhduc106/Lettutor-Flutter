@@ -150,22 +150,28 @@ class SessionItem extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: const Color(0xff0070F3)),
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(4),
-                            bottomRight: Radius.circular(4))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Text(
-                          "See Tutor Detail",
-                          style: TextStyle(color: Color(0xff0070F3)),
-                        )
-                      ],
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, routes.tutorProfilePage,
+                          arguments: {"tutor": session.tutor});
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: const Color(0xff0070F3)),
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(4),
+                              bottomRight: Radius.circular(4))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+                          Text(
+                            "See Tutor Detail",
+                            style: TextStyle(color: Color(0xff0070F3)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

@@ -86,7 +86,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                     height: MediaQuery.of(context).size.height * 0.5,
                     child: Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
                             "assets/svg/ic_empty.svg",
