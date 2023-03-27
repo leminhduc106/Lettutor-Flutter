@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/provider/navigation_index.dart';
 import 'package:lettutor_flutter/provider/user_provider.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
+import 'package:lettutor_flutter/views/courses_search_page/courses.dart';
 import 'package:lettutor_flutter/views/home/home_page.dart';
+import 'package:lettutor_flutter/views/setting_page/setting.dart';
+import 'package:lettutor_flutter/views/tutors_search_page/tutors.dart';
+import 'package:lettutor_flutter/views/upcoming_page/upcoming.dart';
 import 'package:lettutor_flutter/widgets/menu_item/menu_item.dart';
 import 'package:provider/provider.dart';
 import 'package:lettutor_flutter/routes/routes.dart' as routes;
@@ -19,10 +23,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   List<String> titles = ["Home", "Courses", "Upcoming", "Tutors", "Setting"];
   List<Widget> pages = [
     const HomePage(),
-    // const CoursesSearchPage(),
-    // const UpcomingPage(),
-    // const TutorsPage(),
-    // const SettingPage()
+    const CoursesSearchPage(),
+    const UpcomingPage(),
+    const TutorsPage(),
+    const SettingPage()
   ];
 
   @override
@@ -89,7 +93,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             : CircleAvatar(
                                 child: ClipOval(
                                   child: Image.asset(
-                                    "assets/images/profile.png",
+                                    "assets/images/profile_2.jpeg",
                                     fit: BoxFit.cover,
                                     width: 40,
                                     height: 40,
