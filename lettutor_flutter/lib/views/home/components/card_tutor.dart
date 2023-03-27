@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor_flutter/models/tutor/tutor.dart';
 import 'package:lettutor_flutter/provider/user_provider.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
+import 'package:lettutor_flutter/widgets/avatar_circle/avatar_circle.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/rate_stars/rate_stars.dart';
 import 'package:provider/provider.dart';
@@ -19,14 +20,7 @@ class CardTutor extends StatelessWidget {
     final exists =
         userProvider.idFavorite.where((element) => element == tutor.id);
     Size size = MediaQuery.of(context).size;
-    double heightSafeArea = size.height -
-        MediaQuery.of(context).padding.top -
-        MediaQuery.of(context).padding.bottom;
     double safeWidth = min(size.width, 500);
-    double keyboardHeight = EdgeInsets.fromWindowPadding(
-            WidgetsBinding.instance.window.viewInsets,
-            WidgetsBinding.instance.window.devicePixelRatio)
-        .bottom;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -57,11 +51,9 @@ class CardTutor extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  const Center(
-                    child: CircleAvatar(
-                      radius: 32,
-                      backgroundImage: AssetImage("assets/images/teacher.png"),
-                    ),
+                  Center(
+                    child: AvatarCircle(
+                        width: 65, height: 65, source: tutor.image),
                   ),
                   Positioned(
                       //top right
@@ -151,7 +143,13 @@ class CardTutor extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10),
                 width: safeWidth * 0.4,
                 child: CustomButton.whiteBtnWithIcon(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        routes.tutorProfilePage,
+                        arguments: {"tutor": tutor},
+                      );
+                    },
                     content: "Đặt lịch",
                     iconPath: "assets/icons/common/icon_calendar_blue.png"),
               )
