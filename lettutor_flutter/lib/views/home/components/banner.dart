@@ -31,9 +31,9 @@ class BannerHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text('Chào mừng đến với LetTutor',
+            Text('Welcome to LetTutor',
                 style:
-                    BaseTextStyle.heading3(color: Colors.white, fontSize: 22)),
+                    BaseTextStyle.heading2(color: Colors.white, fontSize: 22)),
             Container(
               margin: const EdgeInsets.only(top: 32.0),
               width: safeWidth * 0.5,
@@ -41,7 +41,7 @@ class BannerHomePage extends StatelessWidget {
                   onTap: () {
                     navigationIndex.index = 3;
                   },
-                  content: "Đặt lịch học",
+                  content: "Book a lesson",
                   iconPath: "assets/icons/social/icon_youtube.png"),
             ),
           ],
@@ -52,21 +52,21 @@ class BannerHomePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30),
       width: MediaQuery.of(context).size.width,
-      color: const Color(0xff0040D6),
+      color: BaseColor.blue,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Tổng số giờ bạn đã học là ${getFormatTotalTime(userProvider.getTotalLessonTime())}",
-            style: BaseTextStyle.heading5(color: Colors.white, fontSize: 15),
+            "Total lesson time is ${getFormatTotalTime(userProvider.getTotalLessonTime())}",
+            style: BaseTextStyle.heading2(color: Colors.white, fontSize: 16),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           Container(
             margin: const EdgeInsets.only(top: 8, bottom: 8),
             child: Text(
-              "Buổi học sắp diễn ra",
-              style: BaseTextStyle.heading3(color: Colors.white),
+              "Upcomming lesson",
+              style: BaseTextStyle.heading2(color: Colors.white, fontSize: 22),
             ),
           ),
           Text(
@@ -74,14 +74,15 @@ class BannerHomePage extends StatelessWidget {
                 userProvider.getNearestLesson()?.end),
             style: const TextStyle(fontSize: 13, color: Colors.white),
           ),
+          const SizedBox(height: 32),
           Container(
-            margin: const EdgeInsets.only(bottom: 32.0),
-            width: safeWidth * 0.5,
+            margin: const EdgeInsets.only(bottom: 28.0),
+            width: safeWidth * 0.6,
             child: CustomButton.whiteBtnWithIcon(
                 onTap: () {
                   Navigator.pushNamed(context, routes.lessonPage);
                 },
-                content: "Vào lớp học",
+                content: "Enter lesson room",
                 iconPath: "assets/icons/social/icon_youtube.png"),
           ),
         ],
