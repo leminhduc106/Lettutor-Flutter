@@ -211,7 +211,8 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 buildLogoArea(
-                                    heightSafeArea, safeWidth, keyboardHeight),
+                                    heightSafeArea, safeWidth, keyboardHeight,
+                                    language: language),
                                 buildLoginArea(
                                     heightSafeArea, context, keyboardHeight,
                                     handleLogin: handleLogin,
@@ -226,7 +227,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildLogoArea(
-      double heightSafeArea, double safeWidth, double keyboardHeight) {
+      double heightSafeArea, double safeWidth, double keyboardHeight,
+      {required Language language}) {
     return Column(
       children: [
         AnimatedContainer(
@@ -238,7 +240,8 @@ class _LoginPageState extends State<LoginPage> {
             child: Image.asset("assets/images/login.png",
                 width: safeWidth * 0.6, fit: BoxFit.fitWidth)),
         const SizedBox(height: 16),
-        Text("Đăng nhập", style: BaseTextStyle.heading4(color: BaseColor.blue)),
+        Text(language.signIn,
+            style: BaseTextStyle.heading4(color: BaseColor.blue)),
         const SizedBox(height: 20),
         Text(
           "Phát triển kỹ năng tiếng Anh nhanh nhất bằng cách học 1 kèm 1 trực tuyến theo mục tiêu và lộ trình dành riêng cho bạn.",

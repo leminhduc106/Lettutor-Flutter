@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/models/language_model/language.dart';
+import 'package:lettutor_flutter/services/auth_service.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
+import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:lettutor_flutter/routes/routes.dart' as routes;
@@ -45,29 +49,60 @@ class _RegisterPageState extends State<RegisterPage> {
             WidgetsBinding.instance.window.viewInsets,
             WidgetsBinding.instance.window.devicePixelRatio)
         .bottom;
+    final appProvider = Provider.of<AppProvider>(context);
+    final language = appProvider.language;
 
-    void handleSignUp() {
+    void handleSignUp() async {
       if (_emailController.text.isEmpty ||
           _passwordController.text.isEmpty ||
           _repasswordControler.text.isEmpty) {
         showTopSnackBar(
           context,
-          const CustomSnackBar.error(
-              message: "Signup failed! Please enter all fields."),
+          CustomSnackBar.error(message: language.errEnterAllFields),
           showOutAnimationDuration: const Duration(milliseconds: 1000),
-          displayDuration: const Duration(microseconds: 1000),
+          displayDuration: const Duration(microseconds: 3000),
+        );
+      } else if (!RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(_emailController.text)) {
+        showTopSnackBar(
+          context,
+          CustomSnackBar.error(message: language.invalidEmail),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 3000),
+        );
+      } else if (_passwordController.text.length < 6) {
+        showTopSnackBar(
+          context,
+          CustomSnackBar.error(message: language.passwordTooShort),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 3000),
         );
       } else if (_passwordController.text != _repasswordControler.text) {
         showTopSnackBar(
           context,
-          const CustomSnackBar.error(
-              message: "Signup failed! Passwords do not match."),
+          CustomSnackBar.error(message: language.errPasswordMismatch),
           showOutAnimationDuration: const Duration(milliseconds: 1000),
-          displayDuration: const Duration(microseconds: 1000),
+          displayDuration: const Duration(microseconds: 3000),
         );
       } else {
-        Navigator.pushNamedAndRemoveUntil(
-            context, routes.loginPage, (Route<dynamic> route) => false);
+        try {
+          await AuthService.registerWithEmailAndPassword(
+            _emailController.text,
+            _passwordController.text,
+            () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, routes.loginPage, (Route<dynamic> route) => false);
+            },
+          );
+        } catch (e) {
+          showTopSnackBar(
+            context,
+            CustomSnackBar.error(message: "Signup failed!. ${e.toString()}"),
+            showOutAnimationDuration: const Duration(milliseconds: 1000),
+            displayDuration: const Duration(microseconds: 4000),
+          );
+        }
       }
     }
 
@@ -126,12 +161,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        buildLogoArea(
-                            heightSafeArea, safeWidth, keyboardHeight),
+                        buildLogoArea(heightSafeArea, safeWidth, keyboardHeight,
+                            language: language),
                         buildRegisterArea(
                             heightSafeArea, context, keyboardHeight,
-                            handleRegister: handleSignUp),
-                        buildLoginArea(heightSafeArea, keyboardHeight),
+                            handleRegister: handleSignUp, language: language),
+                        buildLoginArea(heightSafeArea, keyboardHeight,
+                            language: language),
                       ])),
             )),
           ]),
@@ -139,7 +175,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget buildLogoArea(
-      double heightSafeArea, double safeWidth, double keyboardHeight) {
+      double heightSafeArea, double safeWidth, double keyboardHeight,
+      {required Language language}) {
     return Column(
       children: [
         AnimatedContainer(
@@ -151,7 +188,8 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Image.asset("assets/images/login.png",
                 width: safeWidth * 0.6, fit: BoxFit.fitWidth)),
         const SizedBox(height: 16),
-        Text("Đăng ký", style: BaseTextStyle.heading4(color: BaseColor.blue)),
+        Text(language.signUp,
+            style: BaseTextStyle.heading4(color: BaseColor.blue)),
         const SizedBox(height: 20),
         Text(
           "Phát triển kỹ năng tiếng Anh nhanh nhất bằng cách học 1 kèm 1 trực tuyến theo mục tiêu và lộ trình dành riêng cho bạn.",
@@ -165,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget buildRegisterArea(
       double heightSafeArea, BuildContext context, double keyboardHeight,
-      {required Function handleRegister}) {
+      {required Function handleRegister, required Language language}) {
     return SizedBox(
         height: heightSafeArea * 0.7,
         child: Column(
@@ -193,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   errorText: _passwordError,
                   textEditingController: _passwordController,
                   hintText: "********",
-                  labelText: "Mật khẩu",
+                  labelText: language.password,
                   required: true,
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.next,
@@ -215,7 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   errorText: _repasswordError,
                   textEditingController: _repasswordControler,
                   hintText: "********",
-                  labelText: "Nhập lại mật khẩu",
+                  labelText: language.confirmPassword,
                   required: true,
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
@@ -236,105 +274,24 @@ class _RegisterPageState extends State<RegisterPage> {
                   onTap: () {
                     handleRegister();
                   },
-                  content: "ĐĂNG KÝ",
+                  content: language.signUp,
                   isLoading: _isLoading),
               const SizedBox(height: 24),
-              Text("Hoặc tiếp tục với",
-                  style: BaseTextStyle.body2(color: BaseColor.black)),
-              const SizedBox(height: 24),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16.0),
-                          border: Border.all(color: BaseColor.blue, width: 0.5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: const Color(0xff003399).withOpacity(0.2),
-                                spreadRadius: 0,
-                                blurRadius: 8,
-                                offset: const Offset(0, 2))
-                          ]),
-                      child: SizedBox(
-                        height: 24,
-                        child: Image.asset(
-                          "assets/icons/social/icon_facebook.png",
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    )),
-                const SizedBox(width: 12),
-                GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16.0),
-                          border: Border.all(color: BaseColor.blue, width: 0.5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: const Color(0xff003399).withOpacity(0.2),
-                                spreadRadius: 0,
-                                blurRadius: 8,
-                                offset: const Offset(0, 2))
-                          ]),
-                      child: SizedBox(
-                        height: 24,
-                        child: Image.asset(
-                          "assets/icons/social/icon_google.png",
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    )),
-                const SizedBox(width: 12),
-                GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16.0),
-                          border: Border.all(color: BaseColor.blue, width: 0.5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: const Color(0xff003399).withOpacity(0.2),
-                                spreadRadius: 0,
-                                blurRadius: 8,
-                                offset: const Offset(0, 2))
-                          ]),
-                      child: SizedBox(
-                        height: 24,
-                        child: Image.asset(
-                          "assets/icons/social/icon_mobile.png",
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    )),
-              ]),
             ]));
   }
 
-  Widget buildLoginArea(double heightSafeArea, double keyboardHeight) {
+  Widget buildLoginArea(double heightSafeArea, double keyboardHeight,
+      {required Language language}) {
     return SizedBox(
         height: (keyboardHeight == 0) ? 100 : 0,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
-            "Đã có tài khoản?",
+            language.loginQuestion,
             style: BaseTextStyle.body2(color: Colors.black),
           ),
           const SizedBox(height: 32),
           InkWell(
-              child: Text("Đăng nhập",
+              child: Text(language.signIn,
                   style:
                       BaseTextStyle.subtitle2(color: BaseColor.secondaryBlue)),
               onTap: () {
