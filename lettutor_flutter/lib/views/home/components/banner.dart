@@ -51,8 +51,8 @@ class _BannerHomePageState extends State<BannerHomePage> {
     final authProvider = Provider.of<AuthProvider>(context);
     final lang = Provider.of<AppProvider>(context).language;
 
-    if (isLoading && authProvider.tokens != null) {
-      fetchTotalLessonTime(authProvider.tokens?.access.token as String);
+    if (isLoading && authProvider._tokens != null) {
+      fetchTotalLessonTime(authProvider._tokens?.access.token as String);
     }
 
     return Container(

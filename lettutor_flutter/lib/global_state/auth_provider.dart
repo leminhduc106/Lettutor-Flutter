@@ -4,11 +4,11 @@ import 'package:lettutor_flutter/models/user_model/user_model.dart';
 
 class AuthProvider extends ChangeNotifier {
   late User userLoggedIn;
-  Tokens? tokens;
+  Tokens? _tokens;
 
-  void logIn(User user, Tokens _tokens) {
+  void logIn(User user, Tokens tokens) {
     userLoggedIn = user;
-    tokens = _tokens;
+    tokens = tokens;
     notifyListeners();
   }
 
@@ -18,7 +18,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void logOut() {
-    tokens = null;
+    _tokens = null;
     notifyListeners();
   }
 }

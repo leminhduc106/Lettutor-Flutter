@@ -109,7 +109,7 @@ class _CardTutorState extends State<CardTutor> {
                           final res =
                               await UserService.addAndRemoveTutorFavorite(
                                   _tutor.userId,
-                                  authProvider.tokens!.access.token);
+                                  authProvider._tokens!.access.token);
 
                           if (res) {
                             setState(() {

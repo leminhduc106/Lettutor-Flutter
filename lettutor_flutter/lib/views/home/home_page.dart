@@ -54,9 +54,9 @@ class _HomePageState extends State<HomePage> {
     final appProvider = Provider.of<AppProvider>(context);
     final lang = appProvider.language;
 
-    if (_isLoading && authProvider.tokens != null) {
+    if (_isLoading && authProvider._tokens != null) {
       fetchRecommendTutors(
-          authProvider.tokens?.access.token as String, appProvider);
+          authProvider._tokens?.access.token as String, appProvider);
     }
 
     return SafeArea(
