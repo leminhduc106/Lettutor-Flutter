@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/provider/navigation_index.dart';
-import 'package:lettutor_flutter/provider/user_provider.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/global_state/auth_provider.dart';
+import 'package:lettutor_flutter/global_state/navigation_index.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/views/courses_search_page/courses.dart';
 import 'package:lettutor_flutter/views/home/home_page.dart';
@@ -20,7 +22,6 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  List<String> titles = ["Home", "Courses", "Upcoming", "Tutors", "Setting"];
   List<Widget> pages = [
     const HomePage(),
     const CoursesSearchPage(),
@@ -32,8 +33,15 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final navigationIndex = Provider.of<NavigationIndex>(context);
-
-    final uploadImage = Provider.of<UserProvider>(context).uploadImage;
+    final authUser = Provider.of<AuthProvider>(context).userLoggedIn;
+    final lang = Provider.of<AppProvider>(context).language;
+    List<String> titles = [
+      lang.home,
+      lang.course,
+      lang.upcoming,
+      lang.tutors,
+      lang.setting
+    ];
 
     return SafeArea(
       child: Scaffold(
@@ -72,35 +80,29 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     child: SizedBox(
                       height: 64,
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            routes.profilePage,
-                          );
-                        },
-                        child: uploadImage != null
-                            ? CircleAvatar(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(1000),
-                                  child: Image.file(
-                                    uploadImage,
-                                    width: 40,
-                                    height: 40,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
-                            : CircleAvatar(
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    "assets/images/profile_2.jpeg",
-                                    fit: BoxFit.cover,
-                                    width: 40,
-                                    height: 40,
-                                  ),
-                                ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              routes.profilePage,
+                            );
+                          },
+                          child: CircleAvatar(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(1000),
+                              child: CachedNetworkImage(
+                                imageUrl: authUser.avatar,
+                                fit: BoxFit.cover,
+                                width: 40,
+                                height: 40,
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                               ),
-                      ),
+                            ),
+                          )),
                     ),
                   )
                 ]

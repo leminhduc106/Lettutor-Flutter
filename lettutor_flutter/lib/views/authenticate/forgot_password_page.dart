@@ -1,13 +1,25 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/services/auth_service.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_appbar/custom_appbar.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_textfield/custom_textfield.dart';
+import 'package:provider/provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
+class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({Key? key}) : super(key: key);
+
+  @override
+  State<ForgetPasswordPage> createState() => _ForgetPasswordPageState();
+}
+
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +28,42 @@ class ForgetPasswordPage extends StatelessWidget {
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
     double safeWidth = min(size.width, 500);
+    final appProvider = Provider.of<AppProvider>(context);
+    final language = appProvider.language;
+
+    void _resetPassword() async {
+      if (!RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(_emailController.text)) {
+        showTopSnackBar(
+            context, CustomSnackBar.error(message: language.invalidEmail),
+            showOutAnimationDuration: const Duration(milliseconds: 1000),
+            displayDuration: const Duration(microseconds: 4000));
+      } else if (_emailController.text.isNotEmpty) {
+        final bool res =
+            await AuthService.forgotPassword(_emailController.text);
+        if (res) {
+          // ignore: use_build_context_synchronously
+          showTopSnackBar(
+              context,
+              CustomSnackBar.success(
+                message: language.forgotPasswordSuccess,
+                backgroundColor: Colors.green,
+              ),
+              showOutAnimationDuration: const Duration(milliseconds: 1000),
+              displayDuration: const Duration(microseconds: 4000));
+          // ignore: use_build_context_synchronously
+          Navigator.pop(context);
+        } else {
+          // ignore: use_build_context_synchronously
+          showTopSnackBar(context,
+              CustomSnackBar.error(message: language.forgotPasswordFail),
+              showOutAnimationDuration: const Duration(milliseconds: 1000),
+              displayDuration: const Duration(microseconds: 4000));
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: Container(
@@ -77,7 +125,7 @@ class ForgetPasswordPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Đặt lại mật khẩu',
+                                    language.resetPassword,
                                     style: BaseTextStyle.heading4(
                                         color: Colors.black),
                                   ),
@@ -87,28 +135,29 @@ class ForgetPasswordPage extends StatelessWidget {
                                         style: BaseTextStyle.body2(
                                             color: Colors.black),
                                         children: [
-                                          const TextSpan(
-                                              text: "Vui lòng nhập "),
+                                          TextSpan(text: language.pleaseEnter),
                                           TextSpan(
                                               text: "Email ",
                                               style: BaseTextStyle.subtitle2(
                                                   color: Colors.black)),
-                                          const TextSpan(
-                                              text:
-                                                  "của bạn để tìm kiếm tài khoản của bạn."),
+                                          TextSpan(
+                                              text: language.pleaseEnterEmail),
                                         ]),
                                   ),
                                   const SizedBox(height: 20),
                                   CustomTextField.common(
                                     onChanged: (value) {},
                                     labelText: "Email",
-                                    hintText: "Nhập Email",
+                                    hintText: language.enterEmail,
                                     textInputType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.done,
                                   ),
                                   SizedBox(height: size.height * 0.04),
                                   CustomButton.common(
-                                      onTap: () {}, content: "Xác nhận"),
+                                      onTap: () {
+                                        _resetPassword();
+                                      },
+                                      content: language.confirmReset),
                                   SizedBox(height: size.height * 0.02),
                                   TextButton.icon(
                                       onPressed: () {
@@ -119,7 +168,7 @@ class ForgetPasswordPage extends StatelessWidget {
                                         size: 15,
                                         color: BaseColor.blue,
                                       ),
-                                      label: Text("Trở về trang đăng nhập",
+                                      label: Text(language.gobackLogin,
                                           style: BaseTextStyle.body2(
                                               color: BaseColor.blue)))
                                 ]))

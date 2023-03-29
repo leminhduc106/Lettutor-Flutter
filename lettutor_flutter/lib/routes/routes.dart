@@ -1,19 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:lettutor_flutter/models/course/course.dart';
-import 'package:lettutor_flutter/models/tutor/tutor.dart';
+import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/models/schedule_model/booking_info_model.dart';
 import 'package:lettutor_flutter/navigation.dart';
 import 'package:lettutor_flutter/views/authenticate/forgot_password_page.dart';
 import 'package:lettutor_flutter/views/authenticate/login_page.dart';
 import 'package:lettutor_flutter/views/authenticate/register_page.dart';
 import 'package:lettutor_flutter/views/course/course.dart';
-import 'package:lettutor_flutter/views/courses_search_page/book_detail.dart';
+import 'package:lettutor_flutter/views/course/topic_course/topic_course.dart';
 import 'package:lettutor_flutter/views/feedback_page.dart/feedback_page.dart';
-import 'package:lettutor_flutter/views/home/home_page.dart';
-import 'package:lettutor_flutter/views/lesson/lesson.dart';
 import 'package:lettutor_flutter/views/profile_page/profile_page.dart';
 import 'package:lettutor_flutter/views/setting_page/advanced_setting/advanced_setting.dart';
-import 'package:lettutor_flutter/views/setting_page/booking_history/booking_history.dart';
+import 'package:lettutor_flutter/views/setting_page/change_password/change_password.dart';
+import 'package:lettutor_flutter/views/setting_page/session_history/record_video.dart';
 import 'package:lettutor_flutter/views/setting_page/session_history/session_history.dart';
 import 'package:lettutor_flutter/views/tutor_profile/tutor_profile.dart';
 
@@ -24,12 +22,13 @@ const String homePage = 'home';
 const String profilePage = 'profile';
 const String tutorProfilePage = 'tutorProfile';
 const String coursePage = 'course';
-const String lessonPage = 'lesson';
-const String bookingHistoryPage = 'bookingHistory';
+const String courseTopicPDF = 'courseTopicPDF';
 const String sessionHistoryPage = 'sessionHistory';
 const String advancedSettingPage = 'advancedSetting';
 const String feedbackPage = 'feedback';
-const String bookDetailPage = 'bookDetail';
+const String changePasswordPage = 'changePassword';
+const String recordVideoPage = 'recordVideo';
+const String favoriteTutorPage = 'favoriteTutor';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -45,36 +44,48 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => const CustomNavigationBar());
     case profilePage:
       return MaterialPageRoute(builder: (context) => const ProfilePage());
-    case lessonPage:
-      return MaterialPageRoute(builder: (context) => const LessonPage());
-    case bookingHistoryPage:
-      return MaterialPageRoute(
-          builder: (context) => const BookingHistoryPage());
     case sessionHistoryPage:
       return MaterialPageRoute(
           builder: (context) => const SessionHistoryPage());
     case advancedSettingPage:
+      return MaterialPageRoute(builder: (context) => AdvancedSettingPage());
+    case changePasswordPage:
       return MaterialPageRoute(
-          builder: (context) => const AdvancedSettingPage());
-    case bookDetailPage:
-      return MaterialPageRoute(builder: (context) => const BookDetail());
+          builder: (context) => const ChangePasswordPage());
+    case favoriteTutorPage:
+      return MaterialPageRoute(
+          builder: (context) => const ChangePasswordPage());
+
+    case recordVideoPage:
+      return MaterialPageRoute(builder: (context) {
+        Map<String, String> arg = settings.arguments as Map<String, String>;
+        return RecordVideo(url: arg['url'] as String);
+      });
+
+    case courseTopicPDF:
+      return MaterialPageRoute(builder: (context) {
+        Map<String, String> arg = settings.arguments as Map<String, String>;
+        return CourseTopicPDFViewer(
+            url: arg['url'] as String, title: arg['title'] as String);
+      });
 
     case tutorProfilePage:
       return MaterialPageRoute(builder: (context) {
-        Map<String, Tutor> arg = settings.arguments as Map<String, Tutor>;
-        return TutorProfile(tutor: arg["tutor"] as Tutor);
+        Map<String, String> arg = settings.arguments as Map<String, String>;
+        return TutorProfile(tutorID: arg['tutorID'] as String);
       });
 
     case coursePage:
       return MaterialPageRoute(builder: (context) {
-        Map<String, Course> arg = settings.arguments as Map<String, Course>;
-        return CoursePage(course: arg["course"] as Course);
+        Map<String, String> arg = settings.arguments as Map<String, String>;
+        return CoursePage(courseId: arg["courseId"] as String);
       });
 
     case feedbackPage:
       return MaterialPageRoute(builder: (context) {
-        Map<String, Tutor> arg = settings.arguments as Map<String, Tutor>;
-        return FeedbackPage(tutor: arg["tutor"] as Tutor);
+        Map<String, BookingInfo> arg =
+            settings.arguments as Map<String, BookingInfo>;
+        return FeedbackPage(bookingInfo: arg["bookingInfo"] as BookingInfo);
       });
 
     default:
