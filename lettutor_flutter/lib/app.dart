@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import 'package:lettutor_flutter/provider/navigation_index.dart';
-import 'package:lettutor_flutter/provider/setting.dart';
-import 'package:lettutor_flutter/provider/user_provider.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/global_state/auth_provider.dart';
+import 'package:lettutor_flutter/global_state/navigation_index.dart';
 import 'package:lettutor_flutter/views/authenticate/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:lettutor_flutter/routes/routes.dart' as routes;
@@ -16,23 +16,21 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => UserProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => NavigationIndex(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SettingProvider(),
-        )
+          create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AppProvider(),
+        ),
       ],
       child: MaterialApp(
         useInheritedMediaQuery: true,
-        // locale: DevicePreview.locale(context),
-        // builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: routes.controller,
         // showPerformanceOverlay: true,
-        title: 'Flutter Demo',
+        title: 'Lettutor',
         theme: ThemeData(
             primarySwatch: Colors.blue, primaryColor: const Color(0xff007CFF)),
         home: const AnnotatedRegion<SystemUiOverlayStyle>(
