@@ -6,9 +6,9 @@ import 'package:lettutor_flutter/views/course/components/banner.dart';
 import 'package:lettutor_flutter/views/course/components/topic.dart';
 
 class CoursePage extends StatelessWidget {
-  const CoursePage({Key? key, required this.course}) : super(key: key);
+  const CoursePage({Key? key, required this.courseId}) : super(key: key);
 
-  final Course course;
+  final String courseId;
 
   @override
   Widget build(BuildContext context) {

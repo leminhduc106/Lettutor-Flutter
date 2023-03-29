@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lettutor_flutter/data/tutors_sample.dart';
+import 'package:lettutor_flutter/models/schedule_model/booking_info_model.dart';
 import 'package:lettutor_flutter/models/tutor/feedback.dart';
 import 'package:lettutor_flutter/models/tutor/tutor.dart';
 import 'package:lettutor_flutter/provider/user_provider.dart';
@@ -15,8 +16,8 @@ import 'package:uuid/uuid.dart';
 Uuid uuid = const Uuid();
 
 class FeedbackPage extends StatefulWidget {
-  const FeedbackPage({Key? key, required this.tutor}) : super(key: key);
-  final Tutor tutor;
+  const FeedbackPage({Key? key, required this.bookingInfo}) : super(key: key);
+  final BookingInfo bookingInfo;
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();

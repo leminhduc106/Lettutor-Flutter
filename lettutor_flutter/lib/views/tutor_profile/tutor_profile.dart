@@ -16,8 +16,8 @@ import 'package:lettutor_flutter/views/tutor_profile/components/tutor_infor.dart
 import 'package:lettutor_flutter/widgets/video_player/video_player.dart';
 
 class TutorProfile extends StatelessWidget {
-  const TutorProfile({Key? key, required this.tutor}) : super(key: key);
-  final Tutor tutor;
+  const TutorProfile({Key? key, required this.tutorID}) : super(key: key);
+  final String tutorID;
 
   @override
   Widget build(BuildContext context) {
