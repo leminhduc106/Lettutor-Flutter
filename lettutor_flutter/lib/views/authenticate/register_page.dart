@@ -91,6 +91,14 @@ class _RegisterPageState extends State<RegisterPage> {
             _emailController.text,
             _passwordController.text,
             () {
+              showTopSnackBar(
+                context,
+                const CustomSnackBar.success(
+                    message:
+                        "Signup success! Please verify your email address."),
+                showOutAnimationDuration: const Duration(milliseconds: 1000),
+                displayDuration: const Duration(microseconds: 4000),
+              );
               Navigator.pushNamedAndRemoveUntil(
                   context, routes.loginPage, (Route<dynamic> route) => false);
             },
