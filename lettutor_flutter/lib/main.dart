@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/app.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => const MyApp(),
-      // ),
-      const MyApp(),
-    );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  runApp(
+    const MyApp(),
+  );
+}
