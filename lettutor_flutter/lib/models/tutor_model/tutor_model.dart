@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+
 import 'package:lettutor_flutter/models/user_model/user_model.dart';
 
 class Tutor {
@@ -51,29 +52,29 @@ class Tutor {
   });
 
   Tutor.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'] ?? "";
     userId = json['userId'] ?? "";
-    video = json['video'];
+    video = json['video'] ?? "";
     bio = json['bio'] ?? "";
     education = json['education'] ?? "";
     experience = json['experience'] ?? "";
     profession = json['profession'] ?? "";
-    accent = json['accent'];
-    targetStudent = json['targetStudent'];
+    accent = json['accent'] ?? "";
+    targetStudent = json['targetStudent'] ?? "";
     interests = json['interests'] ?? "";
     languages = json['languages'] ?? "";
     specialties = json['specialties'] ?? "";
-    resume = json['resume'];
-    isActivated = json['isActivated'];
-    isNative = json['isNative'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    isFavorite = json['isFavorite'];
+    resume = json['resume'] ?? "";
+    isActivated = json['isActivated'] ?? false;
+    isNative = json['isNative'] ?? false;
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
+    isFavorite = json['isFavorite'] ?? false;
     avgRating = json['avgRating'] != null ? json['avgRating'].toInt() : 0;
     price = json['price'] ?? 0;
     user = json["User"] != null ? User.fromJson(json['User']) : null;
     name = json['name'];
-    avatar = json['avatar'];
+    avatar = json['avatar'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
