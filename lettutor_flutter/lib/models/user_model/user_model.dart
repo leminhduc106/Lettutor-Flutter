@@ -55,18 +55,18 @@ class User {
   });
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    email = json['email'];
-    name = json['name'];
-    avatar = json['avatar'];
+    id = json['id'] ?? "";
+    email = json['email'] ?? "";
+    name = json['name'] ?? "";
+    avatar = json['avatar'] ?? "";
     country = json['country'];
-    phone = json['phone'];
+    phone = json['phone'] ?? "";
     language = json['language'];
     birthday = json['birthday'];
-    isActivated = json['isActivated'];
-    google = json['google'];
-    facebook = json['facebook'];
-    apple = json['apple'];
+    isActivated = json['isActivated'] ?? false;
+    google = json['google'] ?? "";
+    facebook = json['facebook'] ?? "";
+    apple = json['apple'] ?? "";
 
     roles = json['roles']?.cast<String>();
     if (json['walletInfo'] != null) {
@@ -80,8 +80,8 @@ class User {
       });
     }
 
-    requireNote = json['requireNote'];
-    level = json['level'];
+    requireNote = json['requireNote'] ?? "";
+    level = json['level'] ?? "";
 
     if (json['learnTopics'] != null) {
       learnTopics = [];
@@ -97,8 +97,8 @@ class User {
       });
     }
 
-    isPhoneActivated = json['isPhoneActivated'];
-    timezone = json['timezone'];
+    isPhoneActivated = json['isPhoneActivated'] ?? false;
+    timezone = json['timezone'] ?? 0;
 
     if (json['feedbacks'] != null) {
       feedbacks = [];
