@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     appProvider.load(allTopics, allTestPreparation);
     final result = await TutorService.getListTutorWithPagination(1, 9, token);
     final List<Tutor> listTutors = [];
+    print("Result: ${result[2].name}");
 
     for (int i = 0; i < result.length; i++) {
       final tutorDetail = await TutorService.getTutor(result[i].userId, token);
@@ -46,17 +47,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double safeWidth = min(size.width, 500);
-
     final navigationIndex = Provider.of<NavigationIndex>(context);
     final authProvider = Provider.of<AuthProvider>(context);
     final appProvider = Provider.of<AppProvider>(context);
     final lang = appProvider.language;
 
-    if (_isLoading && authProvider._tokens != null) {
+    if (_isLoading && authProvider.tokens != null) {
       fetchRecommendTutors(
-          authProvider._tokens?.access.token as String, appProvider);
+          authProvider.tokens?.access.token as String, appProvider);
     }
 
     return SafeArea(
