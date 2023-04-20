@@ -40,7 +40,7 @@ class _CardTutorState extends State<CardTutor> {
     final appProvider = Provider.of<AppProvider>(context);
     final language = appProvider.language;
 
-    final _specialties = listLearningTopics.entries
+    final specialties = listLearningTopics.entries
         .where((element) => _tutor.specialties.split(",").contains(element.key))
         .map((e) => e.value)
         .toList();
@@ -108,8 +108,8 @@ class _CardTutorState extends State<CardTutor> {
                         onTap: () async {
                           final res =
                               await UserService.addAndRemoveTutorFavorite(
-                                  _tutor.userId,
-                                  authProvider._tokens!.access.token);
+                                  _tutor.userId!,
+                                  authProvider.tokens!.access.token);
 
                           if (res) {
                             setState(() {
@@ -146,7 +146,7 @@ class _CardTutorState extends State<CardTutor> {
                   SizedBox(
                     height: 35,
                     child: ListView.builder(
-                      itemCount: _specialties.length,
+                      itemCount: specialties.length,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -158,7 +158,7 @@ class _CardTutorState extends State<CardTutor> {
                             color: const Color.fromARGB(255, 212, 212, 212),
                             borderRadius: BorderRadius.circular(32.0),
                           ),
-                          child: Text(_specialties[index],
+                          child: Text(specialties[index],
                               style: BaseTextStyle.body2(fontSize: 14)),
                         );
                       },

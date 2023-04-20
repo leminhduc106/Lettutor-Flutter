@@ -51,8 +51,8 @@ class _BannerHomePageState extends State<BannerHomePage> {
     final authProvider = Provider.of<AuthProvider>(context);
     final lang = Provider.of<AppProvider>(context).language;
 
-    if (isLoading && authProvider._tokens != null) {
-      fetchTotalLessonTime(authProvider._tokens?.access.token as String);
+    if (isLoading && authProvider.tokens != null) {
+      fetchTotalLessonTime(authProvider.tokens?.access.token as String);
     }
 
     return Container(
@@ -69,7 +69,7 @@ class _BannerHomePageState extends State<BannerHomePage> {
                       ? "${lang.totalLessonTime} ${covertTotalTime(totalLessonTime as Duration, lang)} "
                       : lang.wellcome,
                   style:
-                      BaseTextStyle.heading2(color: Colors.white, fontSize: 16),
+                      BaseTextStyle.heading2(color: Colors.white, fontSize: 18),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

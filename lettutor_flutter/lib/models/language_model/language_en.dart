@@ -67,7 +67,7 @@ class English extends Language {
   @override
   get seeAll => "See all";
   @override
-  get wellcome => "Wellcome to LetTutor";
+  get wellcome => "Welcome to LetTutor";
   @override
   get nextLesson => "Upcoming lesson";
   @override
