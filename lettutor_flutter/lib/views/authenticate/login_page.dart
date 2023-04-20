@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
   callback(User user, Tokens tokens, AuthProvider authProvider) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     authProvider.logIn(user, tokens);
-    await prefs.setString('refresh_token', authProvider._tokens!.refresh.token);
+    await prefs.setString('refresh_token', authProvider.tokens!.refresh.token);
     if (mounted) {
       setState(() {
         isAuthenticating = false;

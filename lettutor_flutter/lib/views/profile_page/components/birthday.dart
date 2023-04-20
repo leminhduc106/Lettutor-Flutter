@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
+import 'package:provider/provider.dart';
 
 class BirthdayEdition extends StatefulWidget {
   const BirthdayEdition({
@@ -9,8 +11,12 @@ class BirthdayEdition extends StatefulWidget {
     required this.birthday,
   }) : super(key: key);
 
-  final Function(DateTime) setBirthday;
-  final DateTime birthday;
+  final Function(
+      {DateTime? birthday,
+      String phone,
+      String country,
+      String level}) setBirthday;
+  final DateTime? birthday;
 
   @override
   State<BirthdayEdition> createState() => _BirthdayEditionState();
@@ -20,17 +26,19 @@ class _BirthdayEditionState extends State<BirthdayEdition> {
   void _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: widget.birthday,
+      initialDate: widget.birthday ?? DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2023),
     );
     if (picked != null && picked != widget.birthday) {
-      widget.setBirthday(picked);
+      widget.setBirthday(birthday: picked);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<AppProvider>(context).language;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 10, top: 10),
       child: Column(
@@ -40,7 +48,7 @@ class _BirthdayEditionState extends State<BirthdayEdition> {
           Container(
             margin: const EdgeInsets.only(left: 5),
             child: Text(
-              "Birthday",
+              lang.birthday,
               style: BaseTextStyle.heading1(fontSize: 17),
             ),
           ),
@@ -61,7 +69,7 @@ class _BirthdayEditionState extends State<BirthdayEdition> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    stringFormatDateTime(widget.birthday),
+                    stringFormatDateTime(widget.birthday ?? DateTime.now()),
                     style: TextStyle(fontSize: 17, color: Colors.grey[700]),
                   ),
                   SvgPicture.asset("assets/svg/ic_calendar.svg", width: 16),

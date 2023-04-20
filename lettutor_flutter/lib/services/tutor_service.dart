@@ -47,6 +47,8 @@ class TutorService {
       final jsonDecode = json.decode(response.body);
       return Tutor.fromJson(jsonDecode);
     } else {
+      print("Failed to get tutor");
+
       final jsonDecode = json.decode(response.body);
       print(jsonDecode);
       throw Exception(jsonDecode['message']);
