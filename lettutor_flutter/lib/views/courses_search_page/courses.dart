@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/global_state/auth_provider.dart';
+import 'package:lettutor_flutter/models/course_model/course_category.dart';
+import 'package:lettutor_flutter/services/course_service.dart';
 import 'package:lettutor_flutter/views/courses_search_page/book_tab.dart';
 import 'package:lettutor_flutter/views/courses_search_page/course_tab.dart';
+import 'package:provider/provider.dart';
 
 class CoursesSearchPage extends StatefulWidget {
   const CoursesSearchPage({Key? key}) : super(key: key);
@@ -10,10 +15,32 @@ class CoursesSearchPage extends StatefulWidget {
   _CoursesSearchPageState createState() => _CoursesSearchPageState();
 }
 
-class _CoursesSearchPageState extends State<CoursesSearchPage>
-    with TickerProviderStateMixin {
+class _CoursesSearchPageState extends State<CoursesSearchPage> {
+  List<CourseCategory> categories = [];
+
+  void fetchCategories(String token) async {
+    final response = await CourseService.getAllCourseCategories(token);
+    if (mounted) {
+      setState(() {
+        categories = response;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final appProvider = Provider.of<AppProvider>(context, listen: false);
+    final lang = appProvider.language;
+
+    if (appProvider.allCourseCategories.isEmpty) {
+      fetchCategories(authProvider.tokens!.access.token);
+    }
+
+    if (categories.isNotEmpty && appProvider.allCourseCategories.isEmpty) {
+      appProvider.allCourseCategories = categories;
+    }
+
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -36,7 +63,7 @@ class _CoursesSearchPageState extends State<CoursesSearchPage>
                         ),
                       ),
                       Text(
-                        "Courses",
+                        lang.course,
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                     ],
@@ -55,7 +82,7 @@ class _CoursesSearchPageState extends State<CoursesSearchPage>
                         ),
                       ),
                       Text(
-                        "Books",
+                        lang.ebook,
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                     ],
