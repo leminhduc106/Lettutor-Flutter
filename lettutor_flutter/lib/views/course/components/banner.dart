@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/models/course/course.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/models/course_model/course_model.dart';
+import 'package:provider/provider.dart';
 
 class BannerCourse extends StatelessWidget {
   const BannerCourse({Key? key, required this.course}) : super(key: key);
@@ -8,6 +11,8 @@ class BannerCourse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = Provider.of<AppProvider>(context).language;
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -15,9 +20,12 @@ class BannerCourse extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 50),
           width: double.infinity,
           height: 200,
-          child: Image.asset(
-            course.image,
-            fit: BoxFit.fitWidth,
+          child: CachedNetworkImage(
+            imageUrl: course.imageUrl,
+            fit: BoxFit.cover,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
         Positioned(
@@ -76,9 +84,9 @@ class BannerCourse extends StatelessWidget {
                           color: Colors.blue,
                         ),
                       ),
-                      const Text(
-                        "topics",
-                        style: TextStyle(
+                      Text(
+                        lang.topic,
+                        style: const TextStyle(
                           fontSize: 25,
                           color: Colors.blue,
                         ),
@@ -88,17 +96,17 @@ class BannerCourse extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Text(
-                      course.tutors.length.toString(),
-                      style: const TextStyle(
+                    const Text(
+                      "1",
+                      style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
                     ),
-                    const Text(
-                      "tutors",
-                      style: TextStyle(
+                    Text(
+                      lang.tutor,
+                      style: const TextStyle(
                         fontSize: 25,
                         color: Colors.black87,
                       ),
