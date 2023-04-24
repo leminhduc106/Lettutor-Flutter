@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
 import 'package:lettutor_flutter/global_state/auth_provider.dart';
+import 'package:lettutor_flutter/services/user_service.dart';
 import 'package:lettutor_flutter/views/setting_page/change_password/input_password.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -47,40 +48,54 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              InputPassword(controller: passwordController, title: lang.password),
-              InputPassword(controller: newPasswordController, title: lang.newPassword),
-              InputPassword(controller: confirmPasswordController, title: lang.confirmNewPassword),
+              InputPassword(
+                  controller: passwordController, title: lang.password),
+              InputPassword(
+                  controller: newPasswordController, title: lang.newPassword),
+              InputPassword(
+                  controller: confirmPasswordController,
+                  title: lang.confirmNewPassword),
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: const Color(0xff007CFF)),
+                  style: ElevatedButton.styleFrom(
+                      primary: const Color(0xff007CFF)),
                   onPressed: () async {
-                    if (passwordController.text.length < 6 || newPasswordController.text.length < 6 || confirmPasswordController.text.length < 6) {
+                    if (passwordController.text.length < 6 ||
+                        newPasswordController.text.length < 6 ||
+                        confirmPasswordController.text.length < 6) {
                       showTopSnackBar(
                         context,
                         CustomSnackBar.error(message: lang.passwordAtLeast),
-                        showOutAnimationDuration: const Duration(milliseconds: 1000),
+                        showOutAnimationDuration:
+                            const Duration(milliseconds: 1000),
                         displayDuration: const Duration(microseconds: 4000),
                       );
-                    } else if (newPasswordController.text != confirmPasswordController.text) {
+                    } else if (newPasswordController.text !=
+                        confirmPasswordController.text) {
                       showTopSnackBar(
                         context,
                         CustomSnackBar.error(message: lang.errPasswordMismatch),
-                        showOutAnimationDuration: const Duration(milliseconds: 1000),
+                        showOutAnimationDuration:
+                            const Duration(milliseconds: 1000),
                         displayDuration: const Duration(microseconds: 4000),
                       );
                     } else {
                       try {
-                        final res =
-                            await UserService.changePassword(authProvider.tokens!.access.token, passwordController.text, newPasswordController.text);
+                        final res = await UserService.changePassword(
+                            authProvider.tokens!.access.token,
+                            passwordController.text,
+                            newPasswordController.text);
                         if (res) {
+                          // ignore: use_build_context_synchronously
                           showTopSnackBar(
                             context,
                             CustomSnackBar.success(
                               message: lang.changePasswordSuccess,
                               backgroundColor: Colors.green,
                             ),
-                            showOutAnimationDuration: const Duration(milliseconds: 1000),
+                            showOutAnimationDuration:
+                                const Duration(milliseconds: 1000),
                             displayDuration: const Duration(microseconds: 4000),
                           );
                           Navigator.pop(context);
@@ -89,14 +104,16 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
                         showTopSnackBar(
                           context,
                           CustomSnackBar.error(message: e.toString()),
-                          showOutAnimationDuration: const Duration(milliseconds: 1000),
+                          showOutAnimationDuration:
+                              const Duration(milliseconds: 1000),
                           displayDuration: const Duration(microseconds: 4000),
                         );
                       }
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
@@ -108,7 +125,8 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
                             width: 20,
                           ),
                         ),
-                        Text(lang.changePassword, style: const TextStyle(fontSize: 17)),
+                        Text(lang.changePassword,
+                            style: const TextStyle(fontSize: 17)),
                       ],
                     ),
                   ),
