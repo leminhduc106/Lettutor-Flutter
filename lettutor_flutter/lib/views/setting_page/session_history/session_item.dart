@@ -1,28 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:lettutor_flutter/models/user/session.dart';
-import 'package:lettutor_flutter/provider/user_provider.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/models/schedule_model/booking_info_model.dart';
+
 import 'package:lettutor_flutter/routes/routes.dart' as routes;
 import 'package:lettutor_flutter/utils/base_style.dart';
-import 'package:lettutor_flutter/widgets/avatar_circle/avatar_circle.dart';
 import 'package:provider/provider.dart';
 
 class SessionItem extends StatelessWidget {
   const SessionItem({Key? key, required this.session}) : super(key: key);
 
-  final Session session;
+  final BookingInfo session;
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
-
-    bool checkFeebacked() {
-      if (session.tutor.feedbacks
-          .where((element) => element.userId == user.id)
-          .isNotEmpty) return true;
-      return false;
-    }
+    final lang = Provider.of<AppProvider>(context).language;
 
     return Card(
       elevation: 6,
@@ -35,17 +29,37 @@ class SessionItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: AvatarCircle(
-                        width: 55, height: 55, source: session.tutor.image)),
+                Container(
+                  margin: const EdgeInsets.only(right: 25),
+                  height: 70,
+                  width: 70,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1000),
+                        child: CachedNetworkImage(
+                          imageUrl: session.scheduleDetailInfo!.scheduleInfo!
+                              .tutorInfo!.avatar as String,
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      )),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Text(
-                        session.tutor.fullName,
+                        session.scheduleDetailInfo!.scheduleInfo!.tutorInfo!
+                            .name as String,
                         style: BaseTextStyle.heading2(fontSize: 16),
                       ),
                     ),
@@ -61,7 +75,9 @@ class SessionItem extends StatelessWidget {
                                 width: 15),
                           ),
                           Text(
-                            DateFormat.yMEd().add_jm().format(session.start),
+                            DateFormat.yMEd().add_jm().format(
+                                DateTime.fromMillisecondsSinceEpoch(session
+                                    .scheduleDetailInfo!.startPeriodTimestamp)),
                             style: const TextStyle(fontSize: 13),
                           ),
                         ],
@@ -78,11 +94,7 @@ class SessionItem extends StatelessWidget {
                                 width: 20),
                           ),
                           Text(
-                            Duration(seconds: session.duration)
-                                .toString()
-                                .split('.')
-                                .first
-                                .padLeft(8, "0"),
+                            "${DateFormat.Hm().format(DateTime.fromMillisecondsSinceEpoch(session.scheduleDetailInfo!.startPeriodTimestamp))} - ${DateFormat.Hm().format(DateTime.fromMillisecondsSinceEpoch(session.scheduleDetailInfo!.endPeriodTimestamp))}",
                             style: const TextStyle(fontSize: 13),
                           ),
                         ],
@@ -95,22 +107,16 @@ class SessionItem extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.only(right: 10),
                             width: 20,
-                            child: SvgPicture.asset("assets/svg/ic_star2.svg",
-                                width: 20),
+                            child: SvgPicture.asset("assets/svg/ic_score.svg",
+                                width: 15),
                           ),
-                          checkFeebacked() == false
-                              ? const Text(
-                                  "Not feedback yet",
-                                  style: TextStyle(fontSize: 13),
-                                )
-                              : Text(
-                                  session.tutor.feedbacks
-                                      .where((element) =>
-                                          element.userId == user.id)
-                                      .first
-                                      .rating
-                                      .toString(),
-                                )
+                          Text(
+                            lang.mark +
+                                (session.scoreByTutor != null
+                                    ? session.scoreByTutor.toString()
+                                    : lang.tutorNotMark),
+                            style: const TextStyle(fontSize: 13),
+                          ),
                         ],
                       ),
                     )
@@ -127,7 +133,7 @@ class SessionItem extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, routes.feedbackPage,
-                          arguments: {"tutor": session.tutor});
+                          arguments: {"bookingInfo": session});
                     },
                     child: Container(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -139,10 +145,10 @@ class SessionItem extends StatelessWidget {
                               bottomLeft: Radius.circular(4))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
+                        children: <Widget>[
                           Text(
-                            "Give Feedback",
-                            style: TextStyle(color: Colors.white),
+                            lang.giveFeedback,
+                            style: const TextStyle(color: Colors.white),
                           )
                         ],
                       ),
@@ -152,8 +158,8 @@ class SessionItem extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, routes.tutorProfilePage,
-                          arguments: {"tutor": session.tutor});
+                      Navigator.pushNamed(context, routes.recordVideoPage,
+                          arguments: {"url": session.recordUrl ?? ""});
                     },
                     child: Container(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -165,10 +171,10 @@ class SessionItem extends StatelessWidget {
                               bottomRight: Radius.circular(4))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
+                        children: <Widget>[
                           Text(
-                            "See Tutor Detail",
-                            style: TextStyle(color: Color(0xff0070F3)),
+                            lang.watchRecord,
+                            style: const TextStyle(color: Color(0xff0070F3)),
                           )
                         ],
                       ),
