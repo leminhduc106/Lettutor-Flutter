@@ -1,16 +1,24 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lettutor_flutter/models/user/countries.dart';
-import 'package:lettutor_flutter/provider/user_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:lettutor_flutter/constants/list_contries.dart';
+import 'package:lettutor_flutter/constants/list_level.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/global_state/auth_provider.dart';
+import 'package:lettutor_flutter/models/user_model/learning_topic_model.dart';
+import 'package:lettutor_flutter/models/user_model/test_preparation_model.dart';
+import 'package:lettutor_flutter/models/user_model/tokens_model.dart';
+import 'package:lettutor_flutter/services/user_service.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
-import 'package:lettutor_flutter/utils/utils.dart';
 import 'package:lettutor_flutter/views/profile_page/components/birthday.dart';
 import 'package:lettutor_flutter/views/profile_page/components/dropdown_menu.dart';
 import 'package:lettutor_flutter/views/profile_page/components/phone.dart';
+import 'package:lettutor_flutter/views/profile_page/components/want_to_learn.dart';
 import 'package:lettutor_flutter/widgets/avatar_circle/avatar_circle.dart';
 import 'package:lettutor_flutter/widgets/custom_button/custom_button.dart';
 import 'package:lettutor_flutter/widgets/custom_modal_sheet/custom_modal_sheet.dart';
@@ -26,59 +34,70 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late DateTime _birthday;
-  late String _phone;
-  late String _country;
-  late String _level;
-  late String _topicToLearn;
+  late DateTime? _birthday;
+  String? _phone;
+  String? _country;
+  String? _level;
+  List<LearnTopic> _topics = [];
+  List<TestPreparation> _tests = [];
   bool isInit = true;
 
   final ImagePicker _picker = ImagePicker();
-  String? _image;
+  final _nameController = TextEditingController();
 
-  void setBirthday(DateTime birthday) {
+  setForm(
+      {DateTime? birthday,
+      String phone = "",
+      String country = "",
+      String level = ""}) {
     setState(() {
-      _birthday = birthday;
+      _birthday = birthday ?? DateTime.now();
+      if (phone.isNotEmpty) {
+        _phone = phone;
+      }
+      if (country.isNotEmpty) {
+        _country = country;
+      }
+      if (level.isNotEmpty) {
+        _level = level;
+      }
     });
   }
 
-  void setPhone(String phone) {
+  editTopics(List<LearnTopic> topics) {
     setState(() {
-      _phone = phone;
+      _topics = topics;
     });
   }
 
-  void setCountry(String country) {
+  editTests(List<TestPreparation> tests) {
     setState(() {
-      _country = country;
-    });
-  }
-
-  void setLevel(String level) {
-    setState(() {
-      _level = level;
-    });
-  }
-
-  void setTopicToLearn(String topicToLearn) {
-    setState(() {
-      _topicToLearn = topicToLearn;
+      _tests = tests;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    final user = userProvider.user;
-    final uploadImage = userProvider.uploadImage;
+    final authProvider = Provider.of<AuthProvider>(context);
+    final lang = Provider.of<AppProvider>(context).language;
+    String? uploadImage = authProvider.userLoggedIn.avatar;
 
     setState(() {
       if (isInit) {
-        _birthday = user.birthDay;
-        _phone = user.phone;
-        _country = user.country;
-        _level = user.level;
-        _topicToLearn = user.topicToLearn;
+        _birthday = authProvider.userLoggedIn.birthday != null
+            ? DateFormat("yyyy-MM-dd")
+                .parse(authProvider.userLoggedIn.birthday as String)
+            : DateFormat("yyyy-MM-dd").parse("2001-06-10");
+        _phone = authProvider.userLoggedIn.phone;
+        _country = authProvider.userLoggedIn.country != null
+            ? (authProvider.userLoggedIn.country as String)
+            : "VN";
+        _level = authProvider.userLoggedIn.level != null
+            ? (authProvider.userLoggedIn.level as String)
+            : "BEGINNER";
+        _nameController.text = authProvider.userLoggedIn.name;
+        _topics = authProvider.userLoggedIn.learnTopics ?? [];
+        _tests = authProvider.userLoggedIn.testPreparations ?? [];
         isInit = false;
       }
     });
@@ -87,9 +106,37 @@ class _ProfilePageState extends State<ProfilePage> {
       try {
         final pickedFile = await _picker.pickImage(source: source);
         if (pickedFile == null) return;
-        final imagePermanent =
-            await ImageHelper.saveImagePermanently(pickedFile.path);
-        userProvider.uploadProfileImage(File(imagePermanent.path));
+        final bool res = await UserService.uploadAvatar(
+            pickedFile.path, authProvider.tokens!.access.token);
+        if (res) {
+          final newInfo =
+              await UserService.getUserInfo(authProvider.tokens!.access.token);
+          uploadImage = newInfo?.avatar;
+          if (newInfo != null) {
+            authProvider.setUser(newInfo);
+            // ignore: use_build_context_synchronously
+            showTopSnackBar(
+                context,
+                CustomSnackBar.success(
+                  message: lang.successUploadAvatar,
+                  backgroundColor: Colors.green,
+                ),
+                showOutAnimationDuration: const Duration(milliseconds: 1000),
+                displayDuration: const Duration(microseconds: 4000));
+          } else {
+            // ignore: use_build_context_synchronously
+            showTopSnackBar(
+                context, CustomSnackBar.error(message: lang.errGetNewProfile),
+                showOutAnimationDuration: const Duration(milliseconds: 1000),
+                displayDuration: const Duration(microseconds: 4000));
+          }
+        } else {
+          // ignore: use_build_context_synchronously
+          showTopSnackBar(
+              context, CustomSnackBar.error(message: lang.errUploadAvatar),
+              showOutAnimationDuration: const Duration(milliseconds: 1000),
+              displayDuration: const Duration(microseconds: 4000));
+        }
       } on PlatformException catch (e) {
         debugPrint('Failed to pick image: ${e.message}');
       }
@@ -104,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.grey[800]),
           title: Text(
-            "Profile",
+            lang.profile,
             style: BaseTextStyle.heading2(
                 fontSize: 20, color: BaseColor.secondaryBlue),
           ),
@@ -120,22 +167,28 @@ class _ProfilePageState extends State<ProfilePage> {
                       margin: const EdgeInsets.only(bottom: 10),
                       height: 100,
                       width: 100,
-                      child: CircleAvatar(
-                        child: uploadImage != null
-                            ? ClipRRect(
+                      child: uploadImage != null
+                          ? CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: ClipRRect(
                                 borderRadius: BorderRadius.circular(1000),
-                                child: Image.file(
-                                  uploadImage,
+                                child: CachedNetworkImage(
+                                  imageUrl: authProvider.userLoggedIn.avatar,
+                                  fit: BoxFit.cover,
                                   width: 200,
                                   height: 200,
-                                  fit: BoxFit.cover,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
-                              )
-                            : const AvatarCircle(
-                                width: 200,
-                                height: 200,
-                                source: "assets/images/profile_2.jpeg"),
-                      ),
+                              ))
+                          : const AvatarCircle(
+                              width: 200,
+                              height: 200,
+                              source: "assets/images/profile_2.jpeg"),
                     ),
                     Positioned(
                       bottom: 10,
@@ -166,65 +219,162 @@ class _ProfilePageState extends State<ProfilePage> {
                     )
                   ],
                 ),
+                Text(authProvider.userLoggedIn.email,
+                    style: BaseTextStyle.body1(
+                      fontSize: 15,
+                      color: Colors.grey[700],
+                    )),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Text(user.fullName,
-                      style: BaseTextStyle.heading2(fontSize: 18)),
+                  margin: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 7, left: 5),
+                        child: Text(lang.fullName,
+                            style: BaseTextStyle.body1(fontSize: 18)),
+                      ),
+                      TextField(
+                        style: TextStyle(fontSize: 17, color: Colors.grey[900]),
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              const EdgeInsets.only(left: 15, right: 15),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black26, width: 0.3),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black26, width: 0.3),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black26, width: 0.3),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          hintText: lang.fullName,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                Text(user.email,
-                    style:
-                        BaseTextStyle.body2(fontSize: 14, color: Colors.grey)),
-                BirthdayEdition(setBirthday: setBirthday, birthday: _birthday),
-                PhoneEdition(changePhone: setPhone, phone: _phone),
+                BirthdayEdition(setBirthday: setForm, birthday: _birthday),
+                PhoneEdition(
+                    changePhone: setForm,
+                    phone: _phone ?? "",
+                    isPhoneActivated:
+                        authProvider.userLoggedIn.isPhoneActivated ?? false),
                 DropdownEdit(
-                  title: "Country",
-                  selectedItem: _country,
-                  items: AllCountries.countries,
-                  onChange: setCountry,
+                  title: lang.country,
+                  selectedItem: _country != null ? _country as String : "VN",
+                  items: countryList,
+                  onChange: setForm,
+                  fieldName: "Country",
                 ),
                 DropdownEdit(
-                  title: "My Level",
-                  selectedItem: _level,
-                  items: const ["Beginner", "Immediate", "Advanced"],
-                  onChange: setLevel,
+                  title: lang.level,
+                  selectedItem: _level != null ? _level as String : "BEGINNER",
+                  items: listLevel,
+                  onChange: setForm,
+                  fieldName: "Level",
                 ),
-                DropdownEdit(
-                  title: "Want to learn",
-                  selectedItem: _topicToLearn,
-                  items: const ["TOEIC", "IELTS", "TOEFL"],
-                  onChange: setTopicToLearn,
+                Container(
+                  margin: const EdgeInsets.only(bottom: 2, left: 5),
+                  child: Row(
+                    children: [
+                      Text(
+                        lang.wantToLearn,
+                        style: const TextStyle(fontSize: 17),
+                      ),
+                    ],
+                  ),
                 ),
+                WantToLearn(
+                    userTopics: _topics,
+                    editTopics: editTopics,
+                    userTestPreparations: _tests,
+                    editTestPreparations: editTests),
                 Container(
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                     child: CustomButton.common(
-                        content: "Save",
-                        onTap: () {
-                          if (_phone.isEmpty) {
+                        content: lang.save,
+                        onTap: () async {
+                          if (_phone != null && _phone?.isEmpty as bool) {
                             showTopSnackBar(
                               context,
-                              const CustomSnackBar.error(
-                                  message: "Phone number is invalid."),
+                              CustomSnackBar.error(
+                                  message: lang.errPhoneNumber),
+                              showOutAnimationDuration:
+                                  const Duration(milliseconds: 700),
+                              displayDuration:
+                                  const Duration(milliseconds: 200),
+                            );
+                          } else if (_nameController.text.isEmpty) {
+                            showTopSnackBar(
+                              context,
+                              CustomSnackBar.error(message: lang.errEnterName),
+                              showOutAnimationDuration:
+                                  const Duration(milliseconds: 700),
+                              displayDuration:
+                                  const Duration(milliseconds: 200),
+                            );
+                          } else if (_birthday != null &&
+                              _birthday!.millisecondsSinceEpoch >
+                                  DateTime.now().millisecondsSinceEpoch) {
+                            showTopSnackBar(
+                              context,
+                              CustomSnackBar.error(message: lang.errBirthday),
                               showOutAnimationDuration:
                                   const Duration(milliseconds: 700),
                               displayDuration:
                                   const Duration(milliseconds: 200),
                             );
                           } else {
-                            userProvider.updateBirthday(_birthday);
-                            userProvider.updatePhone(_phone);
-                            userProvider.updateCountry(_country);
-                            userProvider.updateLevel(_level);
-                            userProvider.updateTopicToLearn(_topicToLearn);
-                            Navigator.pop(context);
-                            showTopSnackBar(
-                              context,
-                              const CustomSnackBar.success(
-                                  message: "Save information successful"),
-                              showOutAnimationDuration:
-                                  const Duration(milliseconds: 700),
-                              displayDuration:
-                                  const Duration(milliseconds: 200),
+                            String bdArg =
+                                "${_birthday!.year.toString()}-${_birthday!.month.toString().padLeft(2, "0")}-${_birthday!.day..toString().padLeft(2, "0")}";
+
+                            final res = await UserService.updateInfo(
+                              authProvider.tokens!.access.token,
+                              _nameController.text,
+                              _country as String,
+                              bdArg,
+                              _level as String,
+                              _topics.map((e) => e.id.toString()).toList(),
+                              _tests.map((e) => e.id.toString()).toList(),
                             );
+                            if (res != null) {
+                              authProvider.logIn(
+                                  res, authProvider.tokens as Tokens);
+                              // ignore: use_build_context_synchronously
+                              showTopSnackBar(
+                                context,
+                                CustomSnackBar.success(
+                                  message: lang.successUpdateProfile,
+                                  backgroundColor: Colors.green,
+                                ),
+                                showOutAnimationDuration:
+                                    const Duration(milliseconds: 700),
+                                displayDuration:
+                                    const Duration(milliseconds: 200),
+                              );
+                              Navigator.pop(context);
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              showTopSnackBar(
+                                context,
+                                CustomSnackBar.error(
+                                    message: lang.errUpdateProfile),
+                                showOutAnimationDuration:
+                                    const Duration(milliseconds: 700),
+                                displayDuration:
+                                    const Duration(milliseconds: 200),
+                              );
+                            }
                           }
                         })),
               ],
