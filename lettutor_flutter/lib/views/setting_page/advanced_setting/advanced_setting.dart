@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lettutor_flutter/provider/setting.dart';
+import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/models/language_model/language_en.dart';
+import 'package:lettutor_flutter/models/language_model/language_vi.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_modal_sheet/custom_modal_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdvancedSettingPage extends StatelessWidget {
-  const AdvancedSettingPage({Key? key}) : super(key: key);
+  AdvancedSettingPage({Key? key}) : super(key: key);
+  final en = English();
+  final vi = VietNamese();
 
   @override
   Widget build(BuildContext context) {
-    final setting = Provider.of<SettingProvider>(context);
-    List<String> lans = ["Tiếng Việt", "English"];
-    String? current_language;
+    final appProvider = Provider.of<AppProvider>(context);
+    final lang = appProvider.language;
 
-    void selectLanguage(int index) {
-      Navigator.pop(context);
-      if (index == 0) {
-        current_language = lans[0];
-        setting.changeLanguage(lans[0]);
+    void selectLanguage(int value) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (value == 0) {
+        appProvider.language = vi;
+        await prefs.setString("lang", "VI");
       } else {
-        current_language = lans[1];
-        setting.changeLanguage(lans[1]);
+        appProvider.language = en;
+        await prefs.setString("lang", "EN");
       }
     }
 
@@ -33,7 +37,7 @@ class AdvancedSettingPage extends StatelessWidget {
           elevation: 2,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.grey[800]),
-          title: Text("Advanced Settings",
+          title: Text(lang.advancedSetting,
               style: BaseTextStyle.heading2(
                   fontSize: 20, color: BaseColor.secondaryBlue)),
         ),
@@ -57,11 +61,11 @@ class AdvancedSettingPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Language",
+                  lang.languages,
                   style: BaseTextStyle.heading3(fontSize: 17),
                 ),
                 Text(
-                  setting.language,
+                  appProvider.language.name == "EN" ? "English" : "Tiếng Việt",
                   style: BaseTextStyle.body2(fontSize: 14, color: Colors.grey),
                 )
               ],
@@ -69,7 +73,8 @@ class AdvancedSettingPage extends StatelessWidget {
           ),
           onTap: () => CustomModalSheet.buildLanguageBottom(
               context: context,
-              currentLang: current_language,
+              currentLang:
+                  appProvider.language.name == "EN" ? "English" : "Tiếng Việt",
               index: (index) => selectLanguage(index)),
         ),
       ),
