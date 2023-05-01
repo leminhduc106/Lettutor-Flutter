@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
@@ -43,17 +44,14 @@ class _RecordVideoState extends State<RecordVideo> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leadingWidth: 20,
-          centerTitle: false,
+          centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.grey[800]),
-          title: Container(
-            margin: const EdgeInsets.only(left: 10),
-            child: Text(
-              lang.watchRecord,
-              style: TextStyle(color: Colors.grey[800]),
-            ),
+          title: Text(
+            lang.watchRecord,
+            style: BaseTextStyle.heading2(
+                fontSize: 20, color: BaseColor.secondaryBlue),
           ),
         ),
         body: Center(
