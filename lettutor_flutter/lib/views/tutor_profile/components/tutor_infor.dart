@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/models/tutor/tutor.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
-import 'package:lettutor_flutter/widgets/avatar_circle/avatar_circle.dart';
-import 'package:lettutor_flutter/widgets/rate_stars/rate_stars.dart';
 
 class TutorInfor extends StatefulWidget {
-  const TutorInfor({Key? key, required this.tutor}) : super(key: key);
+  const TutorInfor({Key? key, required this.tutor_bio}) : super(key: key);
 
-  final Tutor tutor;
+  final String tutor_bio;
 
   @override
   State<TutorInfor> createState() => _TutorInforState();
@@ -19,7 +16,7 @@ class _TutorInforState extends State<TutorInfor> {
 
   @override
   Widget build(BuildContext context) {
-    String text = widget.tutor.intro;
+    String text = widget.tutor_bio;
     if (!_isExpanded && text.length > maxLength) {
       text = "${text.substring(0, maxLength)}...";
     }
