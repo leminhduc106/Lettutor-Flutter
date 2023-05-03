@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
+import 'package:lettutor_flutter/models/language_model/language.dart';
 import 'package:lettutor_flutter/services/auth_service.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/widgets/custom_appbar/custom_appbar.dart';
@@ -19,27 +20,28 @@ class ForgetPasswordPage extends StatefulWidget {
 }
 
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
-  final TextEditingController _emailController = TextEditingController();
+  final _emailController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double heightSafeArea = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).padding.top -
-        MediaQuery.of(context).padding.bottom;
-    double safeWidth = min(size.width, 500);
-    final appProvider = Provider.of<AppProvider>(context);
-    final language = appProvider.language;
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
 
-    void _resetPassword() async {
-      if (!RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(_emailController.text)) {
-        showTopSnackBar(
-            context, CustomSnackBar.error(message: language.invalidEmail),
-            showOutAnimationDuration: const Duration(milliseconds: 1000),
-            displayDuration: const Duration(microseconds: 4000));
-      } else if (_emailController.text.isNotEmpty) {
+    super.dispose();
+  }
+
+  void _resetPassword(Language language) async {
+    if (_emailController.text.isEmpty) {
+      showTopSnackBar(
+          context, CustomSnackBar.error(message: language.emptyField),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 4000));
+      return;
+    }
+    if (RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_emailController.text)) {
+      try {
         final bool res =
             await AuthService.forgotPassword(_emailController.text);
         if (res) {
@@ -54,15 +56,32 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               displayDuration: const Duration(microseconds: 4000));
           // ignore: use_build_context_synchronously
           Navigator.pop(context);
-        } else {
-          // ignore: use_build_context_synchronously
-          showTopSnackBar(context,
-              CustomSnackBar.error(message: language.forgotPasswordFail),
-              showOutAnimationDuration: const Duration(milliseconds: 1000),
-              displayDuration: const Duration(microseconds: 4000));
         }
+      } catch (e) {
+        showTopSnackBar(
+            context,
+            CustomSnackBar.error(
+                message: "Reset password failed! ${e.toString()}"),
+            showOutAnimationDuration: const Duration(milliseconds: 1000),
+            displayDuration: const Duration(microseconds: 4000));
       }
+    } else {
+      showTopSnackBar(
+          context, CustomSnackBar.error(message: language.invalidEmail),
+          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          displayDuration: const Duration(microseconds: 4000));
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double heightSafeArea = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
+    double safeWidth = min(size.width, 500);
+    final appProvider = Provider.of<AppProvider>(context);
+    final language = appProvider.language;
 
     return Scaffold(
       appBar: AppBar(
@@ -137,7 +156,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                         children: [
                                           TextSpan(text: language.pleaseEnter),
                                           TextSpan(
-                                              text: "Email ",
+                                              text: " Email ",
                                               style: BaseTextStyle.subtitle2(
                                                   color: Colors.black)),
                                           TextSpan(
@@ -148,6 +167,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                   CustomTextField.common(
                                     onChanged: (value) {},
                                     labelText: "Email",
+                                    textEditingController: _emailController,
                                     hintText: language.enterEmail,
                                     textInputType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.done,
@@ -155,7 +175,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                   SizedBox(height: size.height * 0.04),
                                   CustomButton.common(
                                       onTap: () {
-                                        _resetPassword();
+                                        _resetPassword(language);
                                       },
                                       content: language.confirmReset),
                                   SizedBox(height: size.height * 0.02),
