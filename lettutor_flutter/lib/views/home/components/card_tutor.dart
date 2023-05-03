@@ -186,7 +186,7 @@ class _CardTutorState extends State<CardTutor> {
                       Navigator.pushNamed(
                         context,
                         routes.tutorProfilePage,
-                        arguments: {"tutorID": _tutor.userId},
+                        arguments: {"tutorID": _tutor.user.id},
                       );
                     },
                     content: language.bookingText,

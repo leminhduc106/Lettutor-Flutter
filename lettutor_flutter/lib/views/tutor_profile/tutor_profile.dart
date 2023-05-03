@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lettutor_flutter/constants/learning_topics.dart';
 import 'package:lettutor_flutter/constants/list_languages.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
@@ -53,12 +52,12 @@ class _TutorProfileState extends State<TutorProfile> {
   }
 
   renderFeedbacks() {
-    if (tutor!.user!.feedbacks != null) {
+    if (tutor!.user.feedbacks != null) {
       return ListView.builder(
-        itemCount: tutor!.user!.feedbacks?.length,
+        itemCount: tutor!.user.feedbacks?.length,
         itemBuilder: (context, index) {
           return RateAndComment(
-              feedback: tutor!.user!.feedbacks?[index] as FeedBack);
+              feedback: tutor!.user.feedbacks?[index] as FeedBack);
         },
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -110,7 +109,7 @@ class _TutorProfileState extends State<TutorProfile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MainInfo(tutor: tutor as Tutor),
-              BookingFeature(tutorId: tutor!.userId),
+              BookingFeature(tutorId: tutor!.user.id),
               Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: TutorInfor(tutor_bio: tutor!.bio)),

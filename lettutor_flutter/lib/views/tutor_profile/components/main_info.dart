@@ -89,7 +89,7 @@ class _MainInfoState extends State<MainInfo> {
               onTap: () async {
                 if (widget.tutor.isFavorite != null && !isFavorite) {
                   final res = await UserService.addAndRemoveTutorFavorite(
-                      widget.tutor.userId!, authProvider.tokens!.access.token);
+                      widget.tutor.user.id, authProvider.tokens!.access.token);
                   if (res) {
                     setState(() {
                       isFavorite = true;
@@ -97,7 +97,7 @@ class _MainInfoState extends State<MainInfo> {
                   }
                 } else {
                   final res = await UserService.addAndRemoveTutorFavorite(
-                      widget.tutor.userId!, authProvider.tokens!.access.token);
+                      widget.tutor.user.id, authProvider.tokens!.access.token);
                   if (res) {
                     setState(() {
                       isFavorite = false;

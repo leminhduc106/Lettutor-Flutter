@@ -3,8 +3,6 @@
 import 'package:lettutor_flutter/models/user_model/user_model.dart';
 
 class Tutor {
-  late String id;
-  late String userId;
   String? video;
   late String bio;
   late String education;
@@ -33,8 +31,6 @@ class Tutor {
   String? avatar;
 
   Tutor({
-    required this.id,
-    required this.userId,
     this.video,
     required this.bio,
     required this.education,
@@ -57,8 +53,6 @@ class Tutor {
   });
 
   Tutor.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? "";
-    userId = json['userId'] ?? "";
     video = json['video'] ?? "";
     bio = json['bio'] ?? "";
     education = json['education'] ?? "";
@@ -84,8 +78,6 @@ class Tutor {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['id'] = id;
-    data['userId'] = userId;
     data['video'] = video;
     data['bio'] = bio;
     data['education'] = education;

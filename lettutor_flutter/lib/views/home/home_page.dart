@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
       });
     }
-    print(_tutors[1].user!.id);
   }
 
   @override
