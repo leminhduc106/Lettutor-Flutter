@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     appProvider.load(allTopics, allTestPreparation);
     final result = await TutorService.getListTutorWithPagination(1, 9, token);
     final List<Tutor> listTutors = [];
-    print("Result: ${result[2].name}");
 
     for (int i = 0; i < result.length; i++) {
       final tutorDetail = await TutorService.getTutor(result[i].userId, token);
@@ -43,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
       });
     }
+    print(_tutors[1].user!.id);
   }
 
   @override

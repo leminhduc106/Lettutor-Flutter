@@ -55,6 +55,8 @@ class UserService {
   }
 
   static addAndRemoveTutorFavorite(String tutorId, String token) async {
+    print("Token: $token");
+    print("TutorId: $tutorId");
     final response = await http.post(
       Uri.parse('$url/user/manageFavoriteTutor'),
       headers: {
@@ -64,6 +66,7 @@ class UserService {
         'tutorId': tutorId,
       },
     );
+    print(response.statusCode);
 
     if (response.statusCode == 200) {
       return true;

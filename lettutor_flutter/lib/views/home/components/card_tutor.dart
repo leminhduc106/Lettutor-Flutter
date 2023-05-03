@@ -54,7 +54,7 @@ class _CardTutorState extends State<CardTutor> {
           Navigator.pushNamed(
             context,
             routes.tutorProfilePage,
-            arguments: {"tutorID": _tutor.userId},
+            arguments: {"tutorID": _tutor.user.id},
           );
         },
         child: Container(
@@ -108,14 +108,16 @@ class _CardTutorState extends State<CardTutor> {
                         onTap: () async {
                           final res =
                               await UserService.addAndRemoveTutorFavorite(
-                                  _tutor.userId!,
+                                  _tutor.user.id,
                                   authProvider.tokens!.access.token);
 
                           if (res) {
+                            print("change favorite success");
                             setState(() {
                               _tutor.isFavorite = !(_tutor.isFavorite ?? false);
                             });
                           }
+                          print("change favorite fail");
                         },
                         child: _tutor.isFavorite != null &&
                                 !(_tutor.isFavorite as bool)

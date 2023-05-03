@@ -10,20 +10,25 @@ class Tutor {
   late String education;
   late String experience;
   late String profession;
-  User? user;
   String? accent;
+
   String? targetStudent;
   late String interests;
   late String languages;
   late String specialties;
+  String? rating;
+  bool? isNative;
+
+  late User user;
+
   String? resume;
   late bool isActivated;
-  bool? isNative;
   late String createdAt;
   late String updatedAt;
   bool? isFavorite;
   int? avgRating;
-  late int price;
+
+  late int totalFeedback;
   String? name;
   String? avatar;
 
@@ -48,7 +53,7 @@ class Tutor {
     required this.updatedAt,
     this.isFavorite,
     this.avgRating,
-    required this.price,
+    required this.totalFeedback,
   });
 
   Tutor.fromJson(Map<String, dynamic> json) {
@@ -71,8 +76,8 @@ class Tutor {
     updatedAt = json['updatedAt'] ?? "";
     isFavorite = json['isFavorite'] ?? false;
     avgRating = json['avgRating'] != null ? json['avgRating'].toInt() : 0;
-    price = json['price'] ?? 0;
-    user = json["User"] != null ? User.fromJson(json['User']) : null;
+    totalFeedback = json['totalFeedback'] ?? 0;
+    user = (json["User"] != null ? User.fromJson(json['User']) : null)!;
     name = json['name'];
     avatar = json['avatar'] ?? "";
   }
@@ -98,8 +103,8 @@ class Tutor {
     data['updatedAt'] = updatedAt;
     data['isFavorite'] = isFavorite;
     data['avgRating'] = avgRating;
-    data['price'] = price;
-    data['user'] = user?.toJson();
+    data['totalFeedback'] = totalFeedback;
+    data['user'] = user.toJson();
     data['name'] = name;
     data['avatar'] = avatar;
     return data;
