@@ -82,23 +82,23 @@ class TutorInfo {
   });
 
   TutorInfo.fromJson(Map<String, dynamic> json) {
-    level = json['level'];
+    level = json['level'] ?? "HIGHER_BEGINNER";
     email = json['email'];
-    google = json['google'];
-    facebook = json['facebook'];
-    apple = json['apple'];
-    avatar = json['avatar'];
+    google = json['google'] ?? "";
+    facebook = json['facebook'] ?? "";
+    apple = json['apple'] ?? "";
+    avatar = json['avatar'] ?? "";
     name = json['name'];
-    country = json['country'];
-    phone = json['phone'];
-    language = json['language'];
-    birthday = json['birthday'];
+    country = json['country'] ?? "";
+    phone = json['phone'] ?? "";
+    language = json['language'] ?? "";
+    birthday = json['birthday'] ?? "";
     requestPassword = json['requestPassword'];
     isActivated = json['isActivated'];
-    isPhoneActivated = json['isPhoneActivated'];
+    isPhoneActivated = json['isPhoneActivated'] ?? false;
     requireNote = json['requireNote'];
     timezone = json['timezone'];
-    phoneAuth = json['phoneAuth'];
+    phoneAuth = json['phoneAuth'] ?? "";
     isPhoneAuthActivated = json['isPhoneAuthActivated'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -121,10 +121,10 @@ class TutorInfo {
     interests = json['interests'];
     languages = json['languages'];
     specialties = json['specialties'];
-    resume = json['resume'];
-    isNative = json['isNative'];
-    price = json['price'];
-    isOnline = json['isOnline'];
+    resume = json['resume'] ?? "";
+    isNative = json['isNative'] ?? false;
+    price = json['price'] ?? 0;
+    isOnline = json['isOnline'] ?? false;
   }
 
   Map<String, dynamic> toJson() {

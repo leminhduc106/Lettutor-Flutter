@@ -104,6 +104,7 @@ abstract class Language {
   get logout;
 
   // Change password page
+  get currentPassword;
   get newPassword;
   get confirmNewPassword;
   get passwordAtLeast;

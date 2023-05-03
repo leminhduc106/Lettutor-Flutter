@@ -194,6 +194,8 @@ class English extends Language {
 
   // Change password page
   @override
+  get currentPassword => "New password";
+  @override
   get newPassword => "New password";
   @override
   get confirmNewPassword => "Enter new password again";

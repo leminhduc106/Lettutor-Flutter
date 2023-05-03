@@ -1,5 +1,5 @@
 import 'package:lettutor_flutter/models/schedule_model/schedule_detail_model.dart';
-import 'package:lettutor_flutter/models/tutor_model/tutor_model.dart';
+import 'package:lettutor_flutter/models/tutor_model/tutor_info_model.dart';
 
 class Schedule {
   late String id;
@@ -11,7 +11,7 @@ class Schedule {
   late String createdAt;
   bool isBooked = false;
   List<ScheduleDetails> scheduleDetails = [];
-  Tutor? tutorInfo;
+  TutorInfo? tutorInfo;
 
   Schedule({
     required this.id,
@@ -42,8 +42,9 @@ class Schedule {
       });
     }
 
-    tutorInfo =
-        json['tutorInfo'] != null ? Tutor.fromJson(json['tutorInfo']) : null;
+    tutorInfo = json['tutorInfo'] != null
+        ? TutorInfo.fromJson(json['tutorInfo'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

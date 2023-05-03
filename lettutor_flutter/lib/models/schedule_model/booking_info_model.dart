@@ -47,12 +47,12 @@ class BookingInfo {
     scheduleDetailId = json['scheduleDetailId'];
     tutorMeetingLink = json['tutorMeetingLink'];
     studentMeetingLink = json['studentMeetingLink'];
-    studentRequest = json['studentRequest'];
-    tutorReview = json['tutorReview'];
-    scoreByTutor = json['scoreByTutor'];
+    studentRequest = json['studentRequest'] ?? "";
+    tutorReview = json['tutorReview'] ?? "";
+    scoreByTutor = json['scoreByTutor'] ?? 0;
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    recordUrl = json['recordUrl'];
+    recordUrl = json['recordUrl'] ?? "";
     isDeleted = json['isDeleted'];
     showRecordUrl = json["showRecordUrl"] ?? true;
     studentMaterials = json["studentMaterials"] != null

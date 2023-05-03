@@ -194,6 +194,8 @@ class VietNamese extends Language {
 
   // Change password page
   @override
+  get currentPassword => "Mật khẩu hiện tại";
+  @override
   get newPassword => "Mật khẩu mới";
   @override
   get confirmNewPassword => "Nhập lại mật khẩu mới";

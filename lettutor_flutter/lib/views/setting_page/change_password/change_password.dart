@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
 import 'package:lettutor_flutter/global_state/auth_provider.dart';
 import 'package:lettutor_flutter/services/user_service.dart';
+import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/views/setting_page/change_password/input_password.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -29,27 +30,22 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
         child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leadingWidth: 20,
-        centerTitle: false,
-        elevation: 0,
+        centerTitle: true,
+        elevation: 2,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.grey[800]),
-        title: Container(
-          margin: const EdgeInsets.only(left: 10),
-          child: Text(
-            lang.changePassword,
-            style: TextStyle(color: Colors.grey[800]),
-          ),
-        ),
+        title: Text(lang.changePassword,
+            style: BaseTextStyle.heading2(
+                fontSize: 20, color: BaseColor.secondaryBlue)),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               InputPassword(
-                  controller: passwordController, title: lang.password),
+                  controller: passwordController, title: lang.currentPassword),
               InputPassword(
                   controller: newPasswordController, title: lang.newPassword),
               InputPassword(
