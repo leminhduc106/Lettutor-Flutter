@@ -33,6 +33,7 @@ class _PhoneEditionState extends State<PhoneEdition> {
 
   @override
   Widget build(BuildContext context) {
+    print("is phone activated: ${widget.isPhoneActivated}");
     final lang = Provider.of<AppProvider>(context).language;
 
     return Container(

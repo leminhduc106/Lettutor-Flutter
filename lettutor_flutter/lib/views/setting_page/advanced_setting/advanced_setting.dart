@@ -8,9 +8,16 @@ import 'package:lettutor_flutter/widgets/custom_modal_sheet/custom_modal_sheet.d
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AdvancedSettingPage extends StatelessWidget {
+class AdvancedSettingPage extends StatefulWidget {
   AdvancedSettingPage({Key? key}) : super(key: key);
+
+  @override
+  State<AdvancedSettingPage> createState() => _AdvancedSettingPageState();
+}
+
+class _AdvancedSettingPageState extends State<AdvancedSettingPage> {
   final en = English();
+
   final vi = VietNamese();
 
   @override
