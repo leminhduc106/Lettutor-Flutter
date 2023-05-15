@@ -6,8 +6,10 @@ import 'package:lettutor_flutter/global_state/auth_provider.dart';
 import 'package:lettutor_flutter/models/schedule_model/schedule_detail_model.dart';
 import 'package:lettutor_flutter/models/schedule_model/schedule_model.dart';
 import 'package:lettutor_flutter/services/schedule_service.dart';
+import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/utils/distinct_date.dart';
 import 'package:lettutor_flutter/utils/generate_ratio.dart';
+import 'package:lettutor_flutter/views/tutor_profile/components/custom_suffix_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -24,6 +26,7 @@ class BookingFeature extends StatefulWidget {
 class _BookingFeatureState extends State<BookingFeature> {
   List<Schedule> _schedules = [];
   bool isLoading = true;
+  final TextEditingController _controller = TextEditingController();
 
   void fetchSchedules(String token) async {
     List<Schedule> res =
@@ -368,13 +371,104 @@ class _BookingFeatureState extends State<BookingFeature> {
                       style: TextStyle(color: Colors.blue, fontSize: 14))
                 ],
               ),
-              Column(
-                children: [
-                  SvgPicture.asset("assets/svg/ic_report.svg",
-                      color: Colors.blue),
-                  const Text("Report",
-                      style: TextStyle(color: Colors.blue, fontSize: 14))
-                ],
+              GestureDetector(
+                onTap: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    contentPadding: const EdgeInsets.all(8),
+                    alignment: Alignment.center,
+                    title: Text(
+                      'Report',
+                      overflow: TextOverflow.clip,
+                      softWrap: true,
+                      style: BaseTextStyle.heading2(),
+                    ),
+                    content: Container(
+                      decoration: const BoxDecoration(
+                          border: Border.symmetric(
+                              horizontal: BorderSide(width: 0.5))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.info_rounded,
+                                color: BaseColor.blue,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  "Help us understand what's happening",
+                                  overflow: TextOverflow.clip,
+                                  softWrap: true,
+                                  style: BaseTextStyle.body2(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: _controller,
+                            keyboardType: TextInputType.multiline,
+                            autofocus: true,
+                            maxLines: 4,
+                            textCapitalization: TextCapitalization.sentences,
+                            decoration: const InputDecoration(
+                              label: Text("Report content"),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              suffixIcon: CustomSurffixIcon(
+                                  icon: Icons.report_gmailerrorred_rounded),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      OutlinedButton(
+                        onPressed: () {
+                          _controller.clear();
+                          Navigator.pop(context, 'Cancel');
+                        },
+                        style: outlineButtonStyle,
+                        child: Text(lang.cancel),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _controller.clear();
+                          Navigator.pop(context, 'Submit');
+                          showTopSnackBar(
+                            context,
+                            CustomSnackBar.success(
+                              message: lang.reportSucessMsg,
+                              backgroundColor: Colors.green,
+                            ),
+                            showOutAnimationDuration:
+                                const Duration(milliseconds: 700),
+                            displayDuration: const Duration(milliseconds: 200),
+                          );
+                        },
+                        style: defaultButtonStyle,
+                        child: Text(lang.submitBtn,
+                            style: BaseTextStyle.body2(
+                                fontSize: 14, color: Colors.white)),
+                      ),
+                    ],
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/svg/ic_report.svg",
+                        color: Colors.blue),
+                    const Text("Report",
+                        style: TextStyle(color: Colors.blue, fontSize: 14))
+                  ],
+                ),
               ),
             ],
           ),

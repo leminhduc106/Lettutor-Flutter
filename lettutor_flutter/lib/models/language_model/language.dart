@@ -94,6 +94,8 @@ abstract class Language {
   get selectSchedule;
   get selectScheduleDetail;
   get bookingSuccess;
+  get submitBtn;
+  get reportSucessMsg;
 
   // Setting page
   get setting;

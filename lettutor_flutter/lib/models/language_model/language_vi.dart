@@ -177,6 +177,10 @@ class VietNamese extends Language {
   get selectScheduleDetail => "Chọn giờ học";
   @override
   get bookingSuccess => "Đặt lịch học thành công";
+  @override
+  get submitBtn => "Xác nhận";
+  @override
+  get reportSucessMsg => "Báo cáo đã được gửi";
 
   // Setting page
   @override

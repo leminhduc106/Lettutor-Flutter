@@ -170,3 +170,39 @@ class BaseBoxShadow {
       spreadRadius: -1,
       offset: const Offset(0, 0));
 }
+
+final ButtonStyle outlineButtonStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(Colors.white),
+    overlayColor: MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.hovered)) {
+          return Colors.blue.withOpacity(0.04);
+        }
+        if (states.contains(MaterialState.focused) ||
+            states.contains(MaterialState.pressed)) {
+          return Colors.blue.withOpacity(0.12);
+        }
+        return null; // Defer to the widget's default.
+      },
+    ),
+    foregroundColor: MaterialStateProperty.all(Colors.blue),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(18),
+    )));
+final defaultButtonStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(BaseColor.secondaryBlue),
+    overlayColor: MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.hovered)) {
+          return BaseColor.secondaryBlue.withOpacity(0.04);
+        }
+        if (states.contains(MaterialState.focused) ||
+            states.contains(MaterialState.pressed)) {
+          return BaseColor.secondaryBlue.withOpacity(0.12);
+        }
+        return null; // Defer to the widget's default.
+      },
+    ),
+    foregroundColor: MaterialStateProperty.all(BaseColor.secondaryBlue),
+    shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));

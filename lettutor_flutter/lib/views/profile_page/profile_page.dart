@@ -278,7 +278,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 DropdownEdit(
                   title: lang.level,
-                  selectedItem: _level != null ? _level as String : "BEGINNER",
+                  selectedItem: _level != "" ? _level as String : "BEGINNER",
                   items: listLevel,
                   onChange: setForm,
                   fieldName: "Level",

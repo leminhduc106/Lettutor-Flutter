@@ -177,6 +177,10 @@ class English extends Language {
   get selectScheduleDetail => "Select available schedule time";
   @override
   get bookingSuccess => "Booking success";
+  @override
+  get submitBtn => "Submit";
+  @override
+  get reportSucessMsg => "Report has been sent";
 
   // Setting page
   @override
