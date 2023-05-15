@@ -231,4 +231,14 @@ class VietNamese extends Language {
   get errFeedbackLength => "Nội dung đánh giá phải có ít nhất 3 từ";
   @override
   get successFeedback => "Đánh giá thành công";
+
+  //Chat Assistant page
+  @override
+  get chatAssistant => "Trợ lý ảo GPT";
+  @override
+  get holdToSpeak => "Giữ để nói";
+  @override
+  get chatOrTalk => "Bắt đầu nhập hoặc nói...";
+  @override
+  get errorEmptyMessage => "Vui lòng nhập tin nhắn";
 }

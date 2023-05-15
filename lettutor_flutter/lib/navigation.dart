@@ -113,7 +113,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         floatingActionButton: Container(
           margin: const EdgeInsets.only(bottom: 16.0),
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                routes.chatGPTAssistant,
+              );
+            },
             backgroundColor: Colors.grey,
             child: Badge(
               alignment: AlignmentDirectional.bottomEnd,

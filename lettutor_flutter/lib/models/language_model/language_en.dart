@@ -231,4 +231,14 @@ class English extends Language {
   get errFeedbackLength => "Feedback must be at least 3 words";
   @override
   get successFeedback => "Feedback success";
+
+  //Chat Assistant page
+  @override
+  get chatAssistant => "GPT Chatbot Assistant";
+  @override
+  get holdToSpeak => "Hold to speak";
+  @override
+  get chatOrTalk => "Start typing or talking...";
+  @override
+  get errorEmptyMessage => "Please enter a message";
 }

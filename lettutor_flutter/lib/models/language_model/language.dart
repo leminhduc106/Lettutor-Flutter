@@ -125,4 +125,10 @@ abstract class Language {
   get errEnterFeedback;
   get errFeedbackLength;
   get successFeedback;
+
+  //Chat Assistant page
+  get chatAssistant;
+  get holdToSpeak;
+  get chatOrTalk;
+  get errorEmptyMessage;
 }

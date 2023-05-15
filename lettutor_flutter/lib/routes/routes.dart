@@ -5,6 +5,7 @@ import 'package:lettutor_flutter/navigation.dart';
 import 'package:lettutor_flutter/views/authenticate/forgot_password_page.dart';
 import 'package:lettutor_flutter/views/authenticate/login_page.dart';
 import 'package:lettutor_flutter/views/authenticate/register_page.dart';
+import 'package:lettutor_flutter/views/chat_gpt_assistant/chat_view.dart';
 import 'package:lettutor_flutter/views/course/course.dart';
 import 'package:lettutor_flutter/views/course/topic_course/topic_course.dart';
 import 'package:lettutor_flutter/views/feedback_page.dart/feedback_page.dart';
@@ -29,6 +30,7 @@ const String feedbackPage = 'feedback';
 const String changePasswordPage = 'changePassword';
 const String recordVideoPage = 'recordVideo';
 const String favoriteTutorPage = 'favoriteTutor';
+const String chatGPTAssistant = 'chatGPTAssistant';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -55,6 +57,9 @@ Route<dynamic> controller(RouteSettings settings) {
     case favoriteTutorPage:
       return MaterialPageRoute(
           builder: (context) => const ChangePasswordPage());
+    case chatGPTAssistant:
+      return MaterialPageRoute(
+          builder: (context) => const ChatGPTAssistantPage());
 
     case recordVideoPage:
       return MaterialPageRoute(builder: (context) {
