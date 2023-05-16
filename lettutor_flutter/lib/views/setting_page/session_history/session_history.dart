@@ -148,7 +148,7 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                       ]),
                   width: safeWidth,
                   child: Text(
-                    "The following is a list of lessons you have attended. You can review the details of the lessons you have attended.",
+                    lang.sessionHistoryExplain,
                     style: BaseTextStyle.body1(fontSize: 14),
                   ),
                 ),

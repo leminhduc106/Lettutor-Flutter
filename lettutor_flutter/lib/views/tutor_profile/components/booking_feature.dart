@@ -7,7 +7,6 @@ import 'package:lettutor_flutter/models/schedule_model/schedule_detail_model.dar
 import 'package:lettutor_flutter/models/schedule_model/schedule_model.dart';
 import 'package:lettutor_flutter/services/schedule_service.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
-import 'package:lettutor_flutter/utils/distinct_date.dart';
 import 'package:lettutor_flutter/utils/generate_ratio.dart';
 import 'package:lettutor_flutter/views/tutor_profile/components/custom_suffix_icon.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +29,7 @@ class _BookingFeatureState extends State<BookingFeature> {
 
   void fetchSchedules(String token) async {
     List<Schedule> res =
-        await ScheduleService.getTutorSchedule(widget.tutorId!, token);
+        await ScheduleService.getTutorSchedule(widget.tutorId, token);
     res = res.where((schedule) {
       final now = DateTime.now();
       final start =

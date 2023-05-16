@@ -86,6 +86,8 @@ class ScheduleService {
       body: json.encode(args),
     );
 
+    print("Delete response status code: ${response.statusCode}");
+
     if (response.statusCode == 200) {
       return true;
     } else {

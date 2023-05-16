@@ -81,6 +81,9 @@ abstract class Language {
   get dontHaveUpcoming;
   get removeUpcomingSuccess;
   get removeUpcomingFail;
+  get cancelUpcomingWarning;
+  get upcommingExplain;
+  get bookedSchedule;
 
   // Tutor search page and Tutor detail page
   get tutors;
@@ -118,6 +121,7 @@ abstract class Language {
   get mark;
   get tutorNotMark;
   get emptySession;
+  get sessionHistoryExplain;
 
   // Feedback page
   get feedback;

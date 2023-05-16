@@ -146,6 +146,8 @@ class VietNamese extends Language {
   @override
   get cancel => "Huỷ bỏ";
   @override
+  get bookedSchedule => "Lịch đã đặt";
+  @override
   get goToMeeting => "Vào phòng học";
   @override
   get dontHaveUpcoming => "Hiện tại bạn không có buổi học nào sắp diễn ra";
@@ -153,6 +155,11 @@ class VietNamese extends Language {
   get removeUpcomingSuccess => "Huỷ buổi học thành công";
   @override
   get removeUpcomingFail => "Bạn chỉ có thể huỷ buổi học trước giờ học 2 tiếng";
+  @override
+  get cancelUpcomingWarning => "Bạn có chắc chắn muốn huỷ buổi học này?";
+  @override
+  get upcommingExplain =>
+      "Dưới đây là danh sách các lớp học bạn đã đặt. Bạn có thể theo dõi thời gian bắt đầu lớp học, tham gia lớp học bằng một cú nhấp chuột hoặc hủy lớp học trước đó 2 giờ.";
 
   // Tutor search page and Tutor detail page
   @override
@@ -219,6 +226,9 @@ class VietNamese extends Language {
   get tutorNotMark => "Gia sư chưa chấm điểm";
   @override
   get emptySession => "Bạn chưa tham gia buổi học nào !";
+  @override
+  get sessionHistoryExplain =>
+      "Dưới đây là danh sách các lớp học bạn đã tham gia. Bạn có thể xem lại buổi học, đánh giá gia sư và báo cáo vấn đề nếu có.";
 
   // Feedback page
   @override

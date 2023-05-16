@@ -145,6 +145,8 @@ class English extends Language {
   @override
   get cancel => "Cancel";
   @override
+  get bookedSchedule => "Booked Schedule";
+  @override
   get goToMeeting => "Go to meeting";
   @override
   get dontHaveUpcoming => "You don't have any upcomming...";
@@ -153,6 +155,11 @@ class English extends Language {
   @override
   get removeUpcomingFail =>
       "You just can remove upcoming 2 hours before schedule";
+  @override
+  get cancelUpcomingWarning => "Do you really want to cancel upcomming lesson?";
+  @override
+  get upcommingExplain =>
+      "Here is a list of the sessions you have booked. You can track when the meeting start, join the meeting with one click or cancel the meeting before 2 hours.";
 
   // Tutor search page and Tutor detail page
   @override
@@ -219,6 +226,9 @@ class English extends Language {
   get tutorNotMark => "Tutor hasn't mark yet";
   @override
   get emptySession => "You don't have any session history";
+  @override
+  get sessionHistoryExplain =>
+      "The following is a list of lessons you have attended. You can review the details of the lessons, give feedback to the tutor or watch the recorded video of the lessons.";
 
   // Feedback page
   @override

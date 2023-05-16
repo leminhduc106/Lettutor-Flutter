@@ -113,7 +113,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              "Booked Schedule",
+              lang.bookedSchedule,
               style: BaseTextStyle.heading4(),
             ),
           ),
@@ -138,7 +138,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                 ]),
             width: safeWidth,
             child: Text(
-              "Here is a list of the sessions you have booked. You can track when the meeting starts, join the meeting with one click or can cancel the meeting before 2 hours.",
+              lang.upcommingExplain,
               style: BaseTextStyle.body1(fontSize: 14),
             ),
           ),
