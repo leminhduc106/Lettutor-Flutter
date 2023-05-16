@@ -72,7 +72,9 @@ class _MainInfoState extends State<MainInfo> {
                       style: const TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     Text(
-                      countryList[widget.tutor.user.country] as String,
+                      countryList[widget.tutor.user.country] == null
+                          ? ""
+                          : countryList[widget.tutor.user.country] as String,
                       style: BaseTextStyle.body1(fontSize: 15),
                     )
                   ],

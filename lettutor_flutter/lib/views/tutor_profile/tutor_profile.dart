@@ -37,7 +37,6 @@ class _TutorProfileState extends State<TutorProfile> {
 
   void fetchTutor(String token) async {
     final tutor = await TutorService.getTutor(widget.tutorID, token);
-    print("Tutor in tutor_profile: $tutor");
     setState(() {
       this.tutor = tutor;
       isLoading = false;
