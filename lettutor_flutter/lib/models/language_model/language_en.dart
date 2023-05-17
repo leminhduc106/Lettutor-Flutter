@@ -202,6 +202,8 @@ class English extends Language {
   get ourWebsite => "Our website";
   @override
   get logout => "Logout";
+  @override
+  get becomeTutor => "Become tutor";
 
   // Change password page
   @override

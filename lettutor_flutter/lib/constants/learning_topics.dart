@@ -11,3 +11,18 @@ const listLearningTopics = {
   "english-for-kids": "English for Kids",
   "conversational-english": "Conversational English",
 };
+
+final kSpecialities = [
+  "All",
+  "English for Kids",
+  "Business English",
+  "Conversational English",
+  "STARTERS",
+  "MOVERS",
+  "FLYERS",
+  "KET",
+  "PET",
+  "IELTS",
+  "TOEFL",
+  "TOEIC",
+];

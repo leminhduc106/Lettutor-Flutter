@@ -11,6 +11,8 @@ import 'package:lettutor_flutter/views/course/topic_course/topic_course.dart';
 import 'package:lettutor_flutter/views/feedback_page.dart/feedback_page.dart';
 import 'package:lettutor_flutter/views/profile_page/profile_page.dart';
 import 'package:lettutor_flutter/views/setting_page/advanced_setting/advanced_setting.dart';
+import 'package:lettutor_flutter/views/setting_page/become_teacher/become_teacher_page.dart';
+import 'package:lettutor_flutter/views/setting_page/become_teacher/components/become_teacher_body.dart';
 import 'package:lettutor_flutter/views/setting_page/change_password/change_password.dart';
 import 'package:lettutor_flutter/views/setting_page/session_history/record_video.dart';
 import 'package:lettutor_flutter/views/setting_page/session_history/session_history.dart';
@@ -31,6 +33,7 @@ const String changePasswordPage = 'changePassword';
 const String recordVideoPage = 'recordVideo';
 const String favoriteTutorPage = 'favoriteTutor';
 const String chatGPTAssistant = 'chatGPTAssistant';
+const String becomeTeacher = 'becomeTeacher';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -60,6 +63,8 @@ Route<dynamic> controller(RouteSettings settings) {
     case chatGPTAssistant:
       return MaterialPageRoute(
           builder: (context) => const ChatGPTAssistantPage());
+    case becomeTeacher:
+      return MaterialPageRoute(builder: (context) => const BecomeTeacherPage());
 
     case recordVideoPage:
       return MaterialPageRoute(builder: (context) {

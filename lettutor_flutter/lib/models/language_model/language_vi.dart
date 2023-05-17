@@ -202,6 +202,8 @@ class VietNamese extends Language {
   get ourWebsite => "Trang web của chúng tôi";
   @override
   get logout => "Đăng xuất";
+  @override
+  get becomeTutor => "Trở thành gia sư";
 
   // Change password page
   @override

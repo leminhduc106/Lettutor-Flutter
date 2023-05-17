@@ -56,6 +56,8 @@ dependencies:
   flutter_bloc: ^8.1.2
   avatar_glow: ^2.0.2
   speech_to_text: ^6.1.1
+  country_picker: ^2.0.8
+  multi_select_flutter: ^4.0.0
 
 
 dev_dependencies:

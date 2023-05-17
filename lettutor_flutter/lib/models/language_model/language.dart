@@ -107,6 +107,7 @@ abstract class Language {
   get advancedSetting;
   get ourWebsite;
   get logout;
+  get becomeTutor;
 
   // Change password page
   get currentPassword;
