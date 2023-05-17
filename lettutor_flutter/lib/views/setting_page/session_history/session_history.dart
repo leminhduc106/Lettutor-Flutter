@@ -179,31 +179,36 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                               ),
                             ),
                           )
-                        : Column(
-                            children: [
-                              Expanded(
-                                child: ListView.separated(
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(height: 14),
-                                  itemCount: _bookedList.length,
-                                  controller: _scrollController,
-                                  itemBuilder: (context, index) => Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    child: SessionItem(
-                                      session: _bookedList[index],
+                        : SizedBox(
+                            height: size.height,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(height: 14),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: _bookedList.length,
+                                    controller: _scrollController,
+                                    itemBuilder: (context, index) => Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: SessionItem(
+                                        session: _bookedList[index],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              if (isLoadMore)
-                                const SizedBox(
-                                  height: 50,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
+                                if (isLoadMore)
+                                  const SizedBox(
+                                    height: 50,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   ),
-                                ),
-                            ],
+                              ],
+                            ),
                           ),
               ],
             ),

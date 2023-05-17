@@ -58,8 +58,8 @@ class SessionItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Text(
-                        session.scheduleDetailInfo!.scheduleInfo!.tutorInfo!
-                            .name as String,
+                        session
+                            .scheduleDetailInfo!.scheduleInfo!.tutorInfo!.name,
                         style: BaseTextStyle.heading2(fontSize: 16),
                       ),
                     ),
