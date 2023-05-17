@@ -12,6 +12,7 @@ import 'package:lettutor_flutter/views/tutor_profile/components/custom_suffix_ic
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:lettutor_flutter/routes/routes.dart' as routes;
 
 class BookingFeature extends StatefulWidget {
   const BookingFeature({Key? key, required this.tutorId}) : super(key: key);
@@ -362,13 +363,21 @@ class _BookingFeatureState extends State<BookingFeature> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
-                children: [
-                  SvgPicture.asset("assets/svg/ic_message2.svg",
-                      color: Colors.blue),
-                  const Text("Message",
-                      style: TextStyle(color: Colors.blue, fontSize: 14))
-                ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    routes.chatGPTAssistant,
+                  );
+                },
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/svg/ic_message2.svg",
+                        color: Colors.blue),
+                    const Text("Message",
+                        style: TextStyle(color: Colors.blue, fontSize: 14))
+                  ],
+                ),
               ),
               GestureDetector(
                 onTap: () => showDialog<String>(
