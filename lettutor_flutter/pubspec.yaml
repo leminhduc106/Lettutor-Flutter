@@ -58,6 +58,8 @@ dependencies:
   speech_to_text: ^6.1.1
   country_picker: ^2.0.8
   multi_select_flutter: ^4.0.0
+  firebase_auth: ^4.6.1
+  font_awesome_flutter: ^10.4.0
 
 
 dev_dependencies:
