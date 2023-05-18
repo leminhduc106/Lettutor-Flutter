@@ -156,7 +156,7 @@ class UpComingCard extends StatelessWidget {
                                     final res =
                                         await ScheduleService.cancelClass(
                                             authProvider.tokens!.access.token,
-                                            upcomming.scheduleDetailId);
+                                            upcomming.id);
                                     if (res) {
                                       refetch(
                                           authProvider.tokens!.access.token);

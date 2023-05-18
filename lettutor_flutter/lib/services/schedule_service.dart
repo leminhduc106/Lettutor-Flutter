@@ -86,9 +86,7 @@ class ScheduleService {
       body: json.encode(args),
     );
 
-    print("Delete response status code: ${response.statusCode}");
-
-    if (response.statusCode == 200) {
+    if (response.statusCode != 400) {
       return true;
     } else {
       throw Exception('Failed to cancel class');
