@@ -54,9 +54,13 @@ class _RecordVideoState extends State<RecordVideo> {
                 fontSize: 20, color: BaseColor.secondaryBlue),
           ),
         ),
-        body: Center(
-          child: Chewie(
-            controller: _chewieController,
+        body: Container(
+          color: Colors.black,
+          height: 200,
+          child: Center(
+            child: Chewie(
+              controller: _chewieController,
+            ),
           ),
         ),
       ),
