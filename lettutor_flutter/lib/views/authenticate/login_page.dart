@@ -62,10 +62,9 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
 
-    Future.delayed(const Duration(milliseconds: 500), () {
-      Navigator.pop(context);
-      Navigator.of(context).pushNamed(routes.homePage);
-    });
+    // Future.delayed(const Duration(milliseconds: 500), () {
+    Navigator.of(context).popAndPushNamed(routes.homePage);
+    // });
   }
 
   void authenticate(AuthProvider authProvider) async {

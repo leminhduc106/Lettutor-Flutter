@@ -146,6 +146,8 @@ class VietNamese extends Language {
   @override
   get cancel => "Huỷ bỏ";
   @override
+  get bookedSchedule => "Lịch đã đặt";
+  @override
   get goToMeeting => "Vào phòng học";
   @override
   get dontHaveUpcoming => "Hiện tại bạn không có buổi học nào sắp diễn ra";
@@ -153,6 +155,11 @@ class VietNamese extends Language {
   get removeUpcomingSuccess => "Huỷ buổi học thành công";
   @override
   get removeUpcomingFail => "Bạn chỉ có thể huỷ buổi học trước giờ học 2 tiếng";
+  @override
+  get cancelUpcomingWarning => "Bạn có chắc chắn muốn huỷ buổi học này?";
+  @override
+  get upcommingExplain =>
+      "Dưới đây là danh sách các lớp học bạn đã đặt. Bạn có thể theo dõi thời gian bắt đầu lớp học, tham gia lớp học bằng một cú nhấp chuột hoặc hủy lớp học trước đó 2 giờ.";
 
   // Tutor search page and Tutor detail page
   @override
@@ -177,6 +184,10 @@ class VietNamese extends Language {
   get selectScheduleDetail => "Chọn giờ học";
   @override
   get bookingSuccess => "Đặt lịch học thành công";
+  @override
+  get submitBtn => "Xác nhận";
+  @override
+  get reportSucessMsg => "Báo cáo đã được gửi";
 
   // Setting page
   @override
@@ -191,6 +202,8 @@ class VietNamese extends Language {
   get ourWebsite => "Trang web của chúng tôi";
   @override
   get logout => "Đăng xuất";
+  @override
+  get becomeTutor => "Trở thành gia sư";
 
   // Change password page
   @override
@@ -215,6 +228,9 @@ class VietNamese extends Language {
   get tutorNotMark => "Gia sư chưa chấm điểm";
   @override
   get emptySession => "Bạn chưa tham gia buổi học nào !";
+  @override
+  get sessionHistoryExplain =>
+      "Dưới đây là danh sách các lớp học bạn đã tham gia. Bạn có thể xem lại buổi học, đánh giá gia sư và báo cáo vấn đề nếu có.";
 
   // Feedback page
   @override
@@ -227,4 +243,14 @@ class VietNamese extends Language {
   get errFeedbackLength => "Nội dung đánh giá phải có ít nhất 3 từ";
   @override
   get successFeedback => "Đánh giá thành công";
+
+  //Chat Assistant page
+  @override
+  get chatAssistant => "Trợ lý ảo GPT";
+  @override
+  get holdToSpeak => "Giữ để nói";
+  @override
+  get chatOrTalk => "Bắt đầu nhập hoặc nói...";
+  @override
+  get errorEmptyMessage => "Vui lòng nhập tin nhắn";
 }

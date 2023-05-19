@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "348954860613",
+    "project_id": "lettutor-flutter",
+    "storage_bucket": "lettutor-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348954860613:android:405595b3b820934c4cd72c",
+        "android_client_info": {
+          "package_name": "com.example.lettutor_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348954860613-7ssg923418b94uo40u76b8r8h3or86gt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpIcuoKHX-1bkOsxc0H792QB8bax_M2h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348954860613-7ssg923418b94uo40u76b8r8h3or86gt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

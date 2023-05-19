@@ -49,7 +49,7 @@ class _MainInfoState extends State<MainInfo> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1000),
                       child: Image.network(
-                        widget.tutor.user!.avatar,
+                        widget.tutor.user.avatar,
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
@@ -62,7 +62,7 @@ class _MainInfoState extends State<MainInfo> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      widget.tutor.user!.name,
+                      widget.tutor.user.name,
                       style: BaseTextStyle.heading2(fontSize: 16),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -72,7 +72,9 @@ class _MainInfoState extends State<MainInfo> {
                       style: const TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     Text(
-                      countryList[widget.tutor.user!.country] as String,
+                      countryList[widget.tutor.user.country] == null
+                          ? ""
+                          : countryList[widget.tutor.user.country] as String,
                       style: BaseTextStyle.body1(fontSize: 15),
                     )
                   ],

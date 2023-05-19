@@ -66,7 +66,6 @@ class UserService {
         'tutorId': tutorId,
       },
     );
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       return true;
@@ -100,14 +99,11 @@ class UserService {
         'Content-Type': 'application/json',
       },
     );
-
     if (response.statusCode == 200) {
       final jsonRes = json.decode(response.body);
       final listData = jsonRes["data"] as List;
-      print(listData);
       List<BookingInfo> arrLesson =
           listData.map((e) => BookingInfo.fromJson(e)).toList();
-      print("ArrLesson: ${arrLesson.length}");
 
       arrLesson.sort((a, b) => a.scheduleDetailInfo!.startPeriodTimestamp
           .compareTo(b.scheduleDetailInfo!.startPeriodTimestamp));

@@ -26,9 +26,9 @@ class _BirthdayEditionState extends State<BirthdayEdition> {
   void _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: widget.birthday ?? DateTime.now(),
+      initialDate: widget.birthday ?? DateTime(2001),
       firstDate: DateTime(1900),
-      lastDate: DateTime(2023),
+      lastDate: DateTime.now(),
     );
     if (picked != null && picked != widget.birthday) {
       widget.setBirthday(birthday: picked);

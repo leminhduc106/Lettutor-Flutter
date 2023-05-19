@@ -77,7 +77,7 @@ class UpComingCard extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: Text(
                           upcomming.scheduleDetailInfo!.scheduleInfo!.tutorInfo!
-                              .name as String,
+                              .name,
                           style: BaseTextStyle.heading2(fontSize: 16),
                         ),
                       ),
@@ -142,8 +142,7 @@ class UpComingCard extends StatelessWidget {
                             context: context,
                             builder: (BuildContext context) {
                               return CustomAcceptDialog(
-                                content:
-                                    "Do you really want to cancel upcomming lesson?",
+                                content: lang.cancelUpcomingWarning,
                                 context: context,
                                 acceptFuction: () async {
                                   final now = DateTime.now();
@@ -157,7 +156,7 @@ class UpComingCard extends StatelessWidget {
                                     final res =
                                         await ScheduleService.cancelClass(
                                             authProvider.tokens!.access.token,
-                                            upcomming.scheduleDetailId);
+                                            upcomming.id);
                                     if (res) {
                                       refetch(
                                           authProvider.tokens!.access.token);

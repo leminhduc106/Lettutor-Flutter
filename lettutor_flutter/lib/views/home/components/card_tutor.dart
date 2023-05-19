@@ -86,7 +86,7 @@ class _CardTutorState extends State<CardTutor> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1000),
                             child: CachedNetworkImage(
-                              imageUrl: _tutor.user!.avatar,
+                              imageUrl: _tutor.user.avatar,
                               fit: BoxFit.cover,
                               width: 70,
                               height: 70,
@@ -112,12 +112,10 @@ class _CardTutorState extends State<CardTutor> {
                                   authProvider.tokens!.access.token);
 
                           if (res) {
-                            print("change favorite success");
                             setState(() {
                               _tutor.isFavorite = !(_tutor.isFavorite ?? false);
                             });
                           }
-                          print("change favorite fail");
                         },
                         child: _tutor.isFavorite != null &&
                                 !(_tutor.isFavorite as bool)
@@ -140,7 +138,7 @@ class _CardTutorState extends State<CardTutor> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    _tutor.user!.name,
+                    _tutor.user.name,
                     style: BaseTextStyle.body3(fontSize: 18),
                   ),
                   RateStars(count: _tutor.avgRating ?? 5),

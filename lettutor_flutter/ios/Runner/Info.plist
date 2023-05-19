@@ -8,6 +8,8 @@
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app needs to access the microphone for speech recognition</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -44,6 +46,15 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+    	<dict>
+        	<key>CFBundleURLSchemes</key>
+    		<array>
+        		<string>com.googleusercontent.apps.348954860613-45o5navg9bofce63vbdqk5812r60j62n</string>
+    		</array>
+    	</dict>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

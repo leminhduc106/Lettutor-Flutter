@@ -81,6 +81,9 @@ abstract class Language {
   get dontHaveUpcoming;
   get removeUpcomingSuccess;
   get removeUpcomingFail;
+  get cancelUpcomingWarning;
+  get upcommingExplain;
+  get bookedSchedule;
 
   // Tutor search page and Tutor detail page
   get tutors;
@@ -94,6 +97,8 @@ abstract class Language {
   get selectSchedule;
   get selectScheduleDetail;
   get bookingSuccess;
+  get submitBtn;
+  get reportSucessMsg;
 
   // Setting page
   get setting;
@@ -102,6 +107,7 @@ abstract class Language {
   get advancedSetting;
   get ourWebsite;
   get logout;
+  get becomeTutor;
 
   // Change password page
   get currentPassword;
@@ -116,6 +122,7 @@ abstract class Language {
   get mark;
   get tutorNotMark;
   get emptySession;
+  get sessionHistoryExplain;
 
   // Feedback page
   get feedback;
@@ -123,4 +130,10 @@ abstract class Language {
   get errEnterFeedback;
   get errFeedbackLength;
   get successFeedback;
+
+  //Chat Assistant page
+  get chatAssistant;
+  get holdToSpeak;
+  get chatOrTalk;
+  get errorEmptyMessage;
 }

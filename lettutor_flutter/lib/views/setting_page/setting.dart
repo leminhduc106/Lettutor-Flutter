@@ -93,6 +93,11 @@ class _SettingPageState extends State<SettingPage> {
                   title: lang.advancedSetting,
                   routeName: routes.advancedSettingPage,
                 ),
+                SettingButton(
+                  icon: "assets/svg/ic_tutor.svg",
+                  title: lang.becomeTutor,
+                  routeName: routes.becomeTeacher,
+                ),
                 userAuth.roles != null &&
                         userAuth.roles!.contains("CHANGE_PASSWORD")
                     ? SettingButton(
@@ -202,7 +207,7 @@ class _SettingPageState extends State<SettingPage> {
                   ],
                 )),
             Container(
-                margin: const EdgeInsets.only(top: 40),
+                margin: const EdgeInsets.only(top: 40, bottom: 40),
                 child: CustomButton.common(
                   onTap: () async {
                     SharedPreferences prefs =

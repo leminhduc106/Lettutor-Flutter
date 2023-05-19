@@ -77,7 +77,7 @@ class _LoginWithState extends State<LoginWith> {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       GestureDetector(
           onTap: () {
-            handleSingInFacebook();
+            // handleSingInFacebook();
           },
           child: Container(
             alignment: Alignment.center,

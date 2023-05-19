@@ -63,9 +63,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     autofocus: true,
                     maxLines: 5,
                     style: const TextStyle(fontSize: 15),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[a-z\s_-]+')),
-                    ],
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                         border: InputBorder.none,

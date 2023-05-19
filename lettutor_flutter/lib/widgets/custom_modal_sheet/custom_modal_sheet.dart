@@ -31,6 +31,7 @@ class CustomModalSheet {
                       (currentLang == "Tiếng Việt")
                           ? Navigator.of(context).pop()
                           : index(0);
+                      Navigator.of(context).pop();
                     },
                     child: Container(
                         height: 72,
@@ -62,6 +63,7 @@ class CustomModalSheet {
                       (currentLang == "English")
                           ? Navigator.of(context).pop()
                           : index(1);
+                      Navigator.of(context).pop();
                     },
                     child: Container(
                         height: 72,

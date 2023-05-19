@@ -9,6 +9,7 @@ import 'package:lettutor_flutter/global_state/app_provider.dart';
 import 'package:lettutor_flutter/global_state/auth_provider.dart';
 import 'package:lettutor_flutter/models/tutor_model/tutor_model.dart';
 import 'package:lettutor_flutter/models/user_model/feedback_model.dart';
+import 'package:lettutor_flutter/models/user_model/user_model.dart';
 import 'package:lettutor_flutter/services/tutor_service.dart';
 import 'package:lettutor_flutter/utils/base_style.dart';
 import 'package:lettutor_flutter/views/tutor_profile/components/booking_feature.dart';
@@ -37,7 +38,6 @@ class _TutorProfileState extends State<TutorProfile> {
 
   void fetchTutor(String token) async {
     final tutor = await TutorService.getTutor(widget.tutorID, token);
-    print("Tutor in tutor_profile: $tutor");
     setState(() {
       this.tutor = tutor;
       isLoading = false;
@@ -63,7 +63,31 @@ class _TutorProfileState extends State<TutorProfile> {
         physics: const NeverScrollableScrollPhysics(),
       );
     } else {
-      return Container();
+      return ListView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return RateAndComment(
+              feedback: FeedBack(
+            id: Random().nextInt(1000).toString(),
+            firstId: Random().nextInt(1000).toString(),
+            secondId: Random().nextInt(1000).toString(),
+            rating: Random().nextInt(5),
+            createdAt: DateTime(2023, 5, 12).toString(),
+            updatedAt: DateTime(2023, 5, 12).toString(),
+            content: "Great tutor! Great lesson!",
+            firstInfo: FirstInfo(
+              id: Random().nextInt(1000).toString(),
+              avatar: '',
+              createdAt: '',
+              email: '',
+              name: 'Minh Duc',
+              updatedAt: '',
+            ),
+          ));
+        },
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+      );
     }
   }
 

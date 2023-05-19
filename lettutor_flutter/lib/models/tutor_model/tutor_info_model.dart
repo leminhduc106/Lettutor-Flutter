@@ -110,17 +110,17 @@ class TutorInfo {
       });
     }
     id = json['id'];
-    userId = json['userId'];
-    video = json['video'];
-    bio = json['bio'];
-    education = json['education'];
-    experience = json['experience'];
-    profession = json['profession'];
-    accent = json['accent'];
-    targetStudent = json['targetStudent'];
-    interests = json['interests'];
-    languages = json['languages'];
-    specialties = json['specialties'];
+    userId = json['userId'] ?? "";
+    video = json['video'] ?? "";
+    bio = json['bio'] ?? "";
+    education = json['education'] ?? "";
+    experience = json['experience'] ?? "";
+    profession = json['profession'] ?? "";
+    accent = json['accent'] ?? "";
+    targetStudent = json['targetStudent'] ?? "";
+    interests = json['interests'] ?? "";
+    languages = json['languages'] ?? "";
+    specialties = json['specialties'] ?? "";
     resume = json['resume'] ?? "";
     isNative = json['isNative'] ?? false;
     price = json['price'] ?? 0;
