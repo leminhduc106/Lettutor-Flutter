@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "348954860613-pv3mmg3bh99ips6m9tre0gubpkiggj5h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lettutor_flutter",
+            "certificate_hash": "61d39b3ed969790d266b44e583d27042f186fd6e"
+          }
+        },
+        {
           "client_id": "348954860613-7ssg923418b94uo40u76b8r8h3or86gt.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,49 @@
             {
               "client_id": "348954860613-7ssg923418b94uo40u76b8r8h3or86gt.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "348954860613-45o5navg9bofce63vbdqk5812r60j62n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hcmus.lettutorFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348954860613:android:ed3da6d3a792aae64cd72c",
+        "android_client_info": {
+          "package_name": "com.leminhduc.lettutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348954860613-7ssg923418b94uo40u76b8r8h3or86gt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpIcuoKHX-1bkOsxc0H792QB8bax_M2h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348954860613-7ssg923418b94uo40u76b8r8h3or86gt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "348954860613-45o5navg9bofce63vbdqk5812r60j62n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hcmus.lettutorFlutter"
+              }
             }
           ]
         }
