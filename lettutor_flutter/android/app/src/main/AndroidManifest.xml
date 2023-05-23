@@ -12,6 +12,11 @@
         android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <service
+            android:name="org.jitsi.meet.sdk.ConnectionService"
+            android:exported="true">
+            <!-- Other service configuration goes here -->
+        </service>
         <activity
             android:name=".MainActivity"
             android:exported="true"
