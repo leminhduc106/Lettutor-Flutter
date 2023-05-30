@@ -137,9 +137,11 @@ class _CardTutorState extends State<CardTutor> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    _tutor.user.name,
-                    style: BaseTextStyle.body3(fontSize: 18),
+                  Center(
+                    child: Text(
+                      _tutor.user.name,
+                      style: BaseTextStyle.body3(fontSize: 18),
+                    ),
                   ),
                   RateStars(count: _tutor.avgRating ?? 5),
                   const SizedBox(height: 8),
