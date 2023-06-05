@@ -61,69 +61,74 @@ class _BannerHomePageState extends State<BannerHomePage> {
       color: BaseColor.blue,
       child: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  timeStamp != 0 && totalLessonTime != null
-                      ? "${lang.totalLessonTime} ${covertTotalTime(totalLessonTime as Duration, lang)} "
-                      : lang.wellcome,
-                  style:
-                      BaseTextStyle.heading2(color: Colors.white, fontSize: 18),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                nextlesson != null
-                    ? Container(
-                        margin: const EdgeInsets.only(top: 8, bottom: 8),
-                        child: Text(
-                          lang.nextLesson,
-                          style: BaseTextStyle.heading2(
-                              color: Colors.white, fontSize: 22),
-                        ),
-                      )
-                    : Container(),
-                Text(
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    timeStamp != 0 && totalLessonTime != null
+                        ? "${lang.totalLessonTime}${covertTotalTime(totalLessonTime as Duration, lang)} "
+                        : lang.wellcome,
+                    style: BaseTextStyle.heading2(
+                        color: Colors.white, fontSize: 18),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   nextlesson != null
-                      ? "${DateFormat.yMEd().format(DateTime.fromMillisecondsSinceEpoch(nextlesson!.scheduleDetailInfo!.startPeriodTimestamp))} ${DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(nextlesson!.scheduleDetailInfo!.startPeriodTimestamp))} - ${DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(nextlesson!.scheduleDetailInfo!.endPeriodTimestamp))}"
-                      : "",
-                  style: const TextStyle(fontSize: 13, color: Colors.white),
-                ),
-                const SizedBox(height: 32),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 28.0),
-                  width: safeWidth * 0.6,
-                  child: CustomButton.whiteBtnWithIcon(
-                      onTap: () async {
-                        if (nextlesson != null) {
-                          final base64Decoded = base64.decode(base64.normalize(
-                              nextlesson!.studentMeetingLink
-                                  .split("token=")[1]
-                                  .split(".")[1]));
-                          final urlObject = utf8.decode(base64Decoded);
-                          final jsonRes = json.decode(urlObject);
-                          final String roomId = jsonRes['room'];
-                          final String tokenMeeting =
-                              nextlesson!.studentMeetingLink.split("token=")[1];
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 8, bottom: 8),
+                          child: Text(
+                            lang.nextLesson,
+                            style: BaseTextStyle.heading2(
+                                color: Colors.white, fontSize: 22),
+                          ),
+                        )
+                      : Container(),
+                  Text(
+                    nextlesson != null
+                        ? "${DateFormat.yMEd().format(DateTime.fromMillisecondsSinceEpoch(nextlesson!.scheduleDetailInfo!.startPeriodTimestamp))} ${DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(nextlesson!.scheduleDetailInfo!.startPeriodTimestamp))} - ${DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(nextlesson!.scheduleDetailInfo!.endPeriodTimestamp))}"
+                        : "",
+                    style: const TextStyle(fontSize: 13, color: Colors.white),
+                  ),
+                  const SizedBox(height: 32),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 18.0),
+                    width: safeWidth * 0.6,
+                    child: CustomButton.whiteBtnWithIcon(
+                        onTap: () async {
+                          if (nextlesson != null) {
+                            final base64Decoded = base64.decode(
+                                base64.normalize(nextlesson!.studentMeetingLink
+                                    .split("token=")[1]
+                                    .split(".")[1]));
+                            final urlObject = utf8.decode(base64Decoded);
+                            final jsonRes = json.decode(urlObject);
+                            final String roomId = jsonRes['room'];
+                            final String tokenMeeting = nextlesson!
+                                .studentMeetingLink
+                                .split("token=")[1];
 
-                          final options = JitsiMeetingOptions(room: roomId)
-                            ..serverURL = "https://meet.lettutor.com"
-                            ..audioOnly = true
-                            ..audioMuted = true
-                            ..token = tokenMeeting
-                            ..videoMuted = true;
+                            final options = JitsiMeetingOptions(room: roomId)
+                              ..serverURL = "https://meet.lettutor.com"
+                              ..audioOnly = true
+                              ..audioMuted = true
+                              ..token = tokenMeeting
+                              ..videoMuted = true;
 
-                          await JitsiMeet.joinMeeting(options);
-                        } else {
-                          navigationIndex.index = 3;
-                        }
-                      },
-                      content: nextlesson != null
-                          ? lang.enterRoom
-                          : lang.bookAlesson,
-                      iconPath: "assets/icons/social/icon_youtube.png"),
-                ),
-              ],
+                            await JitsiMeet.joinMeeting(options);
+                          } else {
+                            navigationIndex.index = 3;
+                          }
+                        },
+                        content: nextlesson != null
+                            ? lang.enterRoom
+                            : lang.bookAlesson,
+                        iconPath: "assets/icons/social/icon_youtube.png"),
+                  ),
+                ],
+              ),
             ),
     );
   }
