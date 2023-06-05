@@ -64,7 +64,7 @@ class _TutorProfileState extends State<TutorProfile> {
       );
     } else {
       return ListView.builder(
-        itemCount: 3,
+        itemCount: 1,
         itemBuilder: (context, index) {
           return RateAndComment(
               feedback: FeedBack(
