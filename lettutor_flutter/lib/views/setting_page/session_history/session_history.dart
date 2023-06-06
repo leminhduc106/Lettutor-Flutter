@@ -180,7 +180,7 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                             ),
                           )
                         : SizedBox(
-                            height: size.height,
+                            height: size.height + 50,
                             child: Column(
                               children: [
                                 Expanded(
