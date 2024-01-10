@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:jitsi_meet/jitsi_meet.dart';
+import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
 import 'package:lettutor_flutter/global_state/auth_provider.dart';
 import 'package:lettutor_flutter/models/schedule_model/booking_info_model.dart';
@@ -211,14 +211,15 @@ class UpComingCard extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         if (isVisibleMeetingBtn(upcomming)) {
-                          final options = JitsiMeetingOptions(room: roomId)
-                            ..serverURL = "https://meet.lettutor.com"
-                            ..audioOnly = true
-                            ..audioMuted = true
-                            ..token = tokenMeeting
-                            ..videoMuted = true;
+                            var options = JitsiMeetingOptions(
+                              roomNameOrUrl: roomId,
+                              serverUrl: "https://meet.lettutor.com",
+                              isAudioOnly: true,
+                              isAudioMuted: true,
+                              token: tokenMeeting,
+                              isVideoMuted: true);
 
-                          await JitsiMeet.joinMeeting(options);
+                          await JitsiMeetWrapper.joinMeeting(options: options);
                         }
                       },
                       child: Container(

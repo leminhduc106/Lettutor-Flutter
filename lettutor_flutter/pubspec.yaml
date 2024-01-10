@@ -46,11 +46,11 @@ dependencies:
   path_provider: ^2.0.11
   permission_handler: ^10.0.0
   http: ^0.13.4
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.3.1
   url_launcher: ^6.0.17
   google_sign_in: ^5.2.1
   flutter_facebook_auth: ^4.0.0
-  jitsi_meet: ^4.0.0
+  jitsi_meet_wrapper: ^0.2.0+1
   shared_preferences: ^2.0.11
   syncfusion_flutter_pdfviewer: ^21.1.35
   flutter_bloc: ^8.1.2

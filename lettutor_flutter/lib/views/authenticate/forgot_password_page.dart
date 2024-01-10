@@ -96,36 +96,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         title: Text('LetTutor',
             style: BaseTextStyle.heading4(color: BaseColor.secondaryBlue)),
         backgroundColor: Colors.white,
-        actions: [
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(32.0),
-                      border: Border.all(color: BaseColor.blue, width: 0.5),
-                      boxShadow: [
-                        BoxShadow(
-                            color: const Color(0xff003399).withOpacity(0.2),
-                            spreadRadius: 0,
-                            blurRadius: 8,
-                            offset: const Offset(0, 2))
-                      ]),
-                  child: SizedBox(
-                    height: 64,
-                    child: Image.asset(
-                      "assets/icons/social/icon_vietnam.png",
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                )),
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter (Pixel_3a_API_34_extension_level_7_arm64-v8a)",
+            "program": "lib/main.dart",
+            "cwd": "lettutor_flutter",
+            "deviceId": "emulator-5554",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

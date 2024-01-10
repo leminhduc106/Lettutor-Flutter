@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:jitsi_meet/jitsi_meet.dart';
+import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart';
 import 'package:lettutor_flutter/global_state/app_provider.dart';
 import 'package:lettutor_flutter/global_state/auth_provider.dart';
 import 'package:lettutor_flutter/global_state/navigation_index.dart';
@@ -106,14 +106,15 @@ class _BannerHomePageState extends State<BannerHomePage> {
                           final String tokenMeeting =
                               nextlesson!.studentMeetingLink.split("token=")[1];
 
-                          final options = JitsiMeetingOptions(room: roomId)
-                            ..serverURL = "https://meet.lettutor.com"
-                            ..audioOnly = true
-                            ..audioMuted = true
-                            ..token = tokenMeeting
-                            ..videoMuted = true;
+                          var options = JitsiMeetingOptions(
+                              roomNameOrUrl: roomId,
+                              serverUrl: "https://meet.lettutor.com",
+                              isAudioOnly: true,
+                              isAudioMuted: true,
+                              token: tokenMeeting,
+                              isVideoMuted: true);
 
-                          await JitsiMeet.joinMeeting(options);
+                          await JitsiMeetWrapper.joinMeeting(options: options);
                         } else {
                           navigationIndex.index = 3;
                         }

@@ -72,7 +72,7 @@ class _CardTutorState extends State<CardTutor> {
               ]),
           width: safeWidth,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Stack(
                 children: [
@@ -176,19 +176,24 @@ class _CardTutorState extends State<CardTutor> {
                   maxLines: 5,
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(right: 10),
-                width: safeWidth * 0.4,
-                child: CustomButton.whiteBtnWithIcon(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        routes.tutorProfilePage,
-                        arguments: {"tutorID": _tutor.user.id},
-                      );
-                    },
-                    content: language.bookingText,
-                    iconPath: "assets/icons/common/icon_calendar_blue.png"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(right: 10),
+                    width: safeWidth * 0.4,
+                    child: CustomButton.whiteBtnWithIcon(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            routes.tutorProfilePage,
+                            arguments: {"tutorID": _tutor.user.id},
+                          );
+                        },
+                        content: language.bookingText,
+                        iconPath: "assets/icons/common/icon_calendar_blue.png"),
+                  ),
+                ],
               )
             ],
           ),

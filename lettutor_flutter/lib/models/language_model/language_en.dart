@@ -35,7 +35,7 @@ class English extends Language {
   @override
   get confirmPassword => "Re-enter password";
   @override
-  get loginQuestion => "Already have a account ?";
+  get loginQuestion => "Already have a account?";
   @override
   get errEnterAllFields => "Please enter all fields";
   @override
