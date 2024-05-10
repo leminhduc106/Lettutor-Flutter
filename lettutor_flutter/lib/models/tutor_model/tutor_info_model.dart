@@ -83,33 +83,35 @@ class TutorInfo {
 
   TutorInfo.fromJson(Map<String, dynamic> json) {
     level = json['level'] ?? "HIGHER_BEGINNER";
-    email = json['email'];
+    email = json['email'] ?? "";
     google = json['google'] ?? "";
     facebook = json['facebook'] ?? "";
     apple = json['apple'] ?? "";
     avatar = json['avatar'] ?? "";
-    name = json['name'];
+    name = json['name'] ?? "";
     country = json['country'] ?? "";
     phone = json['phone'] ?? "";
     language = json['language'] ?? "";
     birthday = json['birthday'] ?? "";
-    requestPassword = json['requestPassword'];
-    isActivated = json['isActivated'];
+    requestPassword = json['requestPassword'] ?? false;
+    isActivated = json['isActivated'] ?? false;
     isPhoneActivated = json['isPhoneActivated'] ?? false;
-    requireNote = json['requireNote'];
-    timezone = json['timezone'];
+    requireNote = json['requireNote'] ?? "";
+    timezone = json['timezone'] ?? 0;
     phoneAuth = json['phoneAuth'] ?? "";
-    isPhoneAuthActivated = json['isPhoneAuthActivated'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    deletedAt = json['deletedAt'];
+    isPhoneAuthActivated = json['isPhoneAuthActivated'] ?? false;
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
+    deletedAt = json['deletedAt'] ?? "";
     if (json['feedbacks'] != null) {
       feedbacks = [];
       json['feedbacks'].forEach((v) {
         feedbacks.add(FeedBack.fromJson(v));
       });
+    } else {
+      feedbacks = [];
     }
-    id = json['id'];
+    id = json['id'] ?? "";
     userId = json['userId'] ?? "";
     video = json['video'] ?? "";
     bio = json['bio'] ?? "";
