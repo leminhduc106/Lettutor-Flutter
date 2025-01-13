@@ -23,7 +23,7 @@ class SettingButton extends StatelessWidget {
           Navigator.pushNamed(context, _routeName);
         },
         style: ElevatedButton.styleFrom(
-          primary: Colors.white,
+          backgroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(1000))),
         ),

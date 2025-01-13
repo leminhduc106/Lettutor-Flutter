@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lettutor_flutter/global_state/auth_provider.dart';
 import 'package:lettutor_flutter/models/user_model/tokens_model.dart';
@@ -38,38 +37,14 @@ class _LoginWithState extends State<LoginWith> {
             await AuthService.loginWithGoogle(
                 accessToken, authProvider, widget.callback);
           } catch (e) {
-            showTopSnackBar(context,
+            showTopSnackBar(Overlay.of(context),
                 CustomSnackBar.error(message: "Login failed! ${e.toString()}"),
-                showOutAnimationDuration: const Duration(milliseconds: 1000),
+                animationDuration: const Duration(milliseconds: 1000),
                 displayDuration: const Duration(microseconds: 4000));
           }
         }
       } catch (e) {
         //print(e);
-      }
-    }
-
-    void handleSingInFacebook() async {
-      final LoginResult result = await FacebookAuth.instance.login();
-
-      if (result.status == LoginStatus.success) {
-        final String? accessToken = result.accessToken!.token;
-        if (accessToken != null) {
-          try {
-            await AuthService.loginWithFacebook(
-                accessToken, authProvider, widget.callback);
-          } catch (e) {
-            showTopSnackBar(context,
-                CustomSnackBar.error(message: "Login failed! ${e.toString()}"),
-                showOutAnimationDuration: const Duration(milliseconds: 1000),
-                displayDuration: const Duration(microseconds: 4000));
-          }
-        }
-      } else {
-        showTopSnackBar(context,
-            const CustomSnackBar.error(message: "Something went wrong!"),
-            showOutAnimationDuration: const Duration(milliseconds: 1000),
-            displayDuration: const Duration(microseconds: 4000));
       }
     }
 

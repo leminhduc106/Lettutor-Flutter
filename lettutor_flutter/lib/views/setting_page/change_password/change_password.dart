@@ -55,25 +55,23 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
                 margin: const EdgeInsets.only(top: 20),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff007CFF)),
+                      backgroundColor: const Color(0xff007CFF)),
                   onPressed: () async {
                     if (passwordController.text.length < 6 ||
                         newPasswordController.text.length < 6 ||
                         confirmPasswordController.text.length < 6) {
                       showTopSnackBar(
-                        context,
+                        Overlay.of(context),
                         CustomSnackBar.error(message: lang.passwordAtLeast),
-                        showOutAnimationDuration:
-                            const Duration(milliseconds: 1000),
+                        animationDuration: const Duration(milliseconds: 1000),
                         displayDuration: const Duration(microseconds: 4000),
                       );
                     } else if (newPasswordController.text !=
                         confirmPasswordController.text) {
                       showTopSnackBar(
-                        context,
+                        Overlay.of(context),
                         CustomSnackBar.error(message: lang.errPasswordMismatch),
-                        showOutAnimationDuration:
-                            const Duration(milliseconds: 1000),
+                        animationDuration: const Duration(milliseconds: 1000),
                         displayDuration: const Duration(microseconds: 4000),
                       );
                     } else {
@@ -85,12 +83,12 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
                         if (res) {
                           // ignore: use_build_context_synchronously
                           showTopSnackBar(
-                            context,
+                            Overlay.of(context),
                             CustomSnackBar.success(
                               message: lang.changePasswordSuccess,
                               backgroundColor: Colors.green,
                             ),
-                            showOutAnimationDuration:
+                            animationDuration:
                                 const Duration(milliseconds: 1000),
                             displayDuration: const Duration(microseconds: 4000),
                           );
@@ -98,10 +96,9 @@ class _ChagePasswordPageState extends State<ChangePasswordPage> {
                         }
                       } catch (e) {
                         showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           CustomSnackBar.error(message: e.toString()),
-                          showOutAnimationDuration:
-                              const Duration(milliseconds: 1000),
+                          animationDuration: const Duration(milliseconds: 1000),
                           displayDuration: const Duration(microseconds: 4000),
                         );
                       }

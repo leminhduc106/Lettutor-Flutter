@@ -83,17 +83,17 @@ class _LoginPageState extends State<LoginPage> {
 
   void handleLogin(Language language, AuthProvider authProvider) async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      showTopSnackBar(
-          context, CustomSnackBar.error(message: language.emptyField),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+      showTopSnackBar(Overlay.of(context),
+          CustomSnackBar.error(message: language.emptyField),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 4000));
       return;
     }
 
     if (_passwordController.text.length < 6) {
-      showTopSnackBar(
-          context, CustomSnackBar.error(message: language.passwordTooShort),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+      showTopSnackBar(Overlay.of(context),
+          CustomSnackBar.error(message: language.passwordTooShort),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 4000));
       return;
     }
@@ -105,15 +105,15 @@ class _LoginPageState extends State<LoginPage> {
         await AuthService.loginByEmailAndPassword(_emailController.text,
             _passwordController.text, authProvider, callback);
       } catch (e) {
-        showTopSnackBar(context,
+        showTopSnackBar(Overlay.of(context),
             CustomSnackBar.error(message: "Login failed! ${e.toString()}"),
-            showOutAnimationDuration: const Duration(milliseconds: 1000),
+            animationDuration: const Duration(milliseconds: 1000),
             displayDuration: const Duration(microseconds: 4000));
       }
     } else {
-      showTopSnackBar(
-          context, CustomSnackBar.error(message: language.invalidEmail),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+      showTopSnackBar(Overlay.of(context),
+          CustomSnackBar.error(message: language.invalidEmail),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 4000));
     }
   }
@@ -281,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: (keyboardHeight == 0) ? 12 : 16),
               CustomButton.common(
                   onTap: () {
-                    handleLogin(language, context.read<AuthProvider>());
+                    Navigator.of(context).popAndPushNamed(routes.homePage);
                   },
                   content: language.signIn,
                   isLoading: _isLoading),

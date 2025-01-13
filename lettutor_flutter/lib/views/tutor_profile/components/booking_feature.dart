@@ -158,12 +158,12 @@ class _BookingFeatureState extends State<BookingFeature> {
 
                                       // ignore: use_build_context_synchronously
                                       showTopSnackBar(
-                                        context,
+                                        Overlay.of(context),
                                         CustomSnackBar.success(
                                           message: lang.bookingSuccess,
                                           backgroundColor: Colors.green,
                                         ),
-                                        showOutAnimationDuration:
+                                        animationDuration:
                                             const Duration(milliseconds: 700),
                                         displayDuration:
                                             const Duration(milliseconds: 200),
@@ -171,10 +171,10 @@ class _BookingFeatureState extends State<BookingFeature> {
                                     }
                                   } catch (e) {
                                     showTopSnackBar(
-                                      context,
+                                      Overlay.of(context),
                                       CustomSnackBar.error(
                                           message: e.toString()),
-                                      showOutAnimationDuration:
+                                      animationDuration:
                                           const Duration(milliseconds: 700),
                                       displayDuration:
                                           const Duration(milliseconds: 200),
@@ -183,13 +183,14 @@ class _BookingFeatureState extends State<BookingFeature> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: scheduleDetails[index].isBooked ||
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                                scheduleDetails[index]
-                                                    .startPeriodTimestamp)
-                                            .isBefore(DateTime.now())
-                                    ? Colors.grey[200]
-                                    : Colors.white,
+                                backgroundColor:
+                                    scheduleDetails[index].isBooked ||
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    scheduleDetails[index]
+                                                        .startPeriodTimestamp)
+                                                .isBefore(DateTime.now())
+                                        ? Colors.grey[200]
+                                        : Colors.white,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -287,7 +288,7 @@ class _BookingFeatureState extends State<BookingFeature> {
                                 showTutorTimePicker(_schedules[index]);
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                backgroundColor: Colors.white,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -342,7 +343,7 @@ class _BookingFeatureState extends State<BookingFeature> {
               showTutorDatePicker();
             },
             style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
+              backgroundColor: Colors.blue,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(1000))),
             ),
@@ -451,12 +452,12 @@ class _BookingFeatureState extends State<BookingFeature> {
                           _controller.clear();
                           Navigator.pop(context, 'Submit');
                           showTopSnackBar(
-                            context,
+                            Overlay.of(context),
                             CustomSnackBar.success(
                               message: lang.reportSucessMsg,
                               backgroundColor: Colors.green,
                             ),
-                            showOutAnimationDuration:
+                            animationDuration:
                                 const Duration(milliseconds: 700),
                             displayDuration: const Duration(milliseconds: 200),
                           );

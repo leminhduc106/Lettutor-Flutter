@@ -132,9 +132,9 @@ class _CourseTabState extends State<CourseTab> {
           });
         }
       } catch (e) {
-        showTopSnackBar(
-            context, const CustomSnackBar.error(message: "Cannot load more"),
-            showOutAnimationDuration: const Duration(milliseconds: 1000),
+        showTopSnackBar(Overlay.of(context),
+            const CustomSnackBar.error(message: "Cannot load more"),
+            animationDuration: const Duration(milliseconds: 1000),
             displayDuration: const Duration(microseconds: 4000));
       }
     }

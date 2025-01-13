@@ -91,13 +91,10 @@ class _ChatGPTAssistantPageState extends State<ChatGPTAssistantPage> {
                   ),
                 ),
                 AvatarGlow(
-                  endRadius: 35,
                   animate: isListening,
                   duration: const Duration(milliseconds: 2000),
                   glowColor: const Color(0xff00A67E),
                   repeat: true,
-                  repeatPauseDuration: const Duration(milliseconds: 100),
-                  showTwoGlows: true,
                   child: BlocBuilder<ChatCubit, ChatState>(
                     builder: (context, state) {
                       return GestureDetector(

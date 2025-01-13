@@ -57,32 +57,32 @@ class _RegisterPageState extends State<RegisterPage> {
           _passwordController.text.isEmpty ||
           _repasswordControler.text.isEmpty) {
         showTopSnackBar(
-          context,
+          Overlay.of(context),
           CustomSnackBar.error(message: language.errEnterAllFields),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 3000),
         );
       } else if (!RegExp(
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(_emailController.text)) {
         showTopSnackBar(
-          context,
+          Overlay.of(context),
           CustomSnackBar.error(message: language.invalidEmail),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 3000),
         );
       } else if (_passwordController.text.length < 6) {
         showTopSnackBar(
-          context,
+          Overlay.of(context),
           CustomSnackBar.error(message: language.passwordTooShort),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 3000),
         );
       } else if (_passwordController.text != _repasswordControler.text) {
         showTopSnackBar(
-          context,
+          Overlay.of(context),
           CustomSnackBar.error(message: language.errPasswordMismatch),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 3000),
         );
       } else {
@@ -92,11 +92,11 @@ class _RegisterPageState extends State<RegisterPage> {
             _passwordController.text,
             () {
               showTopSnackBar(
-                context,
+                Overlay.of(context),
                 const CustomSnackBar.success(
                     message:
                         "Signup success! Please verify your email address."),
-                showOutAnimationDuration: const Duration(milliseconds: 1000),
+                animationDuration: const Duration(milliseconds: 1000),
                 displayDuration: const Duration(microseconds: 4000),
               );
               Navigator.pushNamedAndRemoveUntil(
@@ -105,9 +105,9 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         } catch (e) {
           showTopSnackBar(
-            context,
+            Overlay.of(context),
             CustomSnackBar.error(message: "Signup failed!. ${e.toString()}"),
-            showOutAnimationDuration: const Duration(milliseconds: 1000),
+            animationDuration: const Duration(milliseconds: 1000),
             displayDuration: const Duration(microseconds: 4000),
           );
         }

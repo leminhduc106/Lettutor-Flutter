@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 ThemeData baseTheme() {
   final ThemeData base = ThemeData(
     fontFamily: BaseTextStyle.appFontFamily,
-    backgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
     dividerColor: BaseColor.hint,
-    errorColor: BaseColor.red,
     focusColor: BaseColor.blue,
     hintColor: BaseColor.hint,
     primaryColor: BaseColor.blue,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      error: BaseColor.red,
+    ),
   );
   return base;
 }

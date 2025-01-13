@@ -32,9 +32,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   void _resetPassword(Language language) async {
     if (_emailController.text.isEmpty) {
-      showTopSnackBar(
-          context, CustomSnackBar.error(message: language.emptyField),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+      showTopSnackBar(Overlay.of(context),
+          CustomSnackBar.error(message: language.emptyField),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 4000));
       return;
     }
@@ -47,28 +47,28 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         if (res) {
           // ignore: use_build_context_synchronously
           showTopSnackBar(
-              context,
+              Overlay.of(context),
               CustomSnackBar.success(
                 message: language.forgotPasswordSuccess,
                 backgroundColor: Colors.green,
               ),
-              showOutAnimationDuration: const Duration(milliseconds: 1000),
+              animationDuration: const Duration(milliseconds: 1000),
               displayDuration: const Duration(microseconds: 4000));
           // ignore: use_build_context_synchronously
           Navigator.pop(context);
         }
       } catch (e) {
         showTopSnackBar(
-            context,
+            Overlay.of(context),
             CustomSnackBar.error(
                 message: "Reset password failed! ${e.toString()}"),
-            showOutAnimationDuration: const Duration(milliseconds: 1000),
+            animationDuration: const Duration(milliseconds: 1000),
             displayDuration: const Duration(microseconds: 4000));
       }
     } else {
-      showTopSnackBar(
-          context, CustomSnackBar.error(message: language.invalidEmail),
-          showOutAnimationDuration: const Duration(milliseconds: 1000),
+      showTopSnackBar(Overlay.of(context),
+          CustomSnackBar.error(message: language.invalidEmail),
+          animationDuration: const Duration(milliseconds: 1000),
           displayDuration: const Duration(microseconds: 4000));
     }
   }

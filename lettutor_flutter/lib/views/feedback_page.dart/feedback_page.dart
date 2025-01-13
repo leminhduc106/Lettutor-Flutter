@@ -105,20 +105,20 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         onPressed: () async {
                           if (_controller.text.isEmpty) {
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               CustomSnackBar.error(
                                   message: lang.errEnterFeedback),
-                              showOutAnimationDuration:
+                              animationDuration:
                                   const Duration(milliseconds: 1000),
                               displayDuration:
                                   const Duration(microseconds: 1000),
                             );
                           } else if (_controller.text.split(" ").length < 3) {
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               CustomSnackBar.error(
                                   message: lang.errFeedbackLength),
-                              showOutAnimationDuration:
+                              animationDuration:
                                   const Duration(milliseconds: 1000),
                               displayDuration:
                                   const Duration(microseconds: 1000),
@@ -134,12 +134,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             if (res) {
                               // ignore: use_build_context_synchronously
                               showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 CustomSnackBar.success(
                                   message: lang.successFeedback,
                                   backgroundColor: Colors.green,
                                 ),
-                                showOutAnimationDuration:
+                                animationDuration:
                                     const Duration(milliseconds: 1000),
                                 displayDuration:
                                     const Duration(microseconds: 1000),

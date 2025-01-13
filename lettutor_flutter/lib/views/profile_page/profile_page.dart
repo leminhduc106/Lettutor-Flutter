@@ -116,25 +116,25 @@ class _ProfilePageState extends State<ProfilePage> {
             authProvider.setUser(newInfo);
             // ignore: use_build_context_synchronously
             showTopSnackBar(
-                context,
+                Overlay.of(context),
                 CustomSnackBar.success(
                   message: lang.successUploadAvatar,
                   backgroundColor: Colors.green,
                 ),
-                showOutAnimationDuration: const Duration(milliseconds: 1000),
+                animationDuration: const Duration(milliseconds: 1000),
                 displayDuration: const Duration(microseconds: 4000));
           } else {
             // ignore: use_build_context_synchronously
-            showTopSnackBar(
-                context, CustomSnackBar.error(message: lang.errGetNewProfile),
-                showOutAnimationDuration: const Duration(milliseconds: 1000),
+            showTopSnackBar(Overlay.of(context),
+                CustomSnackBar.error(message: lang.errGetNewProfile),
+                animationDuration: const Duration(milliseconds: 1000),
                 displayDuration: const Duration(microseconds: 4000));
           }
         } else {
           // ignore: use_build_context_synchronously
-          showTopSnackBar(
-              context, CustomSnackBar.error(message: lang.errUploadAvatar),
-              showOutAnimationDuration: const Duration(milliseconds: 1000),
+          showTopSnackBar(Overlay.of(context),
+              CustomSnackBar.error(message: lang.errUploadAvatar),
+              animationDuration: const Duration(milliseconds: 1000),
               displayDuration: const Duration(microseconds: 4000));
         }
       } on PlatformException catch (e) {
@@ -306,19 +306,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         onTap: () async {
                           if (_phone != null && _phone?.isEmpty as bool) {
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               CustomSnackBar.error(
                                   message: lang.errPhoneNumber),
-                              showOutAnimationDuration:
+                              animationDuration:
                                   const Duration(milliseconds: 700),
                               displayDuration:
                                   const Duration(milliseconds: 200),
                             );
                           } else if (_nameController.text.isEmpty) {
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               CustomSnackBar.error(message: lang.errEnterName),
-                              showOutAnimationDuration:
+                              animationDuration:
                                   const Duration(milliseconds: 700),
                               displayDuration:
                                   const Duration(milliseconds: 200),
@@ -327,9 +327,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               _birthday!.millisecondsSinceEpoch >
                                   DateTime.now().millisecondsSinceEpoch) {
                             showTopSnackBar(
-                              context,
+                              Overlay.of(context),
                               CustomSnackBar.error(message: lang.errBirthday),
-                              showOutAnimationDuration:
+                              animationDuration:
                                   const Duration(milliseconds: 700),
                               displayDuration:
                                   const Duration(milliseconds: 200),
@@ -352,12 +352,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                   res, authProvider.tokens as Tokens);
                               // ignore: use_build_context_synchronously
                               showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 CustomSnackBar.success(
                                   message: lang.successUpdateProfile,
                                   backgroundColor: Colors.green,
                                 ),
-                                showOutAnimationDuration:
+                                animationDuration:
                                     const Duration(milliseconds: 700),
                                 displayDuration:
                                     const Duration(milliseconds: 200),
@@ -366,10 +366,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             } else {
                               // ignore: use_build_context_synchronously
                               showTopSnackBar(
-                                context,
+                                Overlay.of(context),
                                 CustomSnackBar.error(
                                     message: lang.errUpdateProfile),
-                                showOutAnimationDuration:
+                                animationDuration:
                                     const Duration(milliseconds: 700),
                                 displayDuration:
                                     const Duration(milliseconds: 200),

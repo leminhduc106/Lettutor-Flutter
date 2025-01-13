@@ -162,12 +162,12 @@ class UpComingCard extends StatelessWidget {
                                           authProvider.tokens!.access.token);
                                       // ignore: use_build_context_synchronously
                                       showTopSnackBar(
-                                        context,
+                                        Overlay.of(context),
                                         CustomSnackBar.success(
                                           message: lang.removeUpcomingSuccess,
                                           backgroundColor: Colors.green,
                                         ),
-                                        showOutAnimationDuration:
+                                        animationDuration:
                                             const Duration(milliseconds: 700),
                                         displayDuration:
                                             const Duration(milliseconds: 200),
@@ -175,10 +175,10 @@ class UpComingCard extends StatelessWidget {
                                     }
                                   } else {
                                     showTopSnackBar(
-                                      context,
+                                      Overlay.of(context),
                                       CustomSnackBar.error(
                                           message: lang.removeUpcomingFail),
-                                      showOutAnimationDuration:
+                                      animationDuration:
                                           const Duration(milliseconds: 700),
                                       displayDuration:
                                           const Duration(milliseconds: 200),
@@ -211,7 +211,7 @@ class UpComingCard extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         if (isVisibleMeetingBtn(upcomming)) {
-                            var options = JitsiMeetingOptions(
+                          var options = JitsiMeetingOptions(
                               roomNameOrUrl: roomId,
                               serverUrl: "https://meet.lettutor.com",
                               isAudioOnly: true,

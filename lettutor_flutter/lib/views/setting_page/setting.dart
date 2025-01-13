@@ -119,7 +119,7 @@ class _SettingPageState extends State<SettingPage> {
                           launch("https://lettutor.com/");
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          backgroundColor: Colors.white,
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(1000))),
@@ -165,7 +165,7 @@ class _SettingPageState extends State<SettingPage> {
                           launch("fb://page/107781621638450");
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          backgroundColor: Colors.white,
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(1000))),
